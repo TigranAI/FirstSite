@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionAttributeStore;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.request.WebRequest;
 import ru.tigran.cardcollector.database.entity.User;
 import ru.tigran.cardcollector.database.repository.SessionTokenRepository;
 import ru.tigran.cardcollector.database.repository.UserRepository;
@@ -30,5 +33,12 @@ public class MainController {
     public String about(Model model){
         model.addAttribute("title", "WyrmSticker | О нас");
         return "about";
+    }
+
+    @GetMapping("/logout")
+    public String logout(WebRequest request, SessionStatus status) {
+        status.setComplete();
+        request.removeAttribute("user", WebRequest.SCOPE_SESSION);
+        return "redirect:/";
     }
 }
