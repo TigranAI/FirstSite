@@ -1,14 +1,9 @@
 <!doctype html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<header th:insert="/blocks/header :: header"></header>
+<head th:insert="/blocks/includes :: header"></head>
+<body>
+<div th:replace="/blocks/header :: header"></div>
 
-
-<body class="text-center">
-<div th:each="user : ${users}" class="mt-2">
-    <div class="d-block">
-        <h3 th:text="${user.Username}"></h3>
-        <p th:text="${user.Id}"></p>
-    </div>
-</div>
+<div th:replace="/blocks/includes :: footer"></div>
 </body>
 </html>
