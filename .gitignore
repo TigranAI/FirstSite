@@ -5,3 +5,4 @@
 /src/main/test/
 /src/main/resources/static/scripts/bootstrap.min.js
 /src/main/resources/static/styles/bootstrap.min.css
+/src/main/resources/static/scripts/popper.min.js

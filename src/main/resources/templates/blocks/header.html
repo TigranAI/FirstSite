@@ -1,22 +1,26 @@
-<div th:fragment="header" class="container header">
+<div th:fragment="header" class="container-fluid header">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center col-md-auto mb-2 mb-md-0 text-dark text-decoration-none">
             <img class="bi me-2" width="49" height="40" role="img" th:src="@{/images/bootstrap-logo.svg}">
         </a>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="/profile" class="nav-link px-2 link-dark">Profile</a></li>
-            <li><a href="/about" class="nav-link px-2 link-dark">About</a></li>
+            <li><a href="/" class="nav-link px-2 link-secondary">Главная</a></li>
+            <li><a href="/profile" class="nav-link px-2 link-dark">Мой профиль</a></li>
+            <li><a href="/about" class="nav-link px-2 link-dark">О Нас</a></li>
         </ul>
 
-        <form th:unless="${user}" class="col-md-auto text-end" action="/login">
-            <input type="submit" class="btn btn-outline-primary me-2" value="Login">
-        </form>
+        <a th:unless="${user}" href="tg://resolve?domain=TigranCardCollectorBot&start=create_token"
+           role="button" class="btn btn-primary p-0">
+            <img th:src="@{/images/telegram-logo.svg}" height="38"><span class="btn-text">Вход</span>
+        </a>
         <div th:if="${user}" class="dropdown text-end">
-            <a href="/profile" class="d-block link-dark text-decoration-none" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="mdo" width="40" height="40" class="rounded-circle">
-            </a>
+            <form class="col-md-auto text-end" action="/logout">
+                <a href="/profile" class="link-dark text-decoration-none me-2 d-inline-block" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="38" height="38" class="rounded-circle">
+                </a>
+                <input type="submit" class="btn btn-outline-primary" value="Logout">
+            </form>
         </div>
     </header>
 </div>

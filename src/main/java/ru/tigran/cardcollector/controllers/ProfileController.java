@@ -31,6 +31,6 @@ public class ProfileController {
                 return "profile";
             }
         }
-        return "redirect:/login";
+        return "redirect:tg://resolve?domain=TigranCardCollectorBot&start=create_token";
     }
 }

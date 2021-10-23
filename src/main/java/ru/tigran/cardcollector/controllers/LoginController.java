@@ -30,10 +30,4 @@ public class LoginController {
             return "redirect:/";
         }
     }
-
-    @GetMapping()
-    public String login(Model model){
-        model.addAttribute("title", "WyrmSticker | Вход в систему");
-        return "login";
-    }
 }
