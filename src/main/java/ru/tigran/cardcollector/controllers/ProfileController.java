@@ -6,15 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.request.WebRequest;
 import ru.tigran.cardcollector.database.entity.User;
 import ru.tigran.cardcollector.database.repository.SessionTokenRepository;
 import ru.tigran.cardcollector.database.repository.UserRepository;
 
-import java.util.Optional;
-
 @Controller
-@SessionAttributes("user")
 @RequestMapping("/profile")
+@SessionAttributes(names = {"user", "cash"})
 public class ProfileController {
 
     @Autowired
@@ -25,12 +24,10 @@ public class ProfileController {
 
     @GetMapping()
     public String profile(Model model){
-        if (model.getAttribute("user") instanceof Optional optional && optional.isPresent()) {
-            if (optional.get() instanceof User user) {
-                model.addAttribute("title", "WyrmSticker | " + user.getUsername());
-                return "profile";
-            }
+        if (model.getAttribute("user") instanceof User user) {
+            model.addAttribute("title", "WyrmSticker | " + user.Username);
+            return "profile";
         }
-        return "redirect:tg://resolve?domain=TigranCardCollectorBot&start=create_token";
+        return "redirect:/";
     }
 }
