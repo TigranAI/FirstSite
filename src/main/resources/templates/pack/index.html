@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/blocks/includes :: header"></head>
+<body>
+<div th:replace="/blocks/header :: header"></div>
+<div class="container">
+    <th:block th:each="pack,iter : ${packs}">
+        <th:block th:if="${iter.index%4 == 0 && iter.index != 0}" th:utext="'&lt;/div&gt;'"/>
+        <th:block th:if="${iter.index%4 == 0}" th:utext="'&lt;div class=&quot;row&quot;&gt;'"/>
+        <div class="col">
+            <a class="text-decoration-none link-dark" th:href="'/pack?id=' + ${pack.Id}">
+                <div class="container sticker-container">
+                    <tgs-player th:if="${#strings.contains(pack.StickerPreviewPath, 'tgs')}"
+                                autoplay loop mode="normal" th:class="container"
+                                th:src="${pack.StickerPreviewPath}">
+                    </tgs-player>
+                    <img th:if="${#strings.contains(pack.StickerPreviewPath, 'webp')}"
+                         th:class="container" th:src="${pack.StickerPreviewPath}">
+                    <figure class="text-center fw-bold sticker-text">
+                        <p th:text="${pack.Author}"></p>
+                    </figure>
+                </div>
+            </a>
+        </div>
+    </th:block>
+    <th:block th:if="${packs.size() % 4 != 0}" th:utext="'&lt;/div&gt;'"/>
+</div>
+
+<div th:replace="/blocks/includes :: footer"></div>
+</body>
+</html>

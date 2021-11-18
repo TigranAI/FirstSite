@@ -1,12 +1,13 @@
-<div th:fragment="header" class="container-fluid header position-fixed">
+<div th:fragment="header" class="container-fluid position-sticky header">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center col-md-auto mb-2 mb-md-0 text-dark text-decoration-none">
             <img class="bi me-2" width="49" height="40" role="img" th:src="@{/images/bootstrap-logo.svg}">
         </a>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="/" class="nav-link px-2 link-secondary">Главная</a></li>
+            <li><a href="/" class="nav-link px-2 link-dark">Главная</a></li>
             <li th:if="${user}"><a href="/profile" class="nav-link px-2 link-dark">Мой профиль</a></li>
+            <li><a href="/pack" class="nav-link px-2 link-dark">Паки</a></li>
             <li><a href="/about" class="nav-link px-2 link-dark">О Нас</a></li>
         </ul>
 

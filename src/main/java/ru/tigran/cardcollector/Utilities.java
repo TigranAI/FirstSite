@@ -7,19 +7,28 @@ import java.io.*;
 import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Properties;
+import java.util.Random;
 
 public class Utilities {
+    private static final String programPath;
+    public static Random rnd;
+    static {
+        rnd = new Random();
+        String classesPath = Utilities.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        programPath = classesPath.substring(0, classesPath.lastIndexOf('/')) + "/static/";
+    }
 
-    public static String DownloadTelegramFile(String fileId) {
+    public static String getTelegramFile(String fileId, String folder) {
+        String name = ImageExists(fileId, folder);
+        if (!name.equals("")) return name;
         try {
             LinkedHashMap<String, Object> result = GetFileInfo(fileId);
             String filePath = (String) result.get("file_path");
             String fileUrl = "https://api.telegram.org/file/bot"
                     + Resources.get("telegram.bot.token")
                     + '/' + filePath;
-            String programPath = Utilities.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-            new File(programPath + "images").mkdirs();
-            String savePath = programPath + "images/" + fileId + "." + filePath.split("\\.")[1];
+            String fileName = fileId + "." + filePath.split("\\.")[1];
+            String savePath = programPath + folder + "/" + fileName;
             URL url = new URL(fileUrl);
             InputStream in = new BufferedInputStream(url.openStream());
             OutputStream out = new BufferedOutputStream(new FileOutputStream(savePath));
@@ -28,9 +37,25 @@ public class Utilities {
             }
             in.close();
             out.close();
-            return savePath;
+            return folder + "/" + fileName;
         } catch (ParseException | IOException e) {
             e.printStackTrace();
+        }
+        return "";
+    }
+
+    private static String ImageExists(String fileName, String folder){
+        File path = new File(programPath + folder + "/");
+        path.mkdirs();
+        File[] listOfFiles = path.listFiles();
+        for (File file : listOfFiles)
+        {
+            if (file.isFile())
+            {
+                String[] filename = file.getName().split("\\.(?=[^\\.]+$)");
+                if(filename[0].equals(fileName))
+                    return folder + "/" + filename[0]+"."+filename[1];
+            }
         }
         return "";
     }

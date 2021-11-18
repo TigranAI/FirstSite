@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/blocks/includes :: header"></head>
+<body>
+<div th:replace="/blocks/header :: header"></div>
+<div class="container">
+    <th:block th:each="sticker,iter : ${stickers}">
+        <th:block th:if="${iter.index%4 == 0 && iter.index != 0}" th:utext="'&lt;/div&gt;'"/>
+        <th:block th:if="${iter.index%4 == 0}" th:utext="'&lt;div class=&quot;row&quot;&gt;'"/>
+        <div class="col">
+            <a class="text-decoration-none link-dark" th:href="'/sticker?hash=' + ${sticker.MD5Hash}">
+                <div class="sticker-container">
+                    <tgs-player th:if="${#strings.contains(sticker.FilePath, 'tgs')}"
+                                autoplay loop mode="normal" th:class="container" th:src="${sticker.FilePath}">
+                    </tgs-player>
+                    <img th:if="${#strings.contains(sticker.FilePath, 'webp')}"
+                         th:class="container" th:src="${sticker.FilePath}">
+                </div>
+            </a>
+        </div>
+    </th:block>
+    <th:block th:if="${stickers.size() % 4 != 0}" th:utext="'&lt;/div&gt;'"/>
+</div>
+<div th:replace="/blocks/includes :: footer"></div>
+</body>
+</html>
