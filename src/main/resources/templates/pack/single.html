@@ -1,25 +1,33 @@
 <!doctype html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="/blocks/includes :: header"></head>
-<body>
-<div th:replace="/blocks/header :: header"></div>
-<div class="container">
+<body class="bg-dark">
+<nav th:replace="/blocks/header :: header"></nav>
+<div class="container-fluid d-flex justify-content-evenly flex-wrap">
     <th:block th:each="sticker,iter : ${stickers}">
-        <th:block th:if="${iter.index%4 == 0 && iter.index != 0}" th:utext="'&lt;/div&gt;'"/>
-        <th:block th:if="${iter.index%4 == 0}" th:utext="'&lt;div class=&quot;row&quot;&gt;'"/>
-        <div class="col">
-            <a class="text-decoration-none link-dark" th:href="'/sticker?hash=' + ${sticker.MD5Hash}">
-                <div class="sticker-container">
+        <div class="card bg-secondary border-dark mb-3 text-dark container" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4 margin sticker-img">
                     <tgs-player th:if="${#strings.contains(sticker.FilePath, 'tgs')}"
-                                autoplay loop mode="normal" th:class="container" th:src="${sticker.FilePath}">
+                                autoplay loop mode="normal"
+                                class="img-fluid rounded-start"
+                                th:src="${sticker.FilePath}">
                     </tgs-player>
                     <img th:if="${#strings.contains(sticker.FilePath, 'webp')}"
-                         th:class="container" th:src="${sticker.FilePath}">
+                         class="img-fluid rounded-start"
+                         th:src="${sticker.FilePath}">
                 </div>
-            </a>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${sticker.Title}"></h5>
+                        <h5 class="card-title" th:text="${sticker.getStarTier()}"></h5>
+                        <p class="card-text" th:text="${sticker.Description}"></p>
+                        <a class="stretched-link" th:href="'/sticker?hash=' + ${sticker.MD5Hash}"></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </th:block>
-    <th:block th:if="${stickers.size() % 4 != 0}" th:utext="'&lt;/div&gt;'"/>
 </div>
 <div th:replace="/blocks/includes :: footer"></div>
 </body>

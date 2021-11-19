@@ -21,4 +21,9 @@ public class Sticker {
     @Column(name = "pack_id") public Integer PackId;
 
     @Transient public String FilePath;
+
+    public String getStarTier(){
+        String result = new String(new char[Tier]);
+        return result.replace('\0', '⭐');
+    }
 }
