@@ -6,7 +6,7 @@
 <div class="flex-shrink-0 container d-flex justify-content-around flex-wrap">
     <th:block th:each="pack,iter : ${packs}">
         <div class="card text-center bg-secondary mb-2 text-dark mx-2">
-            <div class="sticker-thumb">
+            <div class="sticker-thumb mx-auto">
                 <tgs-player th:if="${#strings.contains(pack.StickerPreviewPath, 'tgs')}"
                             autoplay loop mode="normal"
                             class="img-fluid"

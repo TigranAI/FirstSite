@@ -61,13 +61,13 @@ public class MainController {
         return "about";
     }
 
-    /*@GetMapping("/logout")
+    @GetMapping("/logout")
     public String logout(WebRequest request, SessionStatus status) {
         status.setComplete();
         request.removeAttribute("user", WebRequest.SCOPE_SESSION);
         request.removeAttribute("cash", WebRequest.SCOPE_SESSION);
         return "redirect:/";
-    }*/
+    }
 
     @GetMapping("/error")
     public String error(Model model) {

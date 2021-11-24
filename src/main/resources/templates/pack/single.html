@@ -7,7 +7,7 @@
     <th:block th:each="sticker,iter : ${stickers}">
         <div class="card bg-secondary mb-2 text-dark container" style="max-width: 540px;">
             <div class="row g-0">
-                <div class="col-md-4 margin sticker-thumb">
+                <div class="col-md-4 margin mx-auto sticker-thumb">
                     <tgs-player th:if="${#strings.contains(sticker.FilePath, 'tgs')}"
                                 autoplay loop mode="normal"
                                 class="img-fluid"
