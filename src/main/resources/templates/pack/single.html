@@ -1,20 +1,20 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
 <head th:insert="/blocks/includes :: header"></head>
-<body class="bg-dark">
+<body class="bg-dark d-flex flex-column h-100">
 <nav th:replace="/blocks/header :: header"></nav>
-<div class="container-fluid d-flex justify-content-evenly flex-wrap">
+<div class="flex-shrink-0 container d-flex justify-content-around flex-wrap">
     <th:block th:each="sticker,iter : ${stickers}">
-        <div class="card bg-secondary border-dark mb-3 text-dark container" style="max-width: 540px;">
+        <div class="card bg-secondary mb-2 text-dark container" style="max-width: 540px;">
             <div class="row g-0">
-                <div class="col-md-4 margin sticker-img">
+                <div class="col-md-4 margin sticker-thumb">
                     <tgs-player th:if="${#strings.contains(sticker.FilePath, 'tgs')}"
                                 autoplay loop mode="normal"
-                                class="img-fluid rounded-start"
+                                class="img-fluid"
                                 th:src="${sticker.FilePath}">
                     </tgs-player>
                     <img th:if="${#strings.contains(sticker.FilePath, 'webp')}"
-                         class="img-fluid rounded-start"
+                         class="img-fluid"
                          th:src="${sticker.FilePath}">
                 </div>
                 <div class="col-md-8">
@@ -29,6 +29,7 @@
         </div>
     </th:block>
 </div>
+<footer th:replace="/blocks/footer :: footer"></footer>
 <div th:replace="/blocks/includes :: footer"></div>
 </body>
 </html>

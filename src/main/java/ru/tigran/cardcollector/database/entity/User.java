@@ -10,4 +10,7 @@ public class User {
     @Column(name = "username") public String Username;
     @Column(name = "is_blocked") public Boolean IsBlocked;
     @Column(name = "privilege_level") public Integer PrivilegeLevel;
+
+    @Transient public Cash cash;
+    @Transient public UserLevel userLevel;
 }

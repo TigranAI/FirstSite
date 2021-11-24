@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
+<head th:insert="/blocks/includes :: header"></head>
+<body class="bg-dark d-flex flex-column h-100">
+<nav th:replace="/blocks/header :: header"></nav>
+<div class="flex-shrink-0 container">
+    <div class="card bg-secondary border-dark text-dark">
+        <div class="card-header text-center">
+            <h3 class="card-title" th:text="${sticker.Title}"></h3>
+        </div>
+        <div class="row g-0">
+            <div class="col-md-4 margin sticker-img">
+                <tgs-player th:if="${#strings.contains(sticker.FilePath, 'tgs')}"
+                            autoplay loop mode="normal"
+                            class="img-fluid" th:src="${sticker.FilePath}">
+                </tgs-player>
+                <img th:if="${#strings.contains(sticker.FilePath, 'webp')}"
+                     class="img-fluid" th:src="${sticker.FilePath}">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h4 th:text="${sticker.Author}"></h4>
+                        <h4 th:text="${sticker.getStarTier()}"></h4>
+                    </div>
+                    <h6 th:text="'Приносит ' + ${sticker.Income} + '💰 за ' + ${sticker.IncomeTime} + '⏱ минут'"></h6>
+                    <h6 th:text="'Эмоция стикера: ' + ${sticker.Emoji}"></h6>
+                    <p class="card-text" th:text="'Эффект: ' + ${sticker.getEffectDescription()}"></p>
+                    <p class="card-text"><small th:text="${sticker.Description}"></small></p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer btn-group btn-group-md" role="group">
+            <a th:href="'/sticker?hash=' + ${previousHash}" class="btn border-dark text-dark">Назад</a>
+            <a th:href="'/pack?id=' + ${sticker.PackId}" class="btn border-dark text-dark" th:text="${sticker.Author}"></a>
+            <a th:href="'/sticker?hash=' + ${nextHash}" class="btn border-dark text-dark">Вперед</a>
+        </div>
+    </div>
+</div>
+<footer th:replace="/blocks/footer :: footer"></footer>
+<div th:replace="/blocks/includes :: footer"></div>
+</body>
+</html>

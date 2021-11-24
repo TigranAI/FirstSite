@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
+<head th:insert="/blocks/includes :: header"></head>
+<body class="bg-dark d-flex flex-column h-100">
+<nav th:replace="/blocks/header :: header"></nav>
+<div class="flex-shrink-0 page-wrap d-flex flex-row align-items-center position-absolute top-50 start-50 translate-middle">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <span class="display-1 d-block text-light"><b>404</b></span>
+                <div class="mb-4 lead text-light">Страница не найдена</div>
+                <a href="/" class="btn btn-link link-light">На главную</a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="/blocks/footer :: footer"></footer>
+<div th:replace="/blocks/includes :: footer"></div>
+</body>
+</html>

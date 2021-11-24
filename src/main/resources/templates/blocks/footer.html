@@ -1,7 +1,23 @@
 <!doctype html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="footer">
-    <footer>
-
-    </footer>
-</div>
+<footer th:fragment="footer" class="container-fluid footer mt-auto border-top" style="bottom: 0">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center py-2">
+        <p class="col-md-4 mb-0 text-muted">© 2021 WyrmSticker</p>
+        <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link px-2 text-muted" aria-current="page" href="/">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link px-2 text-muted" th:text="'Мой профиль'"
+                   th:href="${user} ? '/profile' : 'https://t.me/TigranCardCollectorBot?start=create_token'">
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link px-2 text-muted" href="/pack">Паки</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link px-2 text-muted" href="/about">О нас</a>
+            </li>
+        </ul>
+    </div>
+</footer>

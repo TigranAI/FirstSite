@@ -1,9 +1,76 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
 <head th:insert="/blocks/includes :: header"></head>
-<body class="bg-dark">
+<body class="bg-dark d-flex flex-column h-100">
 <nav th:replace="/blocks/header :: header"></nav>
+<div class="flex-shrink-0 container">
+    <div id="carouselLastPacks" class="carousel slide mb-2" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button th:each="pack, iter : ${lastPacks}" type="button" data-bs-target="#carouselLastPacks"
+                    th:data-bs-slide-to="${iter.index}" th:classappend="${iter.index == 0 ? 'active' : ''}"
+                    class="carousel-indicators-low"
+                    th:aria-current="${iter.index == 0 ? 'true' : 'false'}" th:aria-label="${pack.Author}">
+            </button>
+        </div>
+        <div class="carousel-inner text-dark">
+            <div th:each="pack, iter : ${lastPacks}" class="card bg-secondary carousel-item"
+                 th:classappend="${iter.index == 0 ? 'active' : ''}">
+                <div class="d-flex">
+                    <div class="flex-shrink-1 sticker-carousel-thumb">
+                        <tgs-player th:if="${#strings.contains(pack.StickerPreviewPath, 'tgs')}"
+                                    autoplay loop mode="normal"
+                                    class="img-fluid"
+                                    th:src="${pack.StickerPreviewPath}">
+                        </tgs-player>
+                        <img th:if="${#strings.contains(pack.StickerPreviewPath, 'webp')}"
+                             class="img-fluid"
+                             th:src="${pack.StickerPreviewPath}">
+                    </div>
+                    <div class="align-self-center flex-grow-1 pr-2p">
+                        <h2 class="text-center" th:text="'Новый стикерпак от ' + ${pack.Author} + ' уже в магазине!'"></h2>
+                    </div>
+                </div>
+                <a class="stretched-link" th:href="'/pack?id=' + ${pack.Id}"></a>
+            </div>
+        </div>
+    </div>
 
+    <div class="card-group">
+        <div class="card bg-secondary text-dark mb-2">
+            <div class="card-header">
+                <b>Топ-5 пользователей по опыту</b>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li th:each="user, iter : ${userTop}"
+                    class="list-group-item bg-secondary text-dark">
+                    <th:block th:text="${iter.index+1} + '. '"/>
+                    <th:block th:if="${user.Username} != ''"
+                              th:utext="'<a class=&quot;link-dark&quot; href=&quot;https://t.me/'+${user.Username}+'&quot;>'+${user.Username}+'</a>'"/>
+                    <th:block th:if="${user.Username} == ''"
+                              th:utext="'<i>NoName</i>'"/>
+                    <th:block th:text="' - ' + ${user.userLevel.TotalExp} + ' опыта'"/>
+                </li>
+            </ul>
+        </div>
+        <div class="card-horizontal-gutter"></div>
+        <div class="card bg-secondary text-dark mb-2">
+            <div class="row g-0">
+                <div class="col-md-6 margin">
+                    <img th:src="@{/images/logo.png}" class="img-fluid"/>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h5 class="card-title">Запуск проекта!</h5>
+                        <p class="card-text">Совсем недаво стартовал наш проект,
+                            переходите по ссылке, нажав на эту карточку и испытайте удачу!</p>
+                    </div>
+                </div>
+            </div>
+            <a class="stretched-link" href="https://t.me/wyrm_sticker_bot"></a>
+        </div>
+    </div>
+</div>
+<footer th:replace="/blocks/footer :: footer"></footer>
 <div th:replace="/blocks/includes :: footer"></div>
 </body>
 </html>

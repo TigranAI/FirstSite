@@ -1,5 +1,7 @@
 package ru.tigran.cardcollector.database.entity;
 
+import ru.tigran.cardcollector.Translations;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,5 +27,9 @@ public class Sticker {
     public String getStarTier(){
         String result = new String(new char[Tier]);
         return result.replace('\0', '⭐');
+    }
+
+    public String getEffectDescription(){
+        return Translations.effects.getProperty(Effect);
     }
 }
