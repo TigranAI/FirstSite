@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@SessionAttributes(names = {"user", "cash"})
+@SessionAttributes(names = {"user"})
 public class MainController {
 
     @Autowired
@@ -38,11 +38,9 @@ public class MainController {
         List<User> userTop = userRepository.findTopByExp(5);
         userTop.forEach(item -> {
             Optional<UserLevel> opt = userLevelRepository.findById(item.Id);
-            opt.ifPresentOrElse(userLevel -> item.userLevel = userLevel,
-                    () -> {
-                        UserLevel level = userLevelRepository.save(new UserLevel(item.Id));
-                        item.userLevel = level;
-                    });
+            opt.ifPresentOrElse(
+                    userLevel -> item.userLevel = userLevel,
+                    () -> item.userLevel = userLevelRepository.save(new UserLevel(item.Id)));
         });
         ArrayList<Pack> lastPacks = packRepository.findLast(3);
         lastPacks.forEach(item -> {
@@ -65,7 +63,6 @@ public class MainController {
     public String logout(WebRequest request, SessionStatus status) {
         status.setComplete();
         request.removeAttribute("user", WebRequest.SCOPE_SESSION);
-        request.removeAttribute("cash", WebRequest.SCOPE_SESSION);
         return "redirect:/";
     }
 

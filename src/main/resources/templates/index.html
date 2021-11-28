@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
-<head th:insert="/blocks/includes :: header"></head>
+<head th:insert="blocks/includes :: header"></head>
 <body class="bg-dark d-flex flex-column h-100">
-<nav th:replace="/blocks/header :: header"></nav>
+<nav th:replace="blocks/header :: header"></nav>
 <div class="flex-shrink-0 container">
     <div id="carouselLastPacks" class="carousel slide mb-2" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -56,7 +56,7 @@
         <div class="card bg-secondary text-dark mb-2">
             <div class="row g-0">
                 <div class="col-md-6 margin mx-auto">
-                    <img th:src="@{/images/logo.png}" class="img-fluid"/>
+                    <img th:src="@{images/logo.png}" class="img-fluid"/>
                 </div>
                 <div class="col-md-6">
                     <div class="card-body">
@@ -70,7 +70,7 @@
         </div>
     </div>
 </div>
-<footer th:replace="/blocks/footer :: footer"></footer>
-<div th:replace="/blocks/includes :: footer"></div>
+<footer th:replace="blocks/footer :: footer"></footer>
+<div th:replace="blocks/includes :: footer"></div>
 </body>
 </html>

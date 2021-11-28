@@ -9,7 +9,7 @@ import ru.tigran.cardcollector.database.entity.User;
 
 @Controller
 @RequestMapping("/admin")
-@SessionAttributes(names = {"user", "cash"})
+@SessionAttributes(names = {"user"})
 public class AdminController {
 
     @GetMapping

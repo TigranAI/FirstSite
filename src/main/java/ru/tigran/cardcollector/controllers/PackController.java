@@ -33,8 +33,8 @@ public class PackController {
         ArrayList<Sticker> stickers = id == 1
                 ? stickerRepository.findAll()
                 : stickerRepository.findByPackId(id);
-        for (Sticker s : stickers)
-            s.FilePath = Utilities.getTelegramFile(s.Id, "stickers/" + s.PackId);
+        for (Sticker sticker : stickers)
+            sticker.FilePath = Utilities.getTelegramFile(sticker.Id, "stickers/" + sticker.PackId);
         Pack pack = result.get();
         model.addAttribute("pack", pack);
         model.addAttribute("stickers", stickers);

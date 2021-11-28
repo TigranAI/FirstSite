@@ -1,12 +1,43 @@
 <!doctype html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
-<head th:insert="/blocks/includes :: header"></head>
+<head th:insert="blocks/includes :: header"></head>
 <body class="bg-dark d-flex flex-column h-100">
-<nav th:replace="/blocks/header :: header"></nav>
-<div class="flex-shrink-0 container">
-
-</div>
-<footer th:replace="/blocks/footer :: footer"></footer>
-<div th:replace="/blocks/includes :: footer"></div>
+<nav th:replace="blocks/header :: header"></nav>
+<!--<div class="flex-shrink-0 container">
+    <div class="card-group">
+        <div class="card bg-secondary">
+            <div class="card-header">
+                <h4 th:text="${user.Username}"></h4>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title" th:text="'Уровень ' + ${user.userLevel.Level}"></h5>
+                <h6 class="card-subtitle" th:text="'Текущий опыт: ' + ${user.userLevel.CurrentExp} + '/1000'"></h6>
+                <h6 class="card-subtitle" th:text="'Всего опыта: ' + ${user.userLevel.TotalExp}"></h6>
+            </div>
+        </div>
+        <div class="card-horizontal-gutter"></div>
+        <div class="card bg-secondary">
+            <div class="card-header">
+                <h4>Баланс</h4>
+            </div>
+            <div class="card-body">
+                <h5 class="card-subtitle" th:text="'Количество монет: ' + ${user.cash.Coins} + ' 💰'"></h5>
+                <h5 class="card-subtitle" th:text="'Количество алмазов: ' + ${user.cash.Gems} + ' 💎'"></h5>
+            </div>
+        </div>
+        <div class="card-horizontal-gutter"></div>
+        <div class="card bg-secondary">
+            <div class="card-header">
+                <h4>Паки</h4>
+            </div>
+            <div class="card-body">
+                <h5 class="card-subtitle" th:text="'Количество монет: ' + ${user.cash.Coins} + ' 💰'"></h5>
+                <h5 class="card-subtitle" th:text="'Количество алмазов: ' + ${user.cash.Gems} + ' 💎'"></h5>
+            </div>
+        </div>
+    </div>
+</div>-->
+<footer th:replace="blocks/footer :: footer"></footer>
+<div th:replace="blocks/includes :: footer"></div>
 </body>
 </html>

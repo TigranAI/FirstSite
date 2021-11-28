@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import ru.tigran.cardcollector.Utilities;
 import ru.tigran.cardcollector.database.entity.Sticker;
-import ru.tigran.cardcollector.database.repository.PackRepository;
 import ru.tigran.cardcollector.database.repository.StickerRepository;
 
 import java.util.ArrayList;
@@ -21,9 +20,6 @@ public class StickerController {
 
     @Autowired
     private StickerRepository stickerRepository;
-
-    @Autowired
-    private PackRepository packRepository;
 
     @GetMapping(params = {"hash"})
     public String showSticker(String hash, Model model) {

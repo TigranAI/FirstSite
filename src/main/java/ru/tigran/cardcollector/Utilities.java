@@ -10,12 +10,11 @@ import java.util.Properties;
 import java.util.Random;
 
 public class Utilities {
-    private static final String programPath;
+    private static final String downloadPath;
     public static Random rnd;
     static {
         rnd = new Random();
-        String classesPath = Utilities.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        programPath = classesPath.substring(0, classesPath.lastIndexOf('/')) + "/static/";
+        downloadPath = "resources/";
     }
 
     public static String getTelegramFile(String fileId, String folder) {
@@ -28,7 +27,7 @@ public class Utilities {
                     + Resources.get("telegram.bot.token")
                     + '/' + filePath;
             String fileName = fileId + "." + filePath.split("\\.")[1];
-            String savePath = programPath + folder + "/" + fileName;
+            String savePath = downloadPath + folder + "/" + fileName;
             URL url = new URL(fileUrl);
             InputStream in = new BufferedInputStream(url.openStream());
             OutputStream out = new BufferedOutputStream(new FileOutputStream(savePath));
@@ -37,7 +36,7 @@ public class Utilities {
             }
             in.close();
             out.close();
-            return folder + "/" + fileName;
+            return  String.format("/%s/%s", folder, fileName);
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
@@ -45,16 +44,16 @@ public class Utilities {
     }
 
     private static String ImageExists(String fileName, String folder){
-        File path = new File(programPath + folder + "/");
+        File path = new File(downloadPath + folder + "/");
         path.mkdirs();
         File[] listOfFiles = path.listFiles();
         for (File file : listOfFiles)
         {
             if (file.isFile())
             {
-                String[] filename = file.getName().split("\\.(?=[^\\.]+$)");
-                if(filename[0].equals(fileName))
-                    return folder + "/" + filename[0]+"."+filename[1];
+                String[] fileData = file.getName().split("\\.(?=[^\\.]+$)");
+                if(fileData[0].equals(fileName))
+                    return String.format("/%s/%s.%s", folder, fileData[0], fileData[1]);
             }
         }
         return "";
