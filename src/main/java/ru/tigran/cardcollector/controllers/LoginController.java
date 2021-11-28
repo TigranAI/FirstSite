@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import ru.tigran.cardcollector.database.repository.CashRepository;
 import ru.tigran.cardcollector.database.repository.SessionTokenRepository;
 import ru.tigran.cardcollector.database.repository.UserRepository;
 

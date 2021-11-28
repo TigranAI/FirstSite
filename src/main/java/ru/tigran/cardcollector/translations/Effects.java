@@ -1,11 +1,13 @@
-package ru.tigran.cardcollector;
+package ru.tigran.cardcollector.translations;
+
+import ru.tigran.cardcollector.Utilities;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class Translations {
-    public static Properties effects;
+public class Effects {
+    private static Properties effects;
 
     static {
         try {
@@ -15,5 +17,9 @@ public class Translations {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String get(Integer key) {
+        return effects.getProperty(key.toString());
     }
 }

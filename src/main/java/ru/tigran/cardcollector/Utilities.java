@@ -6,7 +6,6 @@ import org.apache.tomcat.util.json.ParseException;
 import java.io.*;
 import java.net.URL;
 import java.util.LinkedHashMap;
-import java.util.Properties;
 import java.util.Random;
 
 public class Utilities {
@@ -24,7 +23,7 @@ public class Utilities {
             LinkedHashMap<String, Object> result = GetFileInfo(fileId);
             String filePath = (String) result.get("file_path");
             String fileUrl = "https://api.telegram.org/file/bot"
-                    + Resources.get("telegram.bot.token")
+                    + Config.get("telegram.bot.token")
                     + '/' + filePath;
             String fileName = fileId + "." + filePath.split("\\.")[1];
             String savePath = downloadPath + folder + "/" + fileName;
@@ -61,7 +60,7 @@ public class Utilities {
 
     private static LinkedHashMap<String, Object> GetFileInfo(String fileId) throws ParseException {
         String fileInfoUrl = "https://api.telegram.org/bot"
-                + Resources.get("telegram.bot.token")
+                + Config.get("telegram.bot.token")
                 + "/getFile?file_id="
                 + fileId;
         String fileInfo = "";
@@ -75,23 +74,5 @@ public class Utilities {
         }
         JSONParser jsonObj = new JSONParser(fileInfo);
         return (LinkedHashMap<String, Object>) jsonObj.parseObject().get("result");
-    }
-
-    public static class Resources {
-        private static Properties props;
-
-        static {
-            try {
-                InputStream stream = Utilities.class.getClassLoader().getResourceAsStream("config.properties");
-                props = new Properties();
-                props.load(stream);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public static String get(String name){
-            return props.getProperty(name);
-        }
     }
 }

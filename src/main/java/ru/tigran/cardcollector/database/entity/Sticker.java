@@ -1,6 +1,6 @@
 package ru.tigran.cardcollector.database.entity;
 
-import ru.tigran.cardcollector.Translations;
+import ru.tigran.cardcollector.translations.Effects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +19,7 @@ public class Sticker {
     @Column(name = "emoji") public String Emoji;
     @Column(name = "description") public String Description;
     @Column(name = "md5hash") public String MD5Hash;
-    @Column(name = "effect") public String Effect;
+    @Column(name = "effect") public Integer Effect;
     @Column(name = "pack_id") public Integer PackId;
 
     @Transient public String FilePath;
@@ -30,6 +30,6 @@ public class Sticker {
     }
 
     public String getEffectDescription(){
-        return Translations.effects.getProperty(Effect);
+        return Effects.get(Effect);
     }
 }

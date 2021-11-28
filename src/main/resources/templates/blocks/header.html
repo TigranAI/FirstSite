@@ -57,7 +57,7 @@
                 </div>
             </th:block>
             <th:block th:unless="${user}">
-                <a href="https://t.me/TigranCardCollectorBot?start=create_token"
+                <a th:href="'https://t.me/TigranCardCollectorBot?start=create_token='+${#httpServletRequest.serverName}+':'+${#httpServletRequest.serverPort}"
                    role="button" class="btn btn-outline-light p-0">
                     <img th:src="@{images/telegram-logo.svg}" height="38"><span class="btn-text pr-10px">Вход</span>
                 </a>
