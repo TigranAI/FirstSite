@@ -5,6 +5,7 @@ import org.apache.tomcat.util.json.ParseException;
 
 import java.io.*;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
@@ -25,17 +26,21 @@ public class Utilities {
             String fileUrl = "https://api.telegram.org/file/bot"
                     + Config.get("telegram.bot.token")
                     + '/' + filePath;
-            String fileName = fileId + "." + filePath.split("\\.")[1];
-            String savePath = downloadPath + folder + "/" + fileName;
             URL url = new URL(fileUrl);
             InputStream in = new BufferedInputStream(url.openStream());
+
+            String type = URLConnection.guessContentTypeFromStream(in);
+            String fileType = type == null ? ".tgs" : ".webp";
+            String fileName = fileId+fileType;
+            String savePath = downloadPath + folder + "/" + fileName;
+
             OutputStream out = new BufferedOutputStream(new FileOutputStream(savePath));
             for ( int i; (i = in.read()) != -1; ) {
                 out.write(i);
             }
             in.close();
             out.close();
-            return  String.format("/%s/%s", folder, fileName);
+            return String.format("/%s/%s", folder, fileName);
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }

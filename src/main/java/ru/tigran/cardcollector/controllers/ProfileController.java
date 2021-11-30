@@ -21,7 +21,9 @@ public class ProfileController {
 
     @GetMapping()
     public String profile(Model model){
-        if (model.getAttribute("user") instanceof User user) {
+
+        if (model.containsAttribute("user")) {
+            User user = (User) model.getAttribute("user");
             cashRepository.findById(user.Id).ifPresentOrElse(
                     cash -> user.cash = cash,
                     () -> user.cash = cashRepository.save(new Cash(user.Id)));
