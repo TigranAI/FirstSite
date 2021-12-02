@@ -45,8 +45,10 @@ public class MainController {
         ArrayList<Pack> lastPacks = packRepository.findLast(3);
         lastPacks.forEach(item -> {
             ArrayList<Sticker> stickers = stickerRepository.findByPackId(item.Id);
+            System.out.println(item.Id);
+            System.out.println(stickers.size());
             Sticker sticker = stickers.get(Utilities.rnd.nextInt(stickers.size()));
-            item.StickerPreviewPath = Utilities.getTelegramFile(sticker.Id, "stickers/"+item.Id);
+            item.StickerPreviewPath = Utilities.getTelegramFile(sticker.getId(), "stickers/"+item.Id);
         });
         model.addAttribute("userTop", userTop);
         model.addAttribute("lastPacks", lastPacks);

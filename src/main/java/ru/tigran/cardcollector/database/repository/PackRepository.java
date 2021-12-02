@@ -14,6 +14,6 @@ public interface PackRepository extends CrudRepository<Pack, Integer> {
     @Query(value = "select p from packs p where p.Id > 1")
     public ArrayList<Pack> findAll();
 
-    @Query(value = "select * from packs p order by p.id desc limit ?1", nativeQuery = true)
+    @Query(value = "select * from packs p where id <> 1 order by p.id desc limit ?1", nativeQuery = true)
     public ArrayList<Pack> findLast(int count);
 }

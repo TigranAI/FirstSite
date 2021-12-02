@@ -10,7 +10,7 @@ import java.util.Collection;
 
 @Repository
 public interface StickerRepository extends CrudRepository<Sticker, String> {
-    @Query(value = "select s from stickers s where s.PackId = ?1 order by s.Tier")
+    @Query(value = "select s from stickers s where ?1 = 1 or s.PackId = ?1 order by s.Tier")
     ArrayList<Sticker> findByPackId(int packId);
 
     @Query(value = "select s from stickers s where s.MD5Hash = ?1")

@@ -34,7 +34,7 @@ public class PackController {
                 ? stickerRepository.findAll()
                 : stickerRepository.findByPackId(id);
         for (Sticker sticker : stickers)
-            sticker.FilePath = Utilities.getTelegramFile(sticker.Id, "stickers/" + sticker.PackId);
+            sticker.FilePath = Utilities.getTelegramFile(sticker.getId(), "stickers/" + sticker.PackId);
         Pack pack = result.get();
         model.addAttribute("pack", pack);
         model.addAttribute("stickers", stickers);
@@ -48,7 +48,7 @@ public class PackController {
         for (Pack p : packs){
             ArrayList<Sticker> stickers = stickerRepository.findByPackId(p.Id);
             Sticker sticker = stickers.get(Utilities.rnd.nextInt(stickers.size()));
-            p.StickerPreviewPath = Utilities.getTelegramFile(sticker.Id, "stickers/" + p.Id);
+            p.StickerPreviewPath = Utilities.getTelegramFile(sticker.getId(), "stickers/" + p.Id);
         }
         model.addAttribute("packs", packs);
         model.addAttribute("title", "WyrmSticker | Все паки");

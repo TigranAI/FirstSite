@@ -24,7 +24,7 @@ public class StickerController {
     @GetMapping(params = {"hash"})
     public String showSticker(String hash, Model model) {
         Sticker sticker = stickerRepository.findByHash(hash);
-        sticker.FilePath = Utilities.getTelegramFile(sticker.Id, "stickers/" + sticker.PackId);
+        sticker.FilePath = Utilities.getTelegramFile(sticker.getId(), "stickers/" + sticker.PackId);
         ArrayList<Sticker> stickers = stickerRepository.findByPackId(sticker.PackId);
         for (int i = 0; i < stickers.size(); ++i){
             if (Objects.equals(stickers.get(i).MD5Hash, hash)){
