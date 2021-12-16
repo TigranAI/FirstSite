@@ -24,8 +24,6 @@ public class MainController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private SessionTokenRepository sessionTokenRepository;
-    @Autowired
     private UserLevelRepository userLevelRepository;
     @Autowired
     private PackRepository packRepository;
@@ -45,8 +43,6 @@ public class MainController {
         ArrayList<Pack> lastPacks = packRepository.findLast(3);
         lastPacks.forEach(item -> {
             ArrayList<Sticker> stickers = stickerRepository.findByPackId(item.Id);
-            System.out.println(item.Id);
-            System.out.println(stickers.size());
             Sticker sticker = stickers.get(Utilities.rnd.nextInt(stickers.size()));
             item.StickerPreviewPath = Utilities.getTelegramFile(sticker.getId(), "stickers/"+item.Id);
         });

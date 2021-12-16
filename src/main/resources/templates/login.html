@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
+<head th:insert="blocks/includes :: header">
+</head>
+<body class="bg-dark d-flex flex-column h-100">
+<nav th:replace="blocks/header :: header"></nav>
+<a href="#" id="BotLink" class="link-light">Перейти к боту</a>
+<form id="login" action="/login" method="post">
+    <input type="text" id="userId" name="userId" class="visually-hidden">
+    <input type="text" id="secretKey" name="secretKey" class="visually-hidden">
+</form>
+<footer th:replace="blocks/footer :: footer"></footer>
+<div th:replace="blocks/includes :: footer"></div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let host = /*[[${host}]]*/ 'default'
+    let port = /*[[${port}]]*/ 'default'
+    let botName = /*[[${botName}]]*/ 'default'
+    $(document).ready(function () {
+        let eventUrl = "http://" + host + ':' + port + "/events/login"
+        let eventSource = new EventSource(eventUrl)
+        eventSource.addEventListener("INIT", function (event) {
+            let url = 'tg://resolve?domain=' + botName + '&start=login=' + event.data
+            $('#BotLink').attr("href", url)
+        })
+        eventSource.addEventListener("LoginData", function (event) {
+            let data = JSON.parse(event.data)
+            $('#userId').attr("value", data[0])
+            $('#secretKey').attr("value", data[1])
+            $('#login').submit()
+        })
+    })
+    /*]]>*/
+</script>
+</body>
+</html>
