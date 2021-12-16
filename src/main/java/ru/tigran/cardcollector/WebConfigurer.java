@@ -2,6 +2,7 @@ package ru.tigran.cardcollector;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -19,6 +20,11 @@ public class WebConfigurer {
                     registry.addResourceHandler(stickerPath)
                             .addResourceLocations("file:" + "resources/stickers/");
                 }
+            }
+
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/database/logs");
             }
         };
     }

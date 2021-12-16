@@ -4,7 +4,12 @@
 </head>
 <body class="bg-dark d-flex flex-column h-100">
 <nav th:replace="blocks/header :: header"></nav>
-<a href="#" id="BotLink" class="link-light">Перейти к боту</a>
+<div class="container card text-center bg-secondary" style="max-width: 512px">
+    <img th:src="@{images/logo.png}" class="img-fluid">
+    <div class="card-body">
+    <a href="#" id="BotLink" class="btn btn-outline-light btn-lg stretched-link w-100">Перейти к боту</a>
+    </div>
+</div>
 <form id="login" action="/login" method="post">
     <input type="text" id="userId" name="userId" class="visually-hidden">
     <input type="text" id="secretKey" name="secretKey" class="visually-hidden">
