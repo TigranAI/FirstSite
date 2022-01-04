@@ -8,12 +8,12 @@
         <div class="card bg-secondary mb-2 text-dark container" style="max-width: 540px;">
             <div class="row g-0">
                 <div class="col-md-4 margin mx-auto sticker-thumb">
-                    <tgs-player th:if="${#strings.contains(sticker.FilePath, 'tgs')}"
+                    <tgs-player th:if="${sticker.Animated}"
                                 autoplay loop mode="normal"
                                 class="img-fluid"
                                 th:src="${sticker.FilePath}">
                     </tgs-player>
-                    <img th:if="${#strings.contains(sticker.FilePath, 'webp')}"
+                    <img th:if="${!sticker.Animated}"
                          class="img-fluid"
                          th:src="${sticker.FilePath}">
                 </div>

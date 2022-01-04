@@ -7,6 +7,7 @@ import ru.tigran.cardcollector.database.entity.Sticker;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface StickerRepository extends CrudRepository<Sticker, String> {

@@ -41,11 +41,8 @@ public class MainController {
                     () -> item.userLevel = userLevelRepository.save(new UserLevel(item.Id)));
         });
         ArrayList<Pack> lastPacks = packRepository.findLast(3);
-        lastPacks.forEach(item -> {
-            ArrayList<Sticker> stickers = stickerRepository.findByPackId(item.Id);
-            Sticker sticker = stickers.get(Utilities.rnd.nextInt(stickers.size()));
-            item.StickerPreviewPath = Utilities.getTelegramFile(sticker.getId(), "stickers/"+item.Id);
-        });
+        lastPacks.forEach(pack ->
+            pack.StickerPreviewPath = Utilities.getTelegramFile(pack.StickerPreview, "stickers/"+pack.Id));
         model.addAttribute("userTop", userTop);
         model.addAttribute("lastPacks", lastPacks);
         return "index";

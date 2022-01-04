@@ -45,11 +45,7 @@ public class PackController {
     @GetMapping()
     public String showAllPacks(Model model) {
         ArrayList<Pack> packs = packRepository.findAll();
-        for (Pack p : packs){
-            ArrayList<Sticker> stickers = stickerRepository.findByPackId(p.Id);
-            Sticker sticker = stickers.get(Utilities.rnd.nextInt(stickers.size()));
-            p.StickerPreviewPath = Utilities.getTelegramFile(sticker.getId(), "stickers/" + p.Id);
-        }
+        packs.forEach(pack -> pack.StickerPreviewPath = Utilities.getTelegramFile(pack.StickerPreview, "stickers/" + pack.Id));
         model.addAttribute("packs", packs);
         model.addAttribute("title", "WyrmSticker | Все паки");
         return "pack/index";

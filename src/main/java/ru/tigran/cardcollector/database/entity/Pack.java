@@ -12,6 +12,8 @@ public class Pack {
     @Column(name="author") public String Author;
     @Column(name="description") public String Description;
     @Column(name="opened_count") public Integer OpenedCount;
+    @Column(name="sticker_preview") public String StickerPreview;
+    @Column(name="animated") public Boolean Animated;
 
     @Transient public String StickerPreviewPath;
 }

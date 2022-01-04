@@ -22,6 +22,7 @@ public class Sticker {
     @Column(name = "md5hash") public String MD5Hash;
     @Column(name = "effect") public Integer Effect;
     @Column(name = "pack_id") public Integer PackId;
+    @Column(name = "animated") public Boolean Animated;
 
     @Transient public String FilePath;
 

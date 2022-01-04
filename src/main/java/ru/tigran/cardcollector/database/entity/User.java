@@ -1,6 +1,7 @@
 package ru.tigran.cardcollector.database.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "users")
 public class User {
@@ -13,4 +14,5 @@ public class User {
 
     @Transient public Cash cash;
     @Transient public UserLevel userLevel;
+    @Transient public List<UserSticker> stickers;
 }

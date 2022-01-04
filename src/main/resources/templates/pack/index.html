@@ -7,12 +7,12 @@
     <th:block th:each="pack,iter : ${packs}">
         <div class="card text-center bg-secondary mb-2 text-dark mx-2">
             <div class="sticker-thumb mx-auto">
-                <tgs-player th:if="${#strings.contains(pack.StickerPreviewPath, 'tgs')}"
+                <tgs-player th:if="${pack.Animated)}"
                             autoplay loop mode="normal"
                             class="img-fluid"
                             th:src="${pack.StickerPreviewPath}">
                 </tgs-player>
-                <img th:if="${#strings.contains(pack.StickerPreviewPath, 'webp')}"
+                <img th:if="${!pack.Animated}"
                      class="img-fluid"
                      th:src="${pack.StickerPreviewPath}">
             </div>

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import ru.tigran.cardcollector.Utilities;
 import ru.tigran.cardcollector.database.entity.SecretSessionKey;
@@ -27,7 +26,7 @@ public class EventController {
 
     @CrossOrigin
     @GetMapping(value = "/login", consumes = MediaType.ALL_VALUE)
-    public SseEmitter login() throws IOException {
+    public SseEmitter login() {
         SecretSessionKey secretKey = new SecretSessionKey(generateString(6));
 
         SseEmitter emitter = new SseEmitter(Long.MAX_VALUE);
@@ -57,7 +56,6 @@ public class EventController {
                 emitter.complete();
                 status.set(HttpStatus.OK);
             } catch (IOException e) {
-                e.printStackTrace();
                 secretSessionKeyRepository.deleteById(secretKey);
                 emitter.complete();
             }

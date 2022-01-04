@@ -3,40 +3,41 @@
 <head th:insert="blocks/includes :: header"></head>
 <body class="bg-dark d-flex flex-column h-100">
 <nav th:replace="blocks/header :: header"></nav>
-<!--<div class="flex-shrink-0 container">
-    <div class="card-group">
-        <div class="card bg-secondary">
-            <div class="card-header">
-                <h4 th:text="${user.Username}"></h4>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title" th:text="'Уровень ' + ${user.userLevel.Level}"></h5>
-                <h6 class="card-subtitle" th:text="'Текущий опыт: ' + ${user.userLevel.CurrentExp} + '/1000'"></h6>
-                <h6 class="card-subtitle" th:text="'Всего опыта: ' + ${user.userLevel.TotalExp}"></h6>
-            </div>
-        </div>
-        <div class="card-horizontal-gutter"></div>
-        <div class="card bg-secondary">
-            <div class="card-header">
-                <h4>Баланс</h4>
-            </div>
-            <div class="card-body">
-                <h5 class="card-subtitle" th:text="'Количество монет: ' + ${user.cash.Coins} + ' 💰'"></h5>
-                <h5 class="card-subtitle" th:text="'Количество алмазов: ' + ${user.cash.Gems} + ' 💎'"></h5>
-            </div>
-        </div>
-        <div class="card-horizontal-gutter"></div>
-        <div class="card bg-secondary">
-            <div class="card-header">
-                <h4>Паки</h4>
-            </div>
-            <div class="card-body">
-                <h5 class="card-subtitle" th:text="'Количество монет: ' + ${user.cash.Coins} + ' 💰'"></h5>
-                <h5 class="card-subtitle" th:text="'Количество алмазов: ' + ${user.cash.Gems} + ' 💎'"></h5>
-            </div>
+<!--/*@thymesVar id="user" type="ru.tigran.cardcollector.database.entity.User"*/-->
+<div class="container d-flex flex-row">
+    <div class="d-flex flex-column w-25 text-light">
+        <h4 class="display-3" th:text="${user.Username}"></h4>
+        <hr/>
+        <h5 th:text="'Уровень: ' + ${user.userLevel.Level} + '🆙'"></h5>
+        <h6 th:text="'Текущий опыт: ' + ${user.userLevel.CurrentExp} + '🧪'"></h6>
+        <h6 th:text="'Всего опыта: ' + ${user.userLevel.TotalExp} + '🧪'"></h6>
+        <hr/>
+        <h5>Баланс</h5>
+        <h6 th:text="'Монеты: ' + ${user.cash.Coins} + '💰'"></h6>
+        <h6 th:text="'Алмазы: ' + ${user.cash.Gems} + '💎'"></h6>
+    </div>
+    <div class="d-flex flex-column w-75 text-light">
+        <h4 class="display-3">Мои стикеры</h4>
+        <hr/>
+        <div class="d-flex flex-row flex-wrap justify-content-evenly">
+            <th:block th:each="sticker : ${user.stickers}">
+                <div class="card sticker-thumb bg-transparent border-0">
+                    <tgs-player th:if="${sticker.Animated}"
+                                autoplay loop mode="normal"
+                                class="img-fluid"
+                                th:src="${sticker.FilePath}">
+                    </tgs-player>
+                    <img th:if="${!sticker.Animated}"
+                         class="img-fluid"
+                         th:src="${sticker.FilePath}">
+                    <div class="card-body">
+                        <a class="stretched-link" th:href="'/sticker?hash=' + ${sticker.ShortHash}"></a>
+                    </div>
+                </div>
+            </th:block>
         </div>
     </div>
-</div>-->
+</div>
 <footer th:replace="blocks/footer :: footer"></footer>
 <div th:replace="blocks/includes :: footer"></div>
 </body>

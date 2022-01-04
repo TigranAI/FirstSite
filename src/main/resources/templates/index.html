@@ -17,12 +17,12 @@
                  th:classappend="${iter.index == 0 ? 'active' : ''}">
                 <div class="d-flex">
                     <div class="flex-shrink-1 sticker-carousel-thumb">
-                        <tgs-player th:if="${#strings.contains(pack.StickerPreviewPath, 'tgs')}"
+                        <tgs-player th:if="${pack.Animated}"
                                     autoplay loop mode="normal"
                                     class="img-fluid"
                                     th:src="${pack.StickerPreviewPath}">
                         </tgs-player>
-                        <img th:if="${#strings.contains(pack.StickerPreviewPath, 'webp')}"
+                        <img th:if="${!pack.Animated}"
                              class="img-fluid"
                              th:src="${pack.StickerPreviewPath}">
                     </div>
