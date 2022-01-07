@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="pages" th:if="${pagesCount > 1}">
+    <li class="page-item" th:if="${page != 1 && page != null}">
+        <button class="page-link w-auto" th:onclick="'applyFilters('+${page - 1}+')'">&lt;</button>
+    </li>
+    <li class="page-item" th:if="${page > 3}">
+        <button class="page-link shadow-none">..</button>
+    </li>
+    <th:block th:each="pageNum:${#numbers.sequence(1, pagesCount)}">
+        <li th:if="${pageNum > page - 3 && pageNum < page + 3}" class="page-item shadow-none"
+            th:classappend="${pageNum == page} ? 'active' : ''" th:id="'page'+${pageNum}">
+            <button class="page-link shadow-none btn-secondary" th:onclick="'applyFilters('+${pageNum}+')'"
+                    th:text="${pageNum}"></button>
+        </li>
+    </th:block>
+    <li class="page-item" th:if="${page + 2 < pagesCount}">
+        <button class="page-link shadow-none">..</button>
+    </li>
+    <li class="page-item" th:if="${page != pagesCount && pagesCount > 1}">
+        <button class="page-link" th:onclick="'applyFilters('+${page + 1}+')'">&gt;</button>
+    </li>
+</th:block>

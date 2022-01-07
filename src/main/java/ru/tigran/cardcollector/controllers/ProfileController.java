@@ -1,4 +1,4 @@
-package ru.tigran.cardcollector.controllers;
+/*package ru.tigran.cardcollector.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +37,7 @@ public class ProfileController {
             user.stickers.forEach((item)->
                 stickerRepository.findById(item.StickerId).ifPresent((sticker)->{
                     item.FilePath = Utilities.getTelegramFile(item.StickerId, "stickers/"+sticker.PackId);
+                    item.Animated = sticker.Animated;
                 })
             );
             model.addAttribute("title", "WyrmSticker | " + user.Username);
@@ -44,4 +45,4 @@ public class ProfileController {
         }
         return "redirect:/";
     }
-}
+}*/

@@ -1,5 +1,7 @@
 package ru.tigran.cardcollector.database.entity;
 
+import ru.tigran.cardcollector.Utilities;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,6 +16,15 @@ public class Pack {
     @Column(name="opened_count") public Integer OpenedCount;
     @Column(name="sticker_preview") public String StickerPreview;
     @Column(name="animated") public Boolean Animated;
+    @Column(name="sticker_preview_path") private String StickerPreviewPath;
 
-    @Transient public String StickerPreviewPath;
+    public String getStickerPreviewPath() {
+        if (StickerPreviewPath == null)
+            Utilities.getTelegramFile(StickerPreview, "stickers/" + Id);
+        return StickerPreviewPath;
+    }
+
+    public void setStickerPreviewPath(String stickerPreviewPath) {
+        StickerPreviewPath = stickerPreviewPath;
+    }
 }

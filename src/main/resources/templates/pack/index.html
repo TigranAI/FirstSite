@@ -7,14 +7,14 @@
     <th:block th:each="pack,iter : ${packs}">
         <div class="card text-center bg-secondary mb-2 text-dark mx-2">
             <div class="sticker-thumb mx-auto">
-                <tgs-player th:if="${pack.Animated)}"
+                <tgs-player th:if="${pack.Animated}"
                             autoplay loop mode="normal"
                             class="img-fluid"
-                            th:src="${pack.StickerPreviewPath}">
+                            th:src="${pack.getStickerPreviewPath()}">
                 </tgs-player>
                 <img th:if="${!pack.Animated}"
                      class="img-fluid"
-                     th:src="${pack.StickerPreviewPath}">
+                     th:src="${pack.getStickerPreviewPath()}">
             </div>
             <div class="card-body">
                 <h3 class="card-title" th:text="${pack.Author}"></h3>

@@ -1,11 +1,11 @@
 package ru.tigran.cardcollector.database.entity;
 
+import ru.tigran.cardcollector.Utilities;
 import ru.tigran.cardcollector.translations.Effects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 
 @Entity(name="stickers")
 public class Sticker {
@@ -23,8 +23,17 @@ public class Sticker {
     @Column(name = "effect") public Integer Effect;
     @Column(name = "pack_id") public Integer PackId;
     @Column(name = "animated") public Boolean Animated;
+    @Column(name = "file_path") private String FilePath;
 
-    @Transient public String FilePath;
+    public String getFilePath() {
+        if (FilePath == null)
+            FilePath = Utilities.getTelegramFile(Id, "stickers/" + PackId);
+        return FilePath;
+    }
+
+    public void setFilePath(String filePath) {
+        FilePath = filePath;
+    }
 
     public String getStarTier(){
         String result = new String(new char[Tier]);

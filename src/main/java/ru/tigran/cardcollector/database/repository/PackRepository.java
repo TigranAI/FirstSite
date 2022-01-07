@@ -12,8 +12,11 @@ public interface PackRepository extends CrudRepository<Pack, Integer> {
 
     @Override
     @Query(value = "select p from packs p where p.Id > 1")
-    public ArrayList<Pack> findAll();
+    ArrayList<Pack> findAll();
 
     @Query(value = "select * from packs p where id <> 1 order by p.id desc limit ?1", nativeQuery = true)
-    public ArrayList<Pack> findLast(int count);
+    ArrayList<Pack> findLast(int count);
+
+    @Query(value = "select distinct p.Author from packs p where p.Id <> 1 order by p.Author")
+    ArrayList<String> findDistinctAuthors();
 }

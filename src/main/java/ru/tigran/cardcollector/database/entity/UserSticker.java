@@ -7,13 +7,23 @@ import java.util.Date;
 @Table(name = "user_to_stickers_relations")
 public class UserSticker {
     @Id
-    @Column public long Id;
-    @Column public String StickerId;
+    @Column(name = "id") public long Id;
+    @Column(name = "sticker_id") public String StickerId;
     @Column(name = "user_id") public long UserId;
-    @Column public int Count;
-    @Column public Date Payout;
-    @Column public String ShortHash;
-    @Column public String AdditionalData;
+    @Column(name = "count") public int Count;
+    @Column(name = "payout") public Date Payout;
+    @Column(name = "short_hash") public String ShortHash;
+    @Column(name = "additional_data") public String AdditionalData;
 
-    @Transient public String FilePath;
+    @ManyToOne
+    @JoinColumn(name = "sticker_id", referencedColumnName = "id", insertable = false, updatable = false)
+    public Sticker sticker;
+
+    public Boolean getAnimated(){
+        return sticker.Animated;
+    }
+
+    public String getFilePath(){
+        return sticker.getFilePath();
+    }
 }

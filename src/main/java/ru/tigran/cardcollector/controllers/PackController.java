@@ -33,8 +33,6 @@ public class PackController {
         ArrayList<Sticker> stickers = id == 1
                 ? stickerRepository.findAll()
                 : stickerRepository.findByPackId(id);
-        for (Sticker sticker : stickers)
-            sticker.FilePath = Utilities.getTelegramFile(sticker.getId(), "stickers/" + sticker.PackId);
         Pack pack = result.get();
         model.addAttribute("pack", pack);
         model.addAttribute("stickers", stickers);
@@ -45,7 +43,6 @@ public class PackController {
     @GetMapping()
     public String showAllPacks(Model model) {
         ArrayList<Pack> packs = packRepository.findAll();
-        packs.forEach(pack -> pack.StickerPreviewPath = Utilities.getTelegramFile(pack.StickerPreview, "stickers/" + pack.Id));
         model.addAttribute("packs", packs);
         model.addAttribute("title", "WyrmSticker | Все паки");
         return "pack/index";

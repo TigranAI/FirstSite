@@ -33,7 +33,7 @@ public class LoginController {
         if (userOptional.isEmpty()) return "redirect:/";
 
         model.addAttribute("user", userOptional.get());
-        return "redirect:/profile";
+        return "redirect:/collection";
     }
 
     @GetMapping()

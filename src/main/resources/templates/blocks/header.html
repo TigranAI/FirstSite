@@ -22,6 +22,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/sticker"
+                       th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'sticker')} ? 'active' : ''">
+                        Все стикеры
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/collection"
+                       th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'collection')} ? 'active' : ''">
+                        Коллекция
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/about"
                        th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'about')} ? 'active' : ''">
                         О нас
@@ -29,19 +41,20 @@
                 </li>
             </ul>
 
+            <!--/*@thymesVar id="user" type="ru.tigran.cardcollector.database.entity.User"*/-->
             <th:block th:if="${user}">
                 <div class="dropdown">
                     <button class="btn btn-outline-light dropdown-toggle" th:text="${user.Username}"
                             type="button" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="profile">
-                        <li>
+                        <!--<li>
                             <a class="dropdown-item" href="/profile"
                                th:aria-current="${#strings.contains(#httpServletRequest.requestURI, 'profile')} ? 'true' : 'false'"
                                th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'profile')} ? 'active' : ''">
                                 Мой профиль
                             </a>
-                        </li>
+                        </li>-->
                         <li th:if="${user.PrivilegeLevel > 2}">
                             <a class="dropdown-item" href="/admin"
                                th:aria-current="${#strings.contains(#httpServletRequest.requestURI, 'admin')} ? 'true' : 'false'"

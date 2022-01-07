@@ -20,11 +20,11 @@
                         <tgs-player th:if="${pack.Animated}"
                                     autoplay loop mode="normal"
                                     class="img-fluid"
-                                    th:src="${pack.StickerPreviewPath}">
+                                    th:src="${pack.getStickerPreviewPath()}">
                         </tgs-player>
                         <img th:if="${!pack.Animated}"
                              class="img-fluid"
-                             th:src="${pack.StickerPreviewPath}">
+                             th:src="${pack.getStickerPreviewPath()}">
                     </div>
                     <div class="align-self-center flex-grow-1 pr-2p">
                         <h2 class="text-center" th:text="'Новый стикерпак от ' + ${pack.Author} + ' уже в магазине!'"></h2>
@@ -43,12 +43,7 @@
             <ul class="list-group list-group-flush">
                 <li th:each="user, iter : ${userTop}"
                     class="list-group-item bg-secondary text-dark">
-                    <th:block th:text="${iter.index+1} + '. '"/>
-                    <th:block th:if="${user.Username} != ''"
-                              th:utext="'<a class=&quot;link-dark&quot; href=&quot;https://t.me/'+${user.Username}+'&quot;>'+${user.Username}+'</a>'"/>
-                    <th:block th:if="${user.Username} == ''"
-                              th:utext="'<i>NoName</i>'"/>
-                    <th:block th:text="' - ' + ${user.userLevel.TotalExp} + ' опыта'"/>
+                    <th:block th:text="${iter.index+1} + '. ' + ${user.Username} + ' - ' + ${user.userLevel.TotalExp} + ' опыта'"/>
                 </li>
             </ul>
         </div>
@@ -61,8 +56,8 @@
                 <div class="col-md-6">
                     <div class="card-body">
                         <h5 class="card-title">Запуск проекта!</h5>
-                        <p class="card-text">Совсем недаво стартовал наш проект,
-                            переходите по ссылке, нажав на эту карточку и испытайте удачу!</p>
+                        <p class="card-text">Совсем недавно стартовал наш проект.
+                            Переходите по ссылке, нажав на эту карточку, и испытайте удачу!</p>
                     </div>
                 </div>
             </div>

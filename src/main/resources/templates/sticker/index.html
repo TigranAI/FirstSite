@@ -3,37 +3,155 @@
 <head th:insert="blocks/includes :: header"></head>
 <body class="bg-dark d-flex flex-column h-100">
 <nav th:replace="blocks/header :: header"></nav>
-<div class="flex-shrink-0 container">
-    <div class="card bg-secondary border-dark text-dark">
-        <div class="card-header text-center">
-            <h3 class="card-title" th:text="${sticker.Title}"></h3>
-        </div>
-        <div class="row g-0">
-            <div class="col-md-4 margin mx-auto sticker-img">
-                <tgs-player th:if="${sticker.Animated}"
-                            autoplay loop mode="normal"
-                            class="img-fluid" th:src="${sticker.FilePath}">
-                </tgs-player>
-                <img th:if="${!sticker.Animated}"
-                     class="img-fluid" th:src="${sticker.FilePath}">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <h4 th:text="${sticker.Author}"></h4>
-                        <h4 th:text="${sticker.getStarTier()}"></h4>
+<div class="container d-flex flex-row">
+    <div class="d-flex flex-column w-25 text-light">
+        <h4 class="display-3">Фильтры</h4>
+        <form id="filters" style="visibility: hidden; height: 0">
+            <input type="number" name="page" th:value="${page}">
+            <input type="text" name="author" th:value="${author}">
+            <input type="number" name="tier" th:value="${tier}">
+            <input type="text" name="emoji" th:value="${emoji}">
+            <input type="text" name="sortBy" th:value="${sortBy}">
+        </form>
+        <hr/>
+        <div class="accordion accordion-flush" id="filtersAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header bg-secondary" id="headingAuthor">
+                    <button class="accordion-button text-light bg-secondary collapsed" type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseAuthor" aria-expanded="false" aria-controls="collapseAuthor">
+                        Автор
+                    </button>
+                </h2>
+                <div id="collapseAuthor" class="accordion-collapse collapse" aria-labelledby="headingAuthor"
+                     data-bs-parent="#filtersAccordion">
+                    <!--/*@thymesVar id="authors" type="java.util.List<String>"*/-->
+                    <div class="accordion-body scroller-menu d-flex flex-column bg-secondary">
+                        <input type="radio" class="btn-check" name="author" id="clear_author" autocomplete="off"
+                               onchange="setFilter(this)" th:value="${author}" th:checked="${author} == null">
+                        <label class="btn btn-secondary menu-button shadow-none" for="clear_author" th:text="'Все'">
+                        </label>
+                        <th:block th:each="authorName : ${authors}">
+                            <input type="radio" class="btn-check" name="author" th:id="${authorName}" autocomplete="off"
+                                   onchange="setFilter(this)" th:value="${authorName}"
+                                   th:checked="${authorName} == ${author}">
+                            <label class="btn btn-secondary menu-button shadow-none" th:for="${authorName}"
+                                   th:text="${authorName}"></label>
+                        </th:block>
                     </div>
-                    <h6 th:text="'Приносит ' + ${sticker.Income} + '💰 за ' + ${sticker.IncomeTime} + '⏱ минут'"></h6>
-                    <h6 th:text="'Эмоция стикера: ' + ${sticker.Emoji}"></h6>
-                    <p class="card-text" th:text="'Эффект: ' + ${sticker.getEffectDescription()}"></p>
-                    <p class="card-text"><small th:text="${sticker.Description}"></small></p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header bg-secondary" id="headingTier">
+                    <button class="accordion-button text-light bg-secondary collapsed" type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseTier" aria-expanded="false" aria-controls="collapseTier">
+                        Тир
+                    </button>
+                </h2>
+                <div id="collapseTier" class="accordion-collapse collapse" aria-labelledby="headingTier"
+                     data-bs-parent="#filtersAccordion">
+                    <div class="accordion-body scroller-menu d-flex flex-column bg-secondary">
+                        <input type="radio" class="btn-check" name="tier" id="clear_tier" autocomplete="off"
+                               onchange="setFilter(this)" th:value="${tier}" th:checked="${tier} == null">
+                        <label class="btn btn-secondary menu-button shadow-none" for="clear_tier" th:text="'Все'">
+                        </label>
+                        <input type="radio" class="btn-check" name="tier" id="1" autocomplete="off"
+                               onchange="setFilter(this)" th:value="${tier}" th:checked="${tier} == 1">
+                        <label class="btn btn-secondary menu-button shadow-none" for="1" th:text="'⭐'">
+                        </label>
+                        <input type="radio" class="btn-check" name="tier" id="2" autocomplete="off"
+                               onchange="setFilter(this)" th:value="${tier}" th:checked="${tier} == 2">
+                        <label class="btn btn-secondary menu-button shadow-none" for="2" th:text="'⭐⭐'">
+                        </label>
+                        <input type="radio" class="btn-check" name="tier" id="3" autocomplete="off"
+                               onchange="setFilter(this)" th:value="${tier}" th:checked="${tier} == 3">
+                        <label class="btn btn-secondary menu-button shadow-none" for="3" th:text="'⭐⭐⭐'">
+                        </label>
+                        <input type="radio" class="btn-check" name="tier" id="4" autocomplete="off"
+                               onchange="setFilter(this)" th:value="${tier}" th:checked="${tier} == 4">
+                        <label class="btn btn-secondary menu-button shadow-none" for="4" th:text="'⭐⭐⭐⭐'">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header bg-secondary" id="headingEmoji">
+                    <button class="accordion-button text-light bg-secondary collapsed" type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseEmoji" aria-expanded="false" aria-controls="collapseEmoji">
+                        Эмоция
+                    </button>
+                </h2>
+                <div id="collapseEmoji" class="accordion-collapse collapse" aria-labelledby="headingEmoji"
+                     data-bs-parent="#filtersAccordion">
+                    <!--/*@thymesVar id="emojis" type="java.util.List<String>"*/-->
+                    <div class="accordion-body scroller-menu d-flex flex-column bg-secondary" style="width: 100%">
+                        <input type="radio" class="btn-check" name="emoji" id="clear_emoji" autocomplete="off"
+                               onchange="setFilter(this)" th:value="${emoji}" th:checked="${emoji} == null">
+                        <label class="btn btn-secondary menu-button shadow-none w-100 flex-grow-1" for="clear_emoji"
+                               th:text="'Все'">
+                        </label>
+                        <div class="d-flex w-100 flex-wrap">
+                            <th:block th:each="emojiSymbol : ${emojis}">
+                                <input type="radio" class="btn-check" name="emoji" th:id="${emojiSymbol}"
+                                       autocomplete="off"
+                                       onchange="setFilter(this)" th:value="${emojiSymbol}"
+                                       th:checked="${emojiSymbol} == ${emoji}">
+                                <label class="btn btn-secondary menu-button shadow-none w-25" th:for="${emojiSymbol}"
+                                       th:text="${emojiSymbol}"></label>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header bg-secondary" id="headingSortBy">
+                    <button class="accordion-button text-light bg-secondary collapsed" type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseSortBy" aria-expanded="false" aria-controls="collapseSortBy">
+                        Сортировка
+                    </button>
+                </h2>
+                <div id="collapseSortBy" class="accordion-collapse collapse" aria-labelledby="headingSortBy"
+                     data-bs-parent="#filtersAccordion">
+                    <!--/*@thymesVar id="authors" type="java.util.List<String>"*/-->
+                    <div class="accordion-body scroller-menu d-flex flex-column bg-secondary">
+                        <input type="radio" class="btn-check" name="sortBy" id="clear_sortBy" autocomplete="off"
+                               onchange="setFilter(this)" th:value="${sortBy}" th:checked="${sortBy} == null">
+                        <label class="btn btn-secondary menu-button shadow-none" for="clear_sortBy" th:text="'Нет'">
+                        </label>
+                        <input type="radio" class="btn-check" name="sortBy" id="tier" autocomplete="off"
+                               onchange="setFilter(this)" th:value="${sortBy}" th:checked="${sortBy} == 'tier'">
+                        <label class="btn btn-secondary menu-button shadow-none" for="tier" th:text="'Тир'">
+                        </label>
+                        <input type="radio" class="btn-check" name="sortBy" id="tier_desc" autocomplete="off"
+                               onchange="setFilter(this)" th:value="${sortBy}" th:checked="${sortBy} == 'tier_desc'">
+                        <label class="btn btn-secondary menu-button shadow-none" for="tier_desc"
+                               th:text="'Тир (убывание)'">
+                        </label>
+                        <input type="radio" class="btn-check" name="sortBy" id="title" autocomplete="off"
+                               onchange="setFilter(this)" th:value="${sortBy}" th:checked="${sortBy} == 'title'">
+                        <label class="btn btn-secondary menu-button shadow-none" for="title" th:text="'Название'">
+                        </label>
+                        <input type="radio" class="btn-check" name="sortBy" id="author" autocomplete="off"
+                               onchange="setFilter(this)" th:value="${sortBy}" th:checked="${sortBy} == 'author'">
+                        <label class="btn btn-secondary menu-button shadow-none" for="author" th:text="'Автор'">
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="card-footer btn-group btn-group-md" role="group">
-            <a th:href="'/sticker?hash=' + ${previousHash}" class="btn border-dark text-dark">Назад</a>
-            <a th:href="'/pack?id=' + ${sticker.PackId}" class="btn border-dark text-dark" th:text="${sticker.Author}"></a>
-            <a th:href="'/sticker?hash=' + ${nextHash}" class="btn border-dark text-dark">Вперед</a>
+        <button class="btn btn-secondary shadow-none mt-1" onclick="applyFilters()">Применить</button>
+    </div>
+    <div class="d-flex flex-column w-75 text-light">
+        <nav class="container d-flex justify-content-center">
+            <ul class="pagination bg-transparent" id="pagesBottom">
+                <th:block th:insert="sticker/blocks/pages :: pages"/>
+            </ul>
+        </nav>
+        <div class="d-flex flex-row flex-wrap justify-content-evenly" id="stickersContent">
+            <th:block th:replace="sticker/blocks/stickers :: stickers"/>
         </div>
     </div>
 </div>

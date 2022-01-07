@@ -75,3 +75,30 @@ hr{
 .dropdown-menu-dark .dropdown-item:active {
     background-color: rgba(var(--bs-secondary-rgb),var(--bs-bg-opacity))!important
 }
+
+.scroller-menu{
+    max-height: 20vh;
+    overflow: auto;
+}
+
+.accordion-button:focus{
+    border: none;
+    box-shadow: none;
+}
+.accordion-body{
+    padding: 0;
+}
+
+.menu-button{
+    border-radius: 0;
+}
+
+.page-link{
+    border: transparent;
+    background-color: #6c757d;
+    color: #fff;
+}
+.page-item.active .page-link, .page-item:hover .page-link,  .page-item:focus .page-link{
+    color: #fff;
+    background-color: #565e64;
+}
