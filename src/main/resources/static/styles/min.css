@@ -13,10 +13,16 @@ hr{
     border-bottom: 1px solid white;
 }
 
-.sticker-thumb{
+.sticker-thumb-md{
     padding: 2%;
     max-height: 256px;
     max-width: 256px;
+}
+
+.sticker-thumb-sm{
+    padding: 2%;
+    max-height: 200px;
+    max-width: 200px;
 }
 
 .sticker-carousel-thumb{

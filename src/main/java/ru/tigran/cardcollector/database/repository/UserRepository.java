@@ -10,15 +10,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    @Query(value =
-            "select * " +
-            "from users as u " +
-            "inner join " +
-                "(select id, total_exp " +
-                "from user_level) as l " +
-            "on u.id = l.id " +
-            "where u.privilege_level < 7 " +
-            "order by l.total_exp desc " +
-            "limit ?1", nativeQuery = true)
-    List<User> findTopByExp(int count);
+    @Query(value = "select u from users u")
+    List<User> findAll();
+
 }

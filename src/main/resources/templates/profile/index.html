@@ -21,7 +21,7 @@
         <hr/>
         <div class="d-flex flex-row flex-wrap justify-content-evenly">
             <th:block th:each="userSticker : ${user.stickers}">
-                <div class="card sticker-thumb bg-transparent border-0">
+                <div class="card sticker-thumb-md bg-transparent border-0">
                     <tgs-player th:if="${userSticker.getAnimated()}"
                                 autoplay loop mode="normal"
                                 class="img-fluid"

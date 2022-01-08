@@ -1,20 +1,27 @@
 <!doctype html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<footer th:fragment="footer" class="container-fluid footer mt-auto border-top" style="bottom: 0">
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11" id="toastContainer">
-    </div>
-    <div class="container d-flex flex-wrap justify-content-between align-items-center py-2">
-        <a href="/" class="nav-link col-md-4 mb-0 text-muted">© 2021 WyrmSticker</a>
-        <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link px-2 text-muted" aria-current="page" href="/">Главная</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link px-2 text-muted" href="/pack">Паки</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link px-2 text-muted" href="/about">О нас</a>
-            </li>
+<footer th:fragment="footer" class="container-fluid footer mt-auto" style="bottom: 0">
+    <nav th:if="${pagesCount != null}" class="container d-flex justify-content-center mt-auto">
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11" id="toastContainer">
+        </div>
+        <ul class="pagination bg-transparent" id="pagesBottom">
+            <th:block th:insert="blocks/pages :: pages"/>
         </ul>
+    </nav>
+    <div class="container-fluid border-top">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center py-2">
+            <a href="/" class="nav-link col-md-4 mb-0 text-muted">© 2021 WyrmSticker</a>
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link px-2 text-muted" aria-current="page" href="/">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-2 text-muted" href="/pack">Паки</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-2 text-muted" href="/about">О нас</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </footer>

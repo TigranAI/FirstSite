@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
+<head th:insert="blocks/includes :: header"></head>
+<body class="bg-dark d-flex flex-column h-100">
+<nav th:replace="blocks/header :: header"></nav>
+<div class="flex-shrink-0 container">
+    <div class="card-group">
+        <div class="card bg-secondary text-dark mb-2">
+            <div class="card-header">
+                <b>Топ-5 пользователей по опыту</b>
+            </div>
+            <span class="card-text" th:if="${expTop.size() == 0}">Здесь пока никого нет. Вы можете стать первым!</span>
+            <ul class="list-group list-group-flush">
+                <li th:each="pair, iter : ${expTop}"
+                    class="list-group-item bg-secondary text-dark">
+                    <th:block
+                            th:text="${iter.index+1} + '. ' + ${pair.getKey()} + ' - ' + ${pair.getValue()} + ' опыта'"/>
+                </li>
+            </ul>
+        </div>
+        <div class="card bg-secondary text-dark mb-2">
+            <div class="card-header">
+                <b>Топ-5 пользователей по стикерам 4⭐</b>
+            </div>
+            <span class="card-text" th:if="${expTop.size() == 0}">Здесь пока никого нет. Вы можете стать первым!</span>
+            <ul class="list-group list-group-flush">
+                <li th:each="pair, iter : ${tier4Top}"
+                    class="list-group-item bg-secondary text-dark">
+                    <th:block
+                            th:text="${iter.index+1} + '. ' + ${pair.getKey()} + ' - ' + ${pair.getValue()} + ' шт'"/>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<footer th:replace="blocks/footer :: footer"></footer>
+<div th:replace="blocks/includes :: footer"></div>
+</body>
+</html>

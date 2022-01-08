@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import ru.tigran.cardcollector.database.entity.Sticker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public interface StickerRepository extends CrudRepository<Sticker, String> {
@@ -19,8 +20,11 @@ public interface StickerRepository extends CrudRepository<Sticker, String> {
     ArrayList<Sticker> findAll();
 
     @Query(value = "select s from stickers s where s.Id in ?1")
-    ArrayList<Sticker> findAllByStickersId(ArrayList<String> stickersId);
+    ArrayList<Sticker> findAllByStickersId(List<String> stickersId);
 
     @Query(value = "select distinct s.Emoji from stickers s")
     ArrayList<String> findDistinctEmojis();
+
+    @Query(value = "select s.Id from stickers s where s.Tier = ?1")
+    List<String> findAllIdByTier(Integer tier);
 }

@@ -60,10 +60,9 @@ function applyFilters(page = 1){
         success: function(resp) {
             window.history.pushState("", $(document).find("title").text(), newUrl)
             applyContentTo(resp, $("#stickersContent"))
-            console.log($('#pagesCount').val())
             $.ajax({
                 type: 'POST',
-                url: url+'/pages',
+                url: '/pages',
                 name: '',
                 data: {
                     pagesCount: $('#pagesCount').val(),
