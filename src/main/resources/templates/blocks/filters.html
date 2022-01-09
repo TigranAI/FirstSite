@@ -12,7 +12,7 @@
         <div class="accordion-item">
             <h2 class="accordion-header bg-secondary" id="headingAuthor">
                 <button class="accordion-button text-light bg-secondary collapsed" type="button"
-                        data-bs-toggle="collapse"
+                        data-bs-toggle="collapse" th:text="'Автор ' + ${author != null && author != '' ? '(' + author + ')' : '(Все)'}"
                         data-bs-target="#collapseAuthor" aria-expanded="false" aria-controls="collapseAuthor">
                     Автор
                 </button>
@@ -38,9 +38,8 @@
         <div class="accordion-item">
             <h2 class="accordion-header bg-secondary" id="headingTier">
                 <button class="accordion-button text-light bg-secondary collapsed" type="button"
-                        data-bs-toggle="collapse"
+                        data-bs-toggle="collapse" th:text="'Тир ' + ${tier != null ? '(' + tier + ')' : '(Все)'}"
                         data-bs-target="#collapseTier" aria-expanded="false" aria-controls="collapseTier">
-                    Тир
                 </button>
             </h2>
             <div id="collapseTier" class="accordion-collapse collapse" aria-labelledby="headingTier"
@@ -72,9 +71,8 @@
         <div class="accordion-item">
             <h2 class="accordion-header bg-secondary" id="headingEmoji">
                 <button class="accordion-button text-light bg-secondary collapsed" type="button"
-                        data-bs-toggle="collapse"
+                        data-bs-toggle="collapse" th:text="'Эмоция ' + ${emoji != null && emoji != '' ? '(' + emoji + ')' : '(Все)'}"
                         data-bs-target="#collapseEmoji" aria-expanded="false" aria-controls="collapseEmoji">
-                    Эмоция
                 </button>
             </h2>
             <div id="collapseEmoji" class="accordion-collapse collapse" aria-labelledby="headingEmoji"
@@ -102,9 +100,11 @@
         <div class="accordion-item">
             <h2 class="accordion-header bg-secondary" id="headingSortBy">
                 <button class="accordion-button text-light bg-secondary collapsed" type="button"
-                        data-bs-toggle="collapse"
+                        data-bs-toggle="collapse" th:text="'Сортировка ' + ${sortBy != null && sortBy != '' ? '(' + (
+                        sortBy == 'tier_desc' ? 'Тир по убыванию' :
+                        sortBy == 'title' ? 'Название' :
+                        sortBy == 'tier' ? 'Тир по возрастанию': 'Автор') + ')' : '(Нет)'}"
                         data-bs-target="#collapseSortBy" aria-expanded="false" aria-controls="collapseSortBy">
-                    Сортировка
                 </button>
             </h2>
             <div id="collapseSortBy" class="accordion-collapse collapse" aria-labelledby="headingSortBy"

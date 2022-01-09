@@ -3,17 +3,8 @@
 <head th:insert="blocks/includes :: header"></head>
 <body class="bg-dark d-flex flex-column h-100">
 <nav th:replace="blocks/header :: header"></nav>
-<div class="container d-flex flex-row">
-    <div class="d-flex flex-column w-25 text-light">
-        <h4 class="display-3">Фильтры</h4>
-        <hr/>
-        <th:block th:insert="blocks/filters :: filters"/>
-    </div>
-    <div class="d-flex flex-column w-75 text-light">
-        <div class="d-flex flex-row flex-wrap justify-content-evenly" id="stickersContent">
-            <th:block th:insert="blocks/stickers :: stickers"/>
-        </div>
-    </div>
+<div class="container d-flex flex-row" id="content">
+    <th:block th:insert="blocks/stickers :: content"/>
 </div>
 <footer th:replace="blocks/footer :: footer"></footer>
 <div th:replace="blocks/includes :: footer"></div>

@@ -34,14 +34,17 @@ public class CollectionController {
         List<String> stickerIds = userStickerRepository.findAllStickerIdByUserId(user.Id);
         if (stickerIds.size() == 0) model.addAttribute("noStickers", true);
         List<Sticker> stickers = stickerRepository.findAllByStickersId(stickerIds);
-        ListHelper.FilterList(stickers, author, tier, emoji);
+
+        List<String> authors = ListHelper.Select(stickers, item -> item.Author).stream().distinct().collect(Collectors.toList());
+        ListHelper.FilterListBy(stickers, item -> item.Author, author);
+        ListHelper.FilterListBy(stickers, item -> item.Tier, tier);
+        List<String> emojis = ListHelper.Select(stickers, item -> item.Emoji).stream().distinct().collect(Collectors.toList());
+        ListHelper.FilterListBy(stickers, item -> item.Emoji, emoji);
+
         if (sortBy != null) ListHelper.SortList(stickers, sortBy);
         if (page == null) page = 1;
         int pagesCount = stickers.size() / 12;
         if (stickers.size() % 12 > 0) pagesCount++;
-
-        List<String> authors = ListHelper.Select(stickers, item -> item.Author).stream().distinct().collect(Collectors.toList());
-        List<String> emojis = ListHelper.Select(stickers, item -> item.Emoji).stream().distinct().collect(Collectors.toList());
 
         model.addAttribute("page", page);
         model.addAttribute("author", author);

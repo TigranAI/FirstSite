@@ -59,7 +59,7 @@ function applyFilters(page = 1){
         },
         success: function(resp) {
             window.history.pushState("", $(document).find("title").text(), newUrl)
-            applyContentTo(resp, $("#stickersContent"))
+            applyContentTo(resp, $("#content"))
             $.ajax({
                 type: 'POST',
                 url: '/pages',

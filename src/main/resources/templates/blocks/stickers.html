@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="stickers" type="java.util.List<ru.tigran.cardcollector.database.entity.Sticker>"*/-->
-<th:block th:fragment="stickers">
-    <input type="number" style="visibility: hidden; height: 0; width: 0" id="pagesCount" th:value="${pagesCount}">
-    <th:block th:each="sticker : ${stickers}" th:if="${stickers.size() > 0}">
-        <div class="card sticker-thumb-sm bg-transparent border-0">
-            <tgs-player th:if="${sticker.Animated}"
-                        autoplay loop mode="normal"
-                        class="img-fluid"
-                        th:src="${sticker.getForSaleFilePath()}">
-            </tgs-player>
-            <img th:if="${!sticker.Animated}"
-                 class="img-fluid"
-                 th:src="${sticker.getForSaleFilePath()}">
-            <div class="card-body">
-                <a class="stretched-link" th:href="'/sticker?hash=' + ${sticker.MD5Hash}"></a>
-            </div>
+<th:block th:fragment="content">
+    <div class="d-flex flex-column w-25 text-light">
+        <h4 class="display-3">Фильтры</h4>
+        <hr/>
+        <th:block th:insert="blocks/filters :: filters"/>
+    </div>
+    <div class="d-flex flex-column w-75 text-light">
+        <div class="d-flex flex-row flex-wrap justify-content-evenly">
+            <th:block th:each="sticker : ${stickers}" th:if="${stickers.size() > 0}">
+                <div class="card sticker-thumb-sm bg-transparent border-0">
+                    <tgs-player th:if="${sticker.Animated}"
+                                autoplay loop mode="normal"
+                                class="img-fluid"
+                                th:src="${sticker.getForSaleFilePath()}">
+                    </tgs-player>
+                    <img th:if="${!sticker.Animated}"
+                         class="img-fluid"
+                         th:src="${sticker.getForSaleFilePath()}">
+                    <div class="card-body">
+                        <a class="stretched-link" th:href="'/sticker?hash=' + ${sticker.MD5Hash}"></a>
+                    </div>
+                </div>
+            </th:block>
+            <h2 class="text-light" th:if="${stickers.size() == 0}">Ничего не найдено, попробуйте изменить критерии запроса</h2>
         </div>
-    </th:block>
-    <h2 class="text-light" th:if="${stickers.size() == 0}">Ничего не найдено, попробуйте изменить критерии запроса</h2>
+    </div>
+    <input type="number" style="visibility: hidden; height: 0; width: 0" id="pagesCount" th:value="${pagesCount}">
 </th:block>

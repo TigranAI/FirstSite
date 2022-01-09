@@ -13,6 +13,7 @@ import ru.tigran.cardcollector.database.repository.UserStickerRepository;
 import ru.tigran.cardcollector.functions.ListHelper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @SessionAttributes(names = {"user"})
@@ -30,11 +31,25 @@ public class AjaxController {
                               @RequestParam(required = false) String emoji,
                               @RequestParam(required = false) String sortBy) {
         List<Sticker> stickers = stickerRepository.findAll();
-        ListHelper.FilterList(stickers, author, tier, emoji);
+
+        List<String> authors = ListHelper.Select(stickers, item -> item.Author).stream().distinct().collect(Collectors.toList());
+        ListHelper.FilterListBy(stickers, item -> item.Author, author);
+        ListHelper.FilterListBy(stickers, item -> item.Tier, tier);
+        List<String> emojis = ListHelper.Select(stickers, item -> item.Emoji).stream().distinct().collect(Collectors.toList());
+        ListHelper.FilterListBy(stickers, item -> item.Emoji, emoji);
+
         if (sortBy != null && !sortBy.equals("")) ListHelper.SortList(stickers, sortBy);
         if (page == null) page = 1;
         int pagesCount = stickers.size() / 12;
         if (stickers.size() % 12 > 0) pagesCount++;
+
+        model.addAttribute("authors", authors);
+        model.addAttribute("emojis", emojis);
+        model.addAttribute("page", page);
+        model.addAttribute("author", author);
+        model.addAttribute("tier", tier);
+        model.addAttribute("emoji", emoji);
+        model.addAttribute("sortBy", sortBy);
         model.addAttribute("pagesCount", pagesCount);
         model.addAttribute("stickers", ListHelper.GetRange(stickers, (page - 1) * 12, 12));
         return "blocks/stickers";
@@ -51,13 +66,26 @@ public class AjaxController {
         if (user == null) return "redirect:/";
         List<String> stickerIds = userStickerRepository.findAllStickerIdByUserId(user.Id);
         List<Sticker> stickers = stickerRepository.findAllByStickersId(stickerIds);
-        ListHelper.FilterList(stickers, author, tier, emoji);
+
+        List<String> authors = ListHelper.Select(stickers, item -> item.Author).stream().distinct().collect(Collectors.toList());
+        ListHelper.FilterListBy(stickers, item -> item.Author, author);
+        ListHelper.FilterListBy(stickers, item -> item.Tier, tier);
+        List<String> emojis = ListHelper.Select(stickers, item -> item.Emoji).stream().distinct().collect(Collectors.toList());
+        ListHelper.FilterListBy(stickers, item -> item.Emoji, emoji);
+
         if (sortBy != null && !sortBy.equals("")) ListHelper.SortList(stickers, sortBy);
         if (page == null) page = 1;
         int pagesCount = stickers.size() / 12;
         if (stickers.size() % 12 > 0) pagesCount++;
+
+        model.addAttribute("authors", authors);
+        model.addAttribute("emojis", emojis);
+        model.addAttribute("page", page);
+        model.addAttribute("author", author);
+        model.addAttribute("tier", tier);
+        model.addAttribute("emoji", emoji);
+        model.addAttribute("sortBy", sortBy);
         model.addAttribute("pagesCount", pagesCount);
-        model.addAttribute("noStickers", stickers.size() == 0);
         model.addAttribute("stickers", ListHelper.GetRange(stickers, (page - 1) * 12, 12));
         return "collection/blocks/stickers";
     }

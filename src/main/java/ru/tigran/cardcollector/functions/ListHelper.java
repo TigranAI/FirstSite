@@ -9,14 +9,8 @@ import java.util.stream.Collectors;
 
 public class ListHelper {
 
-    private static boolean NullOrEqual(@Nullable Object o1, @Nullable Object o2){
-        return o1 == null || o2 == null || o1 == o2;
-    }
-
-    public static void FilterList(List<Sticker> list, String author, Integer tier, String emoji){
-        if(!NullOrEqual(author, "")) list.removeIf(item -> !item.Author.equals(author));
-        if(tier != null) list.removeIf(item -> !item.Tier.equals(tier));
-        if(!NullOrEqual(emoji, "")) list.removeIf(item -> !item.Emoji.contains(emoji));
+    public static <E, R> void FilterListBy(List<E> list, Function<E, R> expr, R value){
+        list.removeIf(item -> value != null && !value.toString().equals("") && !expr.apply(item).equals(value));
     }
 
     public static void SortList(List<Sticker> list, String sortParam){
