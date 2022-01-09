@@ -12,6 +12,7 @@ public class ServingWebContentApplication {
             switch (data[0]){
                 case "-debug":
                     Config.DEBUG = Boolean.parseBoolean(data[1]);
+                    break;
             }
         }
         SpringApplication.run(ServingWebContentApplication.class, args);
