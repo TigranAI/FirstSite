@@ -25,6 +25,8 @@ public class WebConfigurer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/database/logs");
+                registry.addMapping("/sticker");
+                registry.addMapping("/collection");
             }
         };
     }

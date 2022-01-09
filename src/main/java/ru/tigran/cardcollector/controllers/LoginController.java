@@ -38,13 +38,9 @@ public class LoginController {
 
     @GetMapping()
     public String login(Model model) {
-        if (model.containsAttribute("user")) return "redirect:/profile";
-        String host = Config.get("server.name");
-        String port = Config.get("server.port");
-        String botName = Config.get("telegram.bot.name");
-        model.addAttribute("host", host);
-        model.addAttribute("port", port);
-        model.addAttribute("botName", botName);
+        if (model.containsAttribute("user")) return "redirect:/collection";
+
+        model.addAttribute("botName", Config.get("telegram.bot.name"));
         return "login";
     }
 }

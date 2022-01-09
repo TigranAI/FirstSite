@@ -12,10 +12,10 @@
             <div class="col-md-4 margin mx-auto sticker-img">
                 <tgs-player th:if="${sticker.Animated}"
                             autoplay loop mode="normal"
-                            class="img-fluid" th:src="${sticker.getFilePath()}">
+                            class="img-fluid" th:src="${sticker.getForSaleFilePath()}">
                 </tgs-player>
                 <img th:if="${!sticker.Animated}"
-                     class="img-fluid" th:src="${sticker.getFilePath()}">
+                     class="img-fluid" th:src="${sticker.getForSaleFilePath()}">
             </div>
             <div class="col-md-8">
                 <div class="card-body">

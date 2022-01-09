@@ -12,3 +12,4 @@
 /resources/
 /src/main/resources/static/js/jquery-3.6.0.min.js
 *.docx
+/keystore.p12

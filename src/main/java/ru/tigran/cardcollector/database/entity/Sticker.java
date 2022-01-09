@@ -24,6 +24,7 @@ public class Sticker {
     @Column(name = "pack_id") public Integer PackId;
     @Column(name = "animated") public Boolean Animated;
     @Column(name = "file_path") private String FilePath;
+    @Column(name = "for_sale_file_path") private String ForSaleFilePath;
 
     public String getFilePath() {
         if (FilePath == null)
@@ -31,8 +32,18 @@ public class Sticker {
         return FilePath;
     }
 
+    public String getForSaleFilePath() {
+        if (ForSaleId == null) return getFilePath();
+        if (ForSaleFilePath == null)
+            ForSaleFilePath = Utilities.getTelegramFile(ForSaleId, "stickers/" + PackId);
+        return ForSaleFilePath;
+    }
+
     public void setFilePath(String filePath) {
         FilePath = filePath;
+    }
+    public void setForSaleFilePath(String forSaleFilePath) {
+        ForSaleFilePath = forSaleFilePath;
     }
 
     public String getStarTier(){

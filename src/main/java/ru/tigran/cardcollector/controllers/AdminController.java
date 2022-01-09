@@ -17,10 +17,6 @@ public class AdminController {
     public String admin(Model model){
         User user = (User) model.getAttribute("user");
         if (user == null || user.PrivilegeLevel < 2) return "redirect:/";
-        String host = Config.get("server.name");
-        String port = Config.get("server.port");
-        model.addAttribute("host", host);
-        model.addAttribute("port", port);
         return "admin/index";
     }
 }

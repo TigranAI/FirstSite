@@ -19,8 +19,9 @@ public class Pack {
     @Column(name="sticker_preview_path") private String StickerPreviewPath;
 
     public String getStickerPreviewPath() {
-        if (StickerPreviewPath == null)
-            Utilities.getTelegramFile(StickerPreview, "stickers/" + Id);
+        if (StickerPreviewPath == null) {
+            if (StickerPreview != null) StickerPreviewPath = Utilities.getTelegramFile(StickerPreview, "stickers/" + Id);
+        }
         return StickerPreviewPath;
     }
 

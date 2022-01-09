@@ -37,7 +37,7 @@ public class AjaxController {
         if (stickers.size() % 12 > 0) pagesCount++;
         model.addAttribute("pagesCount", pagesCount);
         model.addAttribute("stickers", ListHelper.GetRange(stickers, (page - 1) * 12, 12));
-        return "/blocks/stickers";
+        return "blocks/stickers";
     }
 
     @PostMapping(value = "/collection")
@@ -55,24 +55,24 @@ public class AjaxController {
         if (sortBy != null && !sortBy.equals("")) ListHelper.SortList(stickers, sortBy);
         if (page == null) page = 1;
         int pagesCount = stickers.size() / 12;
-        List<Sticker> res = ListHelper.GetRange(stickers, (page - 1) * 12, 12);
         if (stickers.size() % 12 > 0) pagesCount++;
         model.addAttribute("pagesCount", pagesCount);
+        model.addAttribute("noStickers", stickers.size() == 0);
         model.addAttribute("stickers", ListHelper.GetRange(stickers, (page - 1) * 12, 12));
-        return "/blocks/stickers";
+        return "collection/blocks/stickers";
     }
 
     @PostMapping(value = "/pages")
     public String getPages(Model model, @RequestParam Integer pagesCount, @RequestParam Integer currentPage) {
         model.addAttribute("pagesCount", pagesCount);
         model.addAttribute("page", currentPage);
-        return "/blocks/pages";
+        return "blocks/pages";
     }
 
     @PostMapping(value = "/toast")
     public String getToast(Model model, @RequestParam String message, @RequestParam(required = false) String title) {
         model.addAttribute("message", message);
         model.addAttribute("title", title);
-        return "/blocks/toast";
+        return "blocks/toast";
     }
 }

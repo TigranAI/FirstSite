@@ -8,15 +8,15 @@
             <tgs-player th:if="${sticker.Animated}"
                         autoplay loop mode="normal"
                         class="img-fluid"
-                        th:src="${sticker.getForSaleFilePath()}">
+                        th:src="${sticker.getFilePath()}">
             </tgs-player>
             <img th:if="${!sticker.Animated}"
                  class="img-fluid"
-                 th:src="${sticker.getForSaleFilePath()}">
+                 th:src="${sticker.getFilePath()}">
             <div class="card-body">
                 <a class="stretched-link" th:href="'/sticker?hash=' + ${sticker.MD5Hash}"></a>
             </div>
         </div>
     </th:block>
-    <h2 class="text-light" th:if="${stickers.size() == 0}">Ничего не найдено, попробуйте изменить критерии запроса</h2>
+    <h2 class="text-light" th:if="${stickers.size() == 0 && !noStickers}">Ничего не найдено, попробуйте изменить критерии запроса</h2>
 </th:block>

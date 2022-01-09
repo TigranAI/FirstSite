@@ -13,6 +13,7 @@ import ru.tigran.cardcollector.database.repository.PackRepository;
 import ru.tigran.cardcollector.database.repository.StickerRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -43,6 +44,14 @@ public class PackController {
     @GetMapping()
     public String showAllPacks(Model model) {
         ArrayList<Pack> packs = packRepository.findAll();
+        packs.forEach(item ->{
+            if(item.StickerPreview == null || item.StickerPreview.equals("")){
+                List<Sticker> stickers = stickerRepository.findByPackId(item.Id);
+                Sticker rndSticker = stickers.get(Utilities.rnd.nextInt(stickers.size()));
+                item.StickerPreview = rndSticker.Id;
+                item.Animated = rndSticker.Animated;
+            }
+        });
         model.addAttribute("packs", packs);
         model.addAttribute("title", "WyrmSticker | Все паки");
         return "pack/index";

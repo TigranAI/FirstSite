@@ -4,6 +4,9 @@
 </head>
 <body class="bg-dark d-flex flex-column h-100">
 <nav th:replace="blocks/header :: header"></nav>
+<form style="visibility: hidden; height: 0; width: 0">
+    <input type="text" name="botName" th:value="${botName}"/>
+</form>
 <div class="container card text-center bg-secondary" style="max-width: 512px">
     <img th:src="@{images/logo.png}" class="img-fluid">
     <div class="card-body">
@@ -17,12 +20,9 @@
 <footer th:replace="blocks/footer :: footer"></footer>
 <div th:replace="blocks/includes :: footer"></div>
 <script th:inline="javascript">
-    /*<![CDATA[*/
-    let host = /*[[${host}]]*/ 'default'
-    let port = /*[[${port}]]*/ 'default'
-    let botName = /*[[${botName}]]*/ 'default'
     $(document).ready(function () {
-        let eventUrl = "http://" + host + ':' + port + "/events/login"
+        let eventUrl = "/events/login"
+        let botName = $("input[name=botName]").val()
         let eventSource = new EventSource(eventUrl)
         eventSource.addEventListener("INIT", function (event) {
             let url = 'tg://resolve?domain=' + botName + '&start=login=' + event.data
@@ -35,7 +35,6 @@
             $('#login').submit()
         })
     })
-    /*]]>*/
 </script>
 </body>
 </html>

@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
-    private static Boolean DEBUG = true;
+    public static Boolean DEBUG = false;
     private static Properties props;
 
     static {

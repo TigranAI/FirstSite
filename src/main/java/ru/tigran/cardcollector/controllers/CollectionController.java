@@ -32,6 +32,7 @@ public class CollectionController {
         User user = (User) model.getAttribute("user");
         if (user == null) return "redirect:login";
         List<String> stickerIds = userStickerRepository.findAllStickerIdByUserId(user.Id);
+        if (stickerIds.size() == 0) model.addAttribute("noStickers", true);
         List<Sticker> stickers = stickerRepository.findAllByStickersId(stickerIds);
         ListHelper.FilterList(stickers, author, tier, emoji);
         if (sortBy != null) ListHelper.SortList(stickers, sortBy);

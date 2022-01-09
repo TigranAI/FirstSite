@@ -11,7 +11,10 @@
     </div>
     <div class="d-flex flex-column w-75 text-light">
         <div class="d-flex flex-row flex-wrap justify-content-evenly" id="stickersContent">
-            <th:block th:insert="blocks/stickers :: stickers"/>
+            <th:block th:insert="collection/blocks/stickers :: stickers"/>
+            <th:block th:if="${noStickers}">
+                <h2>У вас пока нет стикеров, но Вы можете получить их, открывая паки и покупая стикеры на аукционе</h2>
+            </th:block>
         </div>
     </div>
 </div>
