@@ -43,6 +43,7 @@ public class PackController {
 
     @GetMapping()
     public String showAllPacks(Model model) {
+        /*TODO some problem here*/
         ArrayList<Pack> packs = packRepository.findAll();
         packs.forEach(item ->{
             if(item.StickerPreview == null || item.StickerPreview.equals("")){

@@ -24,6 +24,7 @@ public class StickerController {
     @GetMapping(params = {"hash"})
     public String showSticker(@RequestParam String hash, Model model) {
         Sticker sticker = stickerRepository.findByHash(hash);
+        /*TODO some problem here*/
         ArrayList<Sticker> stickers = stickerRepository.findByPackId(sticker.PackId);
         for (int i = 0; i < stickers.size(); ++i) {
             if (Objects.equals(stickers.get(i).MD5Hash, hash)) {

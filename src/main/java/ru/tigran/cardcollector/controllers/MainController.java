@@ -32,7 +32,7 @@ public class MainController {
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("title", "WyrmSticker | Главная страница");
-
+        /*TODO some problem here*/
         List<User> users = userRepository.findAll();
         Hashtable<Long, User> usersTable = ListHelper.ToHashTable(users, item -> item.Id, item -> item);
         List<UserLevel> userLevels = userLevelRepository.findAll();

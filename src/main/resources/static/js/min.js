@@ -79,3 +79,10 @@ function applyFilters(page = 1){
 function applyContentTo(response, element){
     element.html(response.trim())
 }
+
+var myModal = document.getElementById('license')
+var myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', function () {
+    myInput.focus()
+})

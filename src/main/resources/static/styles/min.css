@@ -108,3 +108,44 @@ hr{
     color: #fff;
     background-color: #565e64;
 }
+
+ol {
+    /* убираем стандартную нумерацию */
+    list-style: none;
+    /* Идентифицируем счетчик и даем ему имя li. Значение счетчика не указано - по умолчанию оно равно 0 */
+    counter-reset: li;
+}
+li:before {
+    counter-increment: li;
+    content: counters(li, ".") ". ";
+}
+.hide-num > li:before{
+    counter-increment: none;
+    content: none;
+}
+.hide-num > li:before{
+    counter-increment: none;
+    content: none;
+}
+.bracket-num > li:before{
+    counter-increment: li;
+    content: counter(li) ')';
+}
+.marker-disable{
+    list-style: none;
+}
+.marker-disable > li:before{
+    content: none;
+}
+
+.cyrilic li:nth-child(1)::before { content: 'а)'; }
+.cyrilic li:nth-child(2)::before { content: 'б)'; }
+.cyrilic li:nth-child(3)::before { content: 'в)'; }
+.cyrilic li:nth-child(4)::before { content: 'г)'; }
+.cyrilic li:nth-child(5)::before { content: 'д)'; }
+.cyrilic li:nth-child(6)::before { content: 'е)'; }
+.cyrilic li:nth-child(7)::before { content: 'ж)'; }
+.cyrilic li:nth-child(8)::before { content: 'з)'; }
+.cyrilic li:nth-child(9)::before { content: 'и)'; }
+.cyrilic li:nth-child(10)::before { content: 'к)'; }
+.cyrilic li:nth-child(11)::before { content: 'л)'; }

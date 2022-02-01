@@ -41,6 +41,7 @@ public class EventController {
         if (emitters.containsKey(secretKey.getSecretKey()))
             emitters.get(secretKey.getSecretKey()).complete();
         emitters.put(secretKey.getSecretKey(), emitter);
+        /*TODO some problem here*/
         secretSessionKeyRepository.save(secretKey);
         return emitter;
     }
