@@ -131,6 +131,14 @@ li:before {
     counter-increment: li;
     content: counter(li) ')';
 }
+.dot-num > li:before{
+    counter-increment: li;
+    content: counter(li) '.';
+}
+.hyphen-num > li:before{
+    counter-increment: li;
+    content: counter(li) ' - ';
+}
 .marker-disable{
     list-style: none;
 }
