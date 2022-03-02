@@ -14,7 +14,7 @@ public class Utilities {
     public static Random rnd;
     static {
         rnd = new Random();
-        downloadPath = "resources/";
+        downloadPath = "resources/static/";
     }
 
     public static String getTelegramFile(String fileId, String folder) {

@@ -1,9 +1,6 @@
 package ru.tigran.cardcollector.translations;
 
-import ru.tigran.cardcollector.Utilities;
-
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 
 public class Effects {
@@ -11,7 +8,8 @@ public class Effects {
 
     static {
         try {
-            InputStream stream = Utilities.class.getClassLoader().getResourceAsStream("effects.xml");
+            File file = new File("resources/translations/effects.xml");
+            InputStream stream = new BufferedInputStream(new FileInputStream(file));
             effects = new Properties();
             effects.loadFromXML(stream);
         } catch (IOException e) {
