@@ -36,7 +36,7 @@ public class TopController {
         List<UserSticker> usersStickers = userStickerRepository.findAllByStickerIds(tier4StickerIds);
         Hashtable<Long, List<UserSticker>> groupedUserStickers = ListHelper.GroupBy(usersStickers, item -> item.UserId);
         DictionaryHelper.ToHashTable(groupedUserStickers, (k, v) -> k, (k, v) -> v).forEach((key, value) -> {
-            if (usersTable.get(key).PrivilegeLevel >= 7) groupedUserStickers.remove(key);
+            if (usersTable.get(key).PrivilegeLevel >= 6) groupedUserStickers.remove(key);
         });
         List<Map.Entry<String, Integer>> tier4Top = DictionaryHelper.ToList(groupedUserStickers,
                 (k, v) -> usersTable.get(k).Username, (k, v) -> v.size());
@@ -44,7 +44,7 @@ public class TopController {
 
         List<UserLevel> userLevels = userLevelRepository.findAll();
         ListHelper.ToList(userLevels, item -> item).forEach(item -> {
-            if (usersTable.get(item.UserId).PrivilegeLevel >= 7 || item.TotalExp == 0) userLevels.remove(item);
+            if (usersTable.get(item.UserId).PrivilegeLevel >= 6 || item.TotalExp == 0) userLevels.remove(item);
         });
         userLevels.sort((o1, o2) -> {
             long result = o2.TotalExp - o1.TotalExp;

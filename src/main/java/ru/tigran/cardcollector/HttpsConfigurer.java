@@ -28,7 +28,7 @@ public class HttpsConfigurer {
                     context.addConstraint(securityConstraint);
                 }
             };
-            tomcat.addAdditionalTomcatConnectors(httpsConnector());
+            tomcat.addAdditionalTomcatConnectors(httpRedirect());
         } else {
             tomcat = new TomcatServletWebServerFactory();
             tomcat.addAdditionalTomcatConnectors(httpConnector());
@@ -43,7 +43,7 @@ public class HttpsConfigurer {
         return connector;
     }
 
-    private Connector httpsConnector() {
+    private Connector httpRedirect() {
         Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setScheme("http");
         connector.setPort(Integer.parseInt(Config.get("server.port")));

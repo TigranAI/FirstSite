@@ -31,9 +31,17 @@ function setFilter(button) {
     updateUrl(url.toString());
 }
 
-function applyFilters(nextPage) {
+function setPage(pageNum){
     let url = new URL(window.location)
-    let page = nextPage ?? url.searchParams.get('page')
+    if (url.searchParams.has("page")) url.searchParams.set("page", pageNum)
+    else url.searchParams.append("page", pageNum)
+    updateUrl(url.toString());
+    applyFilters()
+}
+
+function applyFilters() {    
+    let url = new URL(window.location)
+    let page = url.searchParams.get('page')
     let author = url.searchParams.get('author')
     let tier = url.searchParams.get('tier')
     let emoji = url.searchParams.get('emoji')

@@ -27,7 +27,7 @@ public class MainController {
     public String index(Model model) {
         model.addAttribute("title", "WyrmSticker | Главная страница");
         ArrayList<Sticker> stickers = stickerRepository.findAll();
-        ArrayList<Pack> lastPacks = packRepository.findLast(3);
+        ArrayList<Pack> lastPacks = packRepository.findLast(4);
         model.addAttribute("lastPacks", lastPacks);
         model.addAttribute("sticker1", ListHelper.Random(stickers));
         model.addAttribute("sticker2", ListHelper.Random(stickers));

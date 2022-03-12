@@ -2,243 +2,246 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="blocks/header :: index_head"></head>
 <body>
-    <div class="wrapper">
-        <!--Шапка-->
-        <header th:replace="blocks/header :: header"></header>
+<div class="wrapper">
+    <!--Шапка-->
+    <header th:replace="blocks/header :: header"></header>
 
-        <!--Основная часть-->
-        <main class="main">
-            <div class="main__wrapper">
-                <!--Слайдер-->
-                <div class="slider">
-                    <!--Блок, в котором листаются слайды-->
-                    <div class="slider__wrapper">
-                        <!--Слайды-->
-                        <!--/*@thymesVar id="lastPacks" type="List<ru.tigran.cardcollector.database.entity.Pack>"*/-->
-                        <div th:each="pack, iter : ${lastPacks}" class="slider__item">
-                            <a th:href="@{~/pack(id=${pack.Id})}" class="slider__link">
-                                <th:block th:replace="blocks/previews :: pack(${pack}, slider__sticker)"/>
-                                <p class="slider__text">
-                                    Новый стикерпак от <span class="slider__author-name" th:text="${pack.Author}"></span> уже в
-                                    магазине!
-                                </p>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!--Навигация слайдера-->
-                    <ul id="pager" class="slider__nav"></ul>
-                </div>
-
-                <!--Блок с приветствием-->
-                <div class="welcome-card">
-                    <div class="welcome-card__info">
-                        <h1 class="welcome-card__title">Добро пожаловать <br> в wyrm sticker bot</h1>
-                        <p class="welcome-card__text">
-                            Здесь вы сможете коллекционировать уникальные стикеры, покупать и продавать их через аукцион,
-                            и получать крутые призы! Стикеры в WYRM STICKER BOT особенные - ты не сможешь прислать их
-                            как обычный telegram стикер, а отправлять можно только те стикеры, которые есть у тебя в
-                            коллекции. А еще у нас есть крутая инструкция  👇 , обязательно ее прочитай!
-                        </p>
-                    </div>
-
-                    <div class="welcome-card__stickers">
-                        <div class="welcome-card__sticker-group">
-                            <div class="welcome-card__sticker welcome-card__sticker_yellow">
-                                <!--/*@thymesVar id="sticker1" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
-                                <th:block th:replace="blocks/previews :: sticker_link(${sticker1}, welcome-card__img, '')"/>
-                            </div>
-                            <div class="welcome-card__sticker welcome-card__sticker_purple">
-                                <!--/*@thymesVar id="sticker2" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
-                                <th:block th:replace="blocks/previews :: sticker_link(${sticker2}, welcome-card__img, '')"/>
-                            </div>
-                        </div>
-
-                        <div class="welcome-card__sticker-group">
-                            <div class="welcome-card__sticker welcome-card__sticker_purple">
-                                <!--/*@thymesVar id="sticker3" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
-                                <th:block th:replace="blocks/previews :: sticker_link(${sticker3}, welcome-card__img, '')"/>
-                            </div>
-                            <div class="welcome-card__sticker welcome-card__sticker_yellow">
-                                <!--/*@thymesVar id="sticker4" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
-                                <th:block th:replace="blocks/previews :: sticker_link(${sticker4}, welcome-card__img, '')"/>
-                            </div>
-                        </div>
-
+    <!--Основная часть-->
+    <main class="main">
+        <div class="main__wrapper">
+            <!--Слайдер-->
+            <div class="slider">
+                <!--Блок, в котором листаются слайды-->
+                <div class="slider__wrapper">
+                    <!--Слайды-->
+                    <!--/*@thymesVar id="lastPacks" type="List<ru.tigran.cardcollector.database.entity.Pack>"*/-->
+                    <div th:each="pack, iter : ${lastPacks}" class="slider__item">
+                        <a th:href="@{~/pack(id=${pack.Id})}" class="slider__link">
+                            <th:block th:replace="blocks/previews :: pack(${pack}, slider__sticker)"/>
+                            <p class="slider__text">
+                                Новый стикерпак от <span class="slider__author-name" th:text="${pack.Author}"></span>
+                                уже в
+                                магазине!
+                            </p>
+                        </a>
                     </div>
                 </div>
 
-                <!--Инструкция-->
-                <div class="instruction">
-                    <h1 class="instruction__title">Инструкция</h1>
+                <!--Навигация слайдера-->
+                <ul id="pager" class="slider__nav"></ul>
+            </div>
 
-                    <div id="instruction-01" class="instruction__item">
-                        <h2 class="instruction__item-title">Сбор прибыли</h2>
-                        <div class="instruction__info non-active">
-                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua</p>
-                            <div class="instruction__gif-bg instruction__gif-bg_right">
-                                <img th:src="@{~/img/gif/1.gif}" alt="gif" class="instruction__gif">
-                            </div>
+            <!--Блок с приветствием-->
+            <div class="welcome-card">
+                <div class="welcome-card__info">
+                    <h1 class="welcome-card__title">Добро пожаловать <br> в wyrm sticker bot</h1>
+                    <p class="welcome-card__text">
+                        Здесь вы сможете коллекционировать уникальные стикеры, покупать и продавать их через аукцион,
+                        и получать крутые призы! Стикеры в WYRM STICKER BOT особенные - ты не сможешь прислать их
+                        как обычный telegram стикер, а отправлять можно только те стикеры, которые есть у тебя в
+                        коллекции. А еще у нас есть крутая инструкция 👇 , обязательно ее прочитай!
+                    </p>
+                </div>
 
+                <div class="welcome-card__stickers">
+                    <div class="welcome-card__sticker-group">
+                        <div class="welcome-card__sticker welcome-card__sticker_yellow">
+                            <!--/*@thymesVar id="sticker1" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+                            <th:block th:replace="blocks/previews :: sticker_link(${sticker1}, welcome-card__img, '')"/>
+                        </div>
+                        <div class="welcome-card__sticker welcome-card__sticker_purple">
+                            <!--/*@thymesVar id="sticker2" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+                            <th:block th:replace="blocks/previews :: sticker_link(${sticker2}, welcome-card__img, '')"/>
                         </div>
                     </div>
 
-                    <div id="instruction-02" class="instruction__item">
-                        <h2 class="instruction__item-title">Отправка стикера через коллекцию</h2>
-                        <div class="instruction__info non-active">
-                            <div class="instruction__gif-bg instruction__gif-bg_left">
-                                <img th:src="@{~/img/gif/2.gif}" alt="gif" class="instruction__gif">
-                            </div>
-                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua</p>
+                    <div class="welcome-card__sticker-group">
+                        <div class="welcome-card__sticker welcome-card__sticker_purple">
+                            <!--/*@thymesVar id="sticker3" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+                            <th:block th:replace="blocks/previews :: sticker_link(${sticker3}, welcome-card__img, '')"/>
+                        </div>
+                        <div class="welcome-card__sticker welcome-card__sticker_yellow">
+                            <!--/*@thymesVar id="sticker4" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+                            <th:block th:replace="blocks/previews :: sticker_link(${sticker4}, welcome-card__img, '')"/>
                         </div>
                     </div>
 
-                    <div id="instruction-03" class="instruction__item">
-                        <h2 class="instruction__item-title">Отправка стикера через @</h2>
-                        <div class="instruction__info">
-                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua</p>
-                            <div class="instruction__gif-bg instruction__gif-bg_right">
-                                <img th:src="@{~/img/gif/3.gif}" alt="gif" class="instruction__gif">
-                            </div>
+                </div>
+            </div>
+
+            <!--Инструкция-->
+            <div class="instruction">
+                <h1 class="instruction__title">Инструкция</h1>
+
+                <div id="instruction-01" class="instruction__item">
+                    <h2 class="instruction__item-title">Сбор прибыли</h2>
+                    <div class="instruction__info non-active">
+                        <p class="instruction__text">Каждый стикер приносит прибыль, которая поступает в копилку.
+                            Прибыль можно собирать в Профиле. Максимальная вместимость копилки в начале игры - 200
+                            монет. Как только копилка заполняется, стикеры перестают приносить вам прибыль - поэтому не
+                            забывайте заходить в бота почаще, чтобы не терять свои монеты!</p>
+                        <div class="instruction__gif-bg instruction__gif-bg_right">
+                            <img th:src="@{~/img/gif/1.gif}" alt="gif" class="instruction__gif">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="instruction-02" class="instruction__item">
+                    <h2 class="instruction__item-title">Отправка стикера через коллекцию</h2>
+                    <div class="instruction__info non-active">
+                        <div class="instruction__gif-bg instruction__gif-bg_left">
+                            <img th:src="@{~/img/gif/2.gif}" alt="gif" class="instruction__gif">
+                        </div>
+                        <p class="instruction__text">Свои стикеры можно посмотреть в Коллекции. Для этого достаточно
+                            нажать кнопку внизу - Коллекция, а затем «Показать стикеры». Сверху вам доступны фильтры, по
+                            которым вы сможете найти нужный вам стикер. Чтобы отправить стикер, вам нужно нажать
+                            «Показать стикеры», выбрать нужный стикер и нажать кнопку «Отправить стикер».
+
+                            Если у вас отсутствует кнопка Коллекция внизу, напишите команду /menu в чате с ботом, и
+                            кнопка снова появится.</p>
+                    </div>
+                </div>
+
+                <div id="instruction-03" class="instruction__item">
+                    <h2 class="instruction__item-title">Отправка стикера через @</h2>
+                    <div class="instruction__info">
+                        <p class="instruction__text">Вы можете отправлять стикеры прямо в чате со своими друзьями - для
+                            этого достаточно написать @wyrm_sticker_bot, и выбрать стикер который хотите отправить.</p>
+                        <div class="instruction__gif-bg instruction__gif-bg_right">
+                            <img th:src="@{~/img/gif/3.gif}" alt="gif" class="instruction__gif">
                         </div>
                     </div>
+                </div>
 
-                    <div id="instruction-04" class="instruction__item">
-                        <h2 class="instruction__item-title">Покупка обычного пака за золото</h2>
-                        <div class="instruction__info">
-                            <div class="instruction__gif-bg instruction__gif-bg_left">
-                                <img th:src="@{~/img/gif/4.gif}" alt="gif" class="instruction__gif">
-                            </div>
-                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua</p>
+                <div id="instruction-04" class="instruction__item">
+                    <h2 class="instruction__item-title">Покупка обычного пака за золото</h2>
+                    <div class="instruction__info">
+                        <div class="instruction__gif-bg instruction__gif-bg_left">
+                            <img th:src="@{~/img/gif/4.gif}" alt="gif" class="instruction__gif">
+                        </div>
+                        <p class="instruction__text">Прибыль, которую приносят стикеры, можно потратить в магазине на
+                            покупку наборов стикеров - «паков». Для этого надо нажать на кнопку «Магазин» ➡️ «Купить
+                            пак» ➡️ «Обычный пак» ➡️ «1000 💰 ». Из обычного пака вам может выпасть абсолютно любой
+                            стикер случайного автора.
+
+                            Если у вас отсутствует кнопка Магазин внизу, напишите команду /menu в чате с ботом, и кнопка
+                            снова появится.</p>
+                    </div>
+                </div>
+
+                <div id="instruction-05" class="instruction__item">
+                    <h2 class="instruction__item-title">Покупка пака художника</h2>
+                    <div class="instruction__info">
+                        <p class="instruction__text">В магазине также доступны паки художников - из них вам выпадают
+                            стикеры только того автора, которого вы выберите. Вы можете посмотреть на набор художника,
+                            выбрав нужного художника в магазине и нажав кнопку «Показать стикеры». Паки художников
+                            нельзя купить за золото - они покупаются только за алмазы.</p>
+                        <div class="instruction__gif-bg instruction__gif-bg_right">
+                            <img th:src="@{~/img/gif/5.gif}" alt="gif" class="instruction__gif">
                         </div>
                     </div>
+                </div>
 
-                    <div id="instruction-05" class="instruction__item">
-                        <h2 class="instruction__item-title">Покупка пака художника</h2>
-                        <div class="instruction__info">
-                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua</p>
-                            <div class="instruction__gif-bg instruction__gif-bg_right">
-                                <img th:src="@{~/img/gif/5.gif}" alt="gif" class="instruction__gif">
-                            </div>
+                <div id="instruction-06" class="instruction__item">
+                    <h2 class="instruction__item-title">Покупка алмазов</h2>
+                    <div class="instruction__info">
+                        <div class="instruction__gif-bg instruction__gif-bg_left">
+                            <img th:src="@{~/img/gif/6.gif}" alt="gif" class="instruction__gif">
+                        </div>
+                        <p class="instruction__text">Алмазы - платная валюта. Курс: ₽69 = 100 💎 . Алмазы можно купить в
+                            Магазине, нажав на кнопку «Купить алмазы.»</p>
+                    </div>
+                </div>
+
+                <div id="instruction-07" class="instruction__item">
+                    <h2 class="instruction__item-title">Открытие паков</h2>
+                    <div class="instruction__info">
+                        <p class="instruction__text">Ваши паки хранятся в профиле. Когда у вас появляется пак, в шапке
+                            профиля у кнопки "Мои Паки" появляется 🎁 . ЧТобы открыть паки, нажмите "Профиль" ➡️ "Мои
+                            Паки 🎁 ", и выберите, какой пак вы хотите открыть: Обычный или Пак Художника.</p>
+                        <div class="instruction__gif-bg instruction__gif-bg_right">
+                            <img th:src="@{~/img/gif/7.gif}" alt="gif" class="instruction__gif">
                         </div>
                     </div>
+                </div>
 
-                    <div id="instruction-06" class="instruction__item">
-                        <h2 class="instruction__item-title">Покупка алмазов</h2>
-                        <div class="instruction__info">
-                            <div class="instruction__gif-bg instruction__gif-bg_left">
-                                <img th:src="@{~/img/gif/6.gif}" alt="gif" class="instruction__gif">
-                            </div>
-                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua</p>
+                <div id="instruction-08" class="instruction__item">
+                    <h2 class="instruction__item-title">Объединение стикеров</h2>
+                    <div class="instruction__info">
+                        <div class="instruction__gif-bg instruction__gif-bg_left">
+                            <img th:src="@{~/img/gif/8.gif}" alt="gif" class="instruction__gif">
+                        </div>
+                        <p class="instruction__text">Стикеры также можно объединять. Просто выбери 5 стикеров одного
+                            тира, и получи стикер следующего! Для этого нажми "Коллекция"➡️"Показать Стикеры" ➡️ выбери
+                            стикер, который хочешь объеденить, и их количество (если у тебя больше 1 копии). Нажми
+                            "Добавить", чтобы выбрать другие стикеры для объединения (для объединения нужно 5 любых
+                            стикеров). Новый стикер будет приносить в 5 раз больше прибыли, а если он 4 тира ➡️ то у
+                            него будет особенный эффект. Помни, объединять можно стикеры одного тира!</p>
+                    </div>
+                </div>
+
+                <div id="instruction-09" class="instruction__item">
+                    <h2 class="instruction__item-title">Фильтр по стикерам через коллекцию</h2>
+                    <div class="instruction__info">
+                        <p class="instruction__text">У нас есть удобные фильтры, позволяющие легко найти нужный стикер.
+                            Нажми "Коллекция", и выбирай, какие стикеры ты хочешь смотреть. После этого нажми "Показать
+                            стикеры" - ты увидишь только стикеры, удовлетворяющие твоим фильтрам. Если кнопка "Показать
+                            стикеры" не работает - возможно у тебя нет стикеров нужного фильтра, попробуй сменить
+                            их.</p>
+                        <div class="instruction__gif-bg instruction__gif-bg_right">
+                            <img th:src="@{~/img/gif/9.gif}" alt="gif" class="instruction__gif">
                         </div>
                     </div>
+                </div>
 
-                    <div id="instruction-07" class="instruction__item">
-                        <h2 class="instruction__item-title">Открытие паков</h2>
-                        <div class="instruction__info">
-                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua</p>
-                            <div class="instruction__gif-bg instruction__gif-bg_right">
-                                <img th:src="@{~/img/gif/7.gif}" alt="gif" class="instruction__gif">
-                            </div>
+                <div id="instruction-10" class="instruction__item">
+                    <h2 class="instruction__item-title">Фильтр по стикерам через @ (Смайлик/Имя)</h2>
+                    <div class="instruction__info">
+                        <div class="instruction__gif-bg instruction__gif-bg_left">
+                            <img th:src="@{~/img/gif/10.gif}" alt="gif" class="instruction__gif">
+                        </div>
+                        <p class="instruction__text">Фильтровать стикеры можно прямо в чате. Напиши @wyrm_sticker_bot, и
+                            имя художника/название стикера/эмоцию. Бот сам подберет нужный вариант!</p>
+                    </div>
+                </div>
+
+                <div id="instruction-11" class="instruction__item">
+                    <h2 class="instruction__item-title">Продажа стикеров на аукционе</h2>
+                    <div class="instruction__info">
+                        <p class="instruction__text">Стикер можно продать на аукционе. Для этого нажми "Коллекция" ➡️
+                            выбери стикер, который хочешь продать, и нажми «Выставить на аукцион». Число стикеров можно
+                            менять с помощью +/-. Затем напиши стоимость стикера в алмазах и пришли ее боту. После этого
+                            нажми «Выставить на аукцион».</p>
+                        <div class="instruction__gif-bg instruction__gif-bg_right">
+                            <img th:src="@{~/img/gif/11.gif}" alt="gif" class="instruction__gif">
                         </div>
                     </div>
+                </div>
 
-                    <div id="instruction-08" class="instruction__item">
-                        <h2 class="instruction__item-title">Объединение стикеров</h2>
-                        <div class="instruction__info">
-                            <div class="instruction__gif-bg instruction__gif-bg_left">
-                                <img th:src="@{~/img/gif/8.gif}" alt="gif" class="instruction__gif">
-                            </div>
-                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua</p>
+                <div id="instruction-12" class="instruction__item">
+                    <h2 class="instruction__item-title">Покупка стикеров на аукционе</h2>
+                    <div class="instruction__info">
+                        <div class="instruction__gif-bg instruction__gif-bg_left">
+                            <img th:src="@{~/img/gif/12.gif}" alt="gif" class="instruction__gif">
                         </div>
-                    </div>
-
-                    <div id="instruction-09" class="instruction__item">
-                        <h2 class="instruction__item-title">Фильтр по стикерам через коллекцию</h2>
-                        <div class="instruction__info">
-                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua</p>
-                            <div class="instruction__gif-bg instruction__gif-bg_right">
-                                <img th:src="@{~/img/gif/9.gif}" alt="gif" class="instruction__gif">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="instruction-10" class="instruction__item">
-                        <h2 class="instruction__item-title">Фильтр по стикерам через @ (Смайлик/Имя)</h2>
-                        <div class="instruction__info">
-                            <div class="instruction__gif-bg instruction__gif-bg_left">
-                                <img th:src="@{~/img/gif/10.gif}" alt="gif" class="instruction__gif">
-                            </div>
-                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua</p>
-                        </div>
-                    </div>
-
-                    <div id="instruction-11" class="instruction__item">
-                        <h2 class="instruction__item-title">Продажа стикеров на аукционе</h2>
-                        <div class="instruction__info">
-                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua</p>
-                            <div class="instruction__gif-bg instruction__gif-bg_right">
-                                <img th:src="@{~/img/gif/11.gif}" alt="gif" class="instruction__gif">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="instruction-12" class="instruction__item">
-                        <h2 class="instruction__item-title">Покупка стикеров на аукционе</h2>
-                        <div class="instruction__info">
-                            <div class="instruction__gif-bg instruction__gif-bg_left">
-                                <img th:src="@{~/img/gif/12.gif}" alt="gif" class="instruction__gif">
-                            </div>
-                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                                aliqua</p>
-                        </div>
+                        <p class="instruction__text">Нужный тебе стикер можно также купить аукционе. Нажми "Аукцион",
+                            поставь нужные тебе фильтры, и нажми "Показать стикеры". После этого выбери стикер, и нажми
+                            "Показать продавцов". Выбери продавца, и купи у него стикер - после этого ты найдешь его у
+                            себя в коллекции!</p>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
+</div>
 
-    <th:block th:replace="blocks/footer :: footer"/>
-    </div>
+<th:block th:replace="blocks/footer :: footer"/>
+</div>
 
-    <script th:src="@{~/js/jquery-3.6.0.min.js}"></script>
-    <script th:src="@{~/js/jquery.cycle.js}"></script>
-    <script th:src="@{~/js/main.js}"></script>
-    <script th:src="@{~/js/tgs-player.js}"></script>
+<script th:src="@{~/js/jquery-3.6.0.min.js}"></script>
+<script th:src="@{~/js/jquery.cycle.js}"></script>
+<script th:src="@{~/js/main.js}"></script>
+<script th:src="@{~/js/tgs-player.js}"></script>
 </body>
 </html>
