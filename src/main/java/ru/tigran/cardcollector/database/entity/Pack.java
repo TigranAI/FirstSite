@@ -5,7 +5,6 @@ import ru.tigran.cardcollector.Utilities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 
 @Entity(name="packs")
 public class Pack {

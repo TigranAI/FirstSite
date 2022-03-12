@@ -1,29 +1,30 @@
-<!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
-<head th:insert="blocks/includes :: header"></head>
-<body class="bg-dark d-flex flex-column h-100">
-<nav th:replace="blocks/header :: header"></nav>
-<div class="flex-shrink-0 container d-flex justify-content-around flex-wrap">
-    <th:block th:each="pack,iter : ${packs}">
-        <div class="card text-center bg-secondary mb-2 text-dark mx-2">
-            <div class="sticker-thumb-md mx-auto">
-                <tgs-player th:if="${pack.Animated}"
-                            autoplay loop mode="normal"
-                            class="img-fluid"
-                            th:src="${pack.getStickerPreviewPath()}">
-                </tgs-player>
-                <img th:if="${!pack.Animated}"
-                     class="img-fluid"
-                     th:src="${pack.getStickerPreviewPath()}">
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: packs_head"></head>
+
+<body>
+    <div class="wrapper">
+        <!--Шапка-->
+        <header th:insert="blocks/header :: header"></header>
+
+        <!--Основная часть-->
+        <main class="main">
+            <div class="main__wrapper">
+                <th:block th:fragment="packs_page(packs)">
+                    <div class="stickerPacks-bg">
+                        <th:block th:each="i: ${#numbers.sequence(0, packs.size(), 4)}">
+                            <th:block th:replace="pack/blocks :: pack_row(${packs}, ${i}, ${i+3})"/>
+                        </th:block>
+                    </div>
+                </th:block>
             </div>
-            <div class="card-body">
-                <h3 class="card-title" th:text="${pack.Author}"></h3>
-                <a class="stretched-link" th:href="'/pack?id=' + ${pack.Id}"></a>
-            </div>
-        </div>
-    </th:block>
-</div>
-<footer th:replace="blocks/footer :: footer"></footer>
-<div th:replace="blocks/includes :: footer"></div>
+        </main>
+        <th:block th:replace="blocks/footer :: footer"/>
+    </div>
+
+    <script th:src="@{~/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{~/js/script.js}"></script>
+    <script th:src="@{~/js/tgs-player.js}"></script>
 </body>
+
 </html>

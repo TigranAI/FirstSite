@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="pages" th:if="${pagesCount > 1}">
-    <li class="page-item" th:if="${page != 1 && page != null}">
-        <button class="page-link w-auto" th:onclick="'applyFilters('+${page - 1}+')'">&lt;</button>
-    </li>
-    <li class="page-item" th:if="${page > 3}">
-        <button class="page-link shadow-none">..</button>
-    </li>
-    <th:block th:each="pageNum:${#numbers.sequence(1, pagesCount)}">
-        <li th:if="${pageNum > page - 3 && pageNum < page + 3}" class="page-item shadow-none"
-            th:classappend="${pageNum == page} ? 'active' : ''" th:id="'page'+${pageNum}">
-            <button class="page-link shadow-none btn-secondary" th:onclick="'applyFilters('+${pageNum}+')'"
-                    th:text="${pageNum}"></button>
-        </li>
-    </th:block>
-    <li class="page-item" th:if="${page + 2 < pagesCount}">
-        <button class="page-link shadow-none">..</button>
-    </li>
-    <li class="page-item" th:if="${page != pagesCount && pagesCount > 1}">
-        <button class="page-link" th:onclick="'applyFilters('+${page + 1}+')'">&gt;</button>
-    </li>
+
+<th:block th:fragment="pages(page, pagesCount)" th:if="${pagesCount > 1}">
+    <nav class="nav">
+        <ul class="nav__stikers-page" id="pagesBottom">
+            <li class="nav__page" th:if="${page != 1 && page != null}">
+                <button class="nav__button" th:onclick="'applyFilters('+${page - 1}+')'"><</button>
+            </li>
+            <li class="nav__page" th:if="${page > 3}">
+                <button class="nav__button">..</button>
+            </li>
+
+            <th:block th:each="pageNum : ${#numbers.sequence(1, pagesCount)}">
+                <li class="nav__page" th:if="${pageNum > page - 3 && pageNum < page + 3}" th:id="'page'+${pageNum}">
+                    <button class="nav__button" th:onclick="'applyFilters('+${pageNum}+')'"
+                            th:text="${pageNum}"></button>
+                </li>
+            </th:block>
+
+            <li class="nav__page" th:if="${page + 2 < pagesCount}">
+                <button class="nav__button">..</button>
+            </li>
+            <li class="nav__page" th:if="${page != pagesCount && pagesCount > 1}">
+                <button class="nav__button" th:onclick="'applyFilters('+${page + 1}+')'">></button>
+            </li>
+        </ul>
+    </nav>
 </th:block>

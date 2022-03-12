@@ -1,85 +1,83 @@
 <!doctype html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<nav th:fragment="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top mb-2 header">
-    <div class="container">
-        <a class="navbar-brand" href="/">WyrmSticker</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
-                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="--bs-scroll-height: 100px;">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/"
-                       th:classappend="${#httpServletRequest.requestURI == '/'} ? 'active' : ''">
-                        Главная
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/pack"
-                       th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'pack')} ? 'active' : ''">
-                        Паки
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/sticker"
-                       th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'sticker')} ? 'active' : ''">
-                        Все стикеры
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/collection"
-                       th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'collection')} ? 'active' : ''">
-                        Коллекция
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/top"
-                       th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'top')} ? 'active' : ''">
-                        Топ коллекционеров
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about"
-                       th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'about')} ? 'active' : ''">
-                        О нас
-                    </a>
-                </li>
-            </ul>
-
-            <!--/*@thymesVar id="user" type="ru.tigran.cardcollector.database.entity.User"*/-->
-            <th:block th:if="${user}">
-                <div class="dropdown">
-                    <button class="btn btn-outline-light dropdown-toggle" th:text="${user.Username}"
-                            type="button" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="profile">
-                        <!--<li>
-                            <a class="dropdown-item" href="/profile"
-                               th:aria-current="${#strings.contains(#httpServletRequest.requestURI, 'profile')} ? 'true' : 'false'"
-                               th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'profile')} ? 'active' : ''">
-                                Мой профиль
-                            </a>
-                        </li>-->
-                        <li th:if="${user.PrivilegeLevel > 2}">
-                            <a class="dropdown-item" href="/admin"
-                               th:aria-current="${#strings.contains(#httpServletRequest.requestURI, 'admin')} ? 'true' : 'false'"
-                               th:classappend="${#strings.contains(#httpServletRequest.requestURI, 'admin')} ? 'active' : ''">
-                                Панель управления
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item" href="/logout">Выход</a>
-                        </li>
-                    </ul>
-                </div>
-            </th:block>
-            <th:block th:unless="${user}">
-                <a href="/login" role="button" class="btn btn-outline-light p-0">
-                    <img th:src="@{images/telegram-logo.svg}" height="38"><span class="btn-text pr-10px">Вход</span>
-                </a>
-            </th:block>
+<header class="header" th:fragment="header">
+    <nav class="header__wrapper">
+        <a th:href="@{~/}" class="header__logo-link"><img class="header__logo" th:src="@{~/img/Dragon_av.png}" alt="logo"></a>
+        <div class="header__links">
+            <a th:href="@{~/}" class="header__link">Главная</a>
+            <a th:href="@{~/pack}" class="header__link">Стикерпаки</a>
+            <a th:href="@{~/sticker}" class="header__link">Все стикеры</a>
+            <a th:href="@{~/collection}" class="header__link">Коллекция</a>
+            <a th:href="@{~/top}" class="header__link">топ <br>коллекционеров</a>
+            <a th:href="@{~/about}" class="header__link">О нас</a>
         </div>
-    </div>
-</nav>
+        <div class="header__burger">
+            <span></span>
+        </div>
+        <!--/*@thymesVar id="user" type="ru.tigran.cardcollector.database.entity.User"*/-->
+        <a th:unless="${user}" th:href="@{~/login}" class="header__button">Вход</a>
+        <a th:if="${user}" th:href="@{~/logout}" class="header__button">Выход</a>
+    </nav>
+</header>
+
+<th:block th:fragment="base_head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet">
+
+    <link rel="icon" th:href="@{img/Dragon_av.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{~/css/style.css}">
+    <link rel="stylesheet" th:href="@{~/css/scroll.css}">
+    <title th:text="${title}"></title>
+</th:block>
+
+<head th:fragment="index_head">
+     <th:block th:replace="blocks/header :: base_head"/>
+</head>
+
+<head th:fragment="about_head">
+    <th:block th:replace="blocks/header :: base_head"/>
+    <link rel="stylesheet" th:href="@{~/css/about.css}">
+</head>
+
+<head th:fragment="login_head">
+    <th:block th:replace="blocks/header :: base_head"/>
+    <link rel="stylesheet" th:href="@{~/css/auth.css}">
+</head>
+
+<head th:fragment="top_head">
+    <th:block th:replace="blocks/header :: base_head"/>
+    <link rel="stylesheet" th:href="@{~/css/top.css}">
+</head>
+
+<head th:fragment="stickers_head">
+    <th:block th:replace="blocks/header :: base_head"/>
+    <link rel="stylesheet" th:href="@{~/css/allStickers.css}">
+</head>
+
+<head th:fragment="sticker_head">
+    <th:block th:replace="blocks/header :: base_head"/>
+    <link rel="stylesheet" th:href="@{~/css/sticker.css}">
+</head>
+
+<head th:fragment="docs_head">
+    <th:block th:replace="blocks/header :: base_head"/>
+    <link rel="stylesheet" th:href="@{~/css/documents.css}">
+</head>
+
+<head th:fragment="packs_head">
+    <th:block th:replace="blocks/header :: base_head"/>
+    <link rel="stylesheet" th:href="@{~/css/stickerPacks.css}">
+</head>
+
+<head th:fragment="pack_head">
+    <th:block th:replace="blocks/header :: base_head"/>
+    <link rel="stylesheet" th:href="@{~/css/stickerPack.css}">
+</head>
+
+<head th:fragment="collection_head">
+    <th:block th:replace="blocks/header :: base_head"/>
+    <link rel="stylesheet" th:href="@{~/css/collection.css}">
+</head>

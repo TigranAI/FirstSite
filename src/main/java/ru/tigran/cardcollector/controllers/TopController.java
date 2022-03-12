@@ -52,11 +52,11 @@ public class TopController {
             if (result < 0) return -1;
             return 0;
         });
-        List<Map.Entry<String, Long>> expTop = ListHelper.ToList(ListHelper.GetRange(userLevels, 0, 5),
+        List<Map.Entry<String, Long>> expTop = ListHelper.ToList(ListHelper.GetRange(userLevels, 0, 10),
                 userLevel -> new AbstractMap.SimpleEntry<>(usersTable.get(userLevel.UserId).Username, userLevel.TotalExp));
-
+        System.out.println(expTop.size());
         model.addAttribute("expTop", expTop);
-        model.addAttribute("tier4Top", ListHelper.GetRange(tier4Top, 0, 5));
+        model.addAttribute("tier4Top", ListHelper.GetRange(tier4Top, 0, 10));
         model.addAttribute("title", "WyrmSticker | Топ пользователей");
         return "top/index";
     }

@@ -1,12 +1,36 @@
-<!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
-<head th:insert="blocks/includes :: header"></head>
-<body class="bg-dark d-flex flex-column h-100">
-<nav th:replace="blocks/header :: header"></nav>
-<div class="container d-flex flex-row" id="content">
-    <th:block th:insert="blocks/stickers :: content"/>
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: stickers_head"></head>
+
+<body>
+<div class="wrapper">
+    <!--Шапка-->
+    <header th:replace="blocks/header :: header"></header>
+
+    <!--Основная часть-->
+    <main class="main">
+        <div class="main__wrapper">
+            <div class="stickers-bg" id="stickersContent">
+                <!--/*@thymesVar id="filters" type="ru.tigran.cardcollector.models.FiltersDTO"*/-->
+                <th:block th:fragment="stickers_page(stickers, filters, pagesCount, authors, emojis)">
+                    <div class="stickers-page">
+                        <th:block th:replace="blocks/filters :: filters(${filters}, ${authors}, ${emojis})"/>
+
+                        <th:block th:replace="sticker/blocks :: stickers(${stickers})"/>
+                    </div>
+
+                    <th:block th:replace="blocks/pages :: pages(${filters.getPage()}, ${pagesCount})"/>
+                </th:block>
+            </div>
+        </div>
+    </main>
+
+    <th:block th:replace="blocks/footer :: footer"/>
 </div>
-<footer th:replace="blocks/footer :: footer"></footer>
-<div th:replace="blocks/includes :: footer"></div>
+
+<script th:src="@{~/js/jquery-3.6.0.min.js}"></script>
+<script th:src="@{~/js/filters.js}"></script>
+<script th:src="@{~/js/tgs-player.js}"></script>
 </body>
+
 </html>

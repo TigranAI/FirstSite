@@ -1,140 +1,139 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="filters">
-    <form id="filters" style="visibility: hidden; height: 0">
-        <input type="number" name="page" th:value="${page}">
-        <input type="text" name="author" th:value="${author}">
-        <input type="number" name="tier" th:value="${tier}">
-        <input type="text" name="emoji" th:value="${emoji}">
-        <input type="text" name="sortBy" th:value="${sortBy}">
-    </form>
-    <div class="accordion accordion-flush" id="filtersAccordion">
-        <div class="accordion-item">
-            <h2 class="accordion-header bg-secondary" id="headingAuthor">
-                <button class="accordion-button text-light bg-secondary collapsed" type="button"
-                        data-bs-toggle="collapse" th:text="'Автор ' + ${author != null && author != '' ? '(' + author + ')' : '(Все)'}"
-                        data-bs-target="#collapseAuthor" aria-expanded="false" aria-controls="collapseAuthor">
-                    Автор
-                </button>
-            </h2>
-            <div id="collapseAuthor" class="accordion-collapse collapse" aria-labelledby="headingAuthor"
-                 data-bs-parent="#filtersAccordion">
-                <!--/*@thymesVar id="authors" type="java.util.List<String>"*/-->
-                <div class="accordion-body scroller-menu d-flex flex-column bg-secondary">
-                    <input type="radio" class="btn-check" name="author" id="clear_author" autocomplete="off"
-                           onchange="setFilter(this)" th:value="${author}" th:checked="${author} == null">
-                    <label class="btn btn-secondary menu-button shadow-none" for="clear_author" th:text="'Все'">
-                    </label>
-                    <th:block th:each="authorName : ${authors}">
-                        <input type="radio" class="btn-check" name="author" th:id="${authorName}" autocomplete="off"
-                               onchange="setFilter(this)" th:value="${authorName}"
-                               th:checked="${authorName} == ${author}">
-                        <label class="btn btn-secondary menu-button shadow-none" th:for="${authorName}"
-                               th:text="${authorName}"></label>
+<th:block th:fragment="filters(filters, authors, emojis)">
+    <div class="filters">
+        <h2 class="filters__title">Фильтры</h2>
+        <div class="filters__categories">
+            <div id="filtersAccordion" class="filters__accordion">
+                <th:block th:replace="blocks/filters :: author_filter(${filters.getAuthor()}, ${authors})"/>
+                <th:block th:replace="blocks/filters :: tier_filter(${filters.getTier()})"/>
+                <th:block th:replace="blocks/filters :: emoji_filter(${filters.getEmoji()}, ${emojis})"/>
+                <th:block th:replace="blocks/filters :: sort_filter(${filters.getSortBy()})"/>
+            </div>
+        </div>
+        <button class="filters__button" onclick="clearFilters()">Сбросить фильтры</button>
+        <button class="filters__button" onclick="applyFilters()">Применить</button>
+    </div>
+</th:block>
+
+<th:block th:fragment="author_filter(author, authors)">
+    <div class="filters__accordion-item">
+        <h2 id="headingAuthor" class="filters__accordion-title">
+            <button th:text="'Автор (' + ${author != null ? author : 'Все'} + ')'"
+                    class="filters__accordion-button" type="button"></button>
+        </h2>
+        <div id="collapseAuthor" class="filters__accordion-collapse">
+            <div class="filters__accordion-body">
+                <input type="radio" class="filters__variant" name="author" id="clear_author"
+                       autocomplete="off"
+                       onchange="setFilter(this)"
+                       th:value="${author}" th:checked="${author == null}">
+                <label class="filters__variant-title" for="clear_author">Все</label>
+
+                <th:block th:each="authorName : ${authors}">
+                    <input type="radio" class="filters__variant" name="author" autocomplete="off"
+                           onchange="setFilter(this)"
+                           th:id="${authorName}" th:value="${author}"
+                           th:checked="${authorName} == ${author}">
+                    <label class="filters__variant-title" th:for="${authorName}"
+                           th:text="${authorName}"></label>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="tier_filter(tier)">
+    <div class="filters__accordion-item">
+        <h2 id="headingTier" class="filters__accordion-title">
+            <button th:text="'Тир (' + ${tier != null ? tier : 'Все'} + ')'"
+                    class="filters__accordion-button" type="button"></button>
+        </h2>
+        <div id="collapseTier" class="filters__accordion-collapse">
+            <div class="filters__accordion-body">
+                <input type="radio" class="filters__variant" name="tier"
+                       id="clear_tier" autocomplete="off"
+                       onchange="setFilter(this)"
+                       th:value="${tier}" th:checked="${tier == null}">
+                <label class="filters__variant-title" for="clear_tier">Все</label>
+
+                <th:block th:each="tierValue: ${#numbers.sequence(1, 4)}">
+                    <input type="radio" class="filters__variant" name="tier" autocomplete="off"
+                           onchange="setFilter(this)"
+                           th:id="${tierValue}" th:value="${tier}" th:checked="${tierValue} == ${tier}">
+                    <label class="filters__variant-title" th:for="${tierValue}"
+                           th:text="${tierValue}"></label>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="emoji_filter(emoji, emojis)">
+    <div class="filters__accordion-item">
+        <h2 id="headingEmoji" class="filters__accordion-title">
+            <button th:text="'Эмоция (' + ${emoji != null ? emoji : 'Все'} + ')'"
+                    class="filters__accordion-button" type="button"></button>
+        </h2>
+        <div id="collapseEmoji" class="filters__accordion-collapse">
+            <div class="filters__accordion-body">
+                <input type="radio" class="filters__variant" name="emoji"
+                       id="clear_emoji" autocomplete="off"
+                       onchange="setFilter(this)"
+                       th:value="${emoji}" th:checked="${emoji == null}">
+                <label class="filters__variant-title" for="clear_emoji">Все</label>
+
+                <div class="filters__accordion-emoji-ds-flex">
+                    <th:block th:each="emojiValue : ${emojis}">
+                        <input type="radio" class="filters__variant" name="emoji" autocomplete="off"
+                               onchange="setFilter(this)"
+                               th:id="${emojiValue}" th:value="${emoji}"
+                               th:checked="${emojiValue} == ${emoji}">
+                        <label class="filters__variant-title filters__variant-title_emoji"
+                               th:for="${emojiValue}" th:text="${emojiValue}"></label>
                     </th:block>
                 </div>
             </div>
         </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header bg-secondary" id="headingTier">
-                <button class="accordion-button text-light bg-secondary collapsed" type="button"
-                        data-bs-toggle="collapse" th:text="'Тир ' + ${tier != null ? '(' + tier + ')' : '(Все)'}"
-                        data-bs-target="#collapseTier" aria-expanded="false" aria-controls="collapseTier">
-                </button>
-            </h2>
-            <div id="collapseTier" class="accordion-collapse collapse" aria-labelledby="headingTier"
-                 data-bs-parent="#filtersAccordion">
-                <div class="accordion-body scroller-menu d-flex flex-column bg-secondary">
-                    <input type="radio" class="btn-check" name="tier" id="clear_tier" autocomplete="off"
-                           onchange="setFilter(this)" th:value="${tier}" th:checked="${tier} == null">
-                    <label class="btn btn-secondary menu-button shadow-none" for="clear_tier" th:text="'Все'">
-                    </label>
-                    <input type="radio" class="btn-check" name="tier" id="1" autocomplete="off"
-                           onchange="setFilter(this)" th:value="${tier}" th:checked="${tier} == 1">
-                    <label class="btn btn-secondary menu-button shadow-none" for="1" th:text="'⭐'">
-                    </label>
-                    <input type="radio" class="btn-check" name="tier" id="2" autocomplete="off"
-                           onchange="setFilter(this)" th:value="${tier}" th:checked="${tier} == 2">
-                    <label class="btn btn-secondary menu-button shadow-none" for="2" th:text="'⭐⭐'">
-                    </label>
-                    <input type="radio" class="btn-check" name="tier" id="3" autocomplete="off"
-                           onchange="setFilter(this)" th:value="${tier}" th:checked="${tier} == 3">
-                    <label class="btn btn-secondary menu-button shadow-none" for="3" th:text="'⭐⭐⭐'">
-                    </label>
-                    <input type="radio" class="btn-check" name="tier" id="4" autocomplete="off"
-                           onchange="setFilter(this)" th:value="${tier}" th:checked="${tier} == 4">
-                    <label class="btn btn-secondary menu-button shadow-none" for="4" th:text="'⭐⭐⭐⭐'">
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header bg-secondary" id="headingEmoji">
-                <button class="accordion-button text-light bg-secondary collapsed" type="button"
-                        data-bs-toggle="collapse" th:text="'Эмоция ' + ${emoji != null && emoji != '' ? '(' + emoji + ')' : '(Все)'}"
-                        data-bs-target="#collapseEmoji" aria-expanded="false" aria-controls="collapseEmoji">
-                </button>
-            </h2>
-            <div id="collapseEmoji" class="accordion-collapse collapse" aria-labelledby="headingEmoji"
-                 data-bs-parent="#filtersAccordion">
-                <!--/*@thymesVar id="emojis" type="java.util.List<String>"*/-->
-                <div class="accordion-body scroller-menu d-flex flex-column bg-secondary" style="width: 100%">
-                    <input type="radio" class="btn-check" name="emoji" id="clear_emoji" autocomplete="off"
-                           onchange="setFilter(this)" th:value="${emoji}" th:checked="${emoji} == null">
-                    <label class="btn btn-secondary menu-button shadow-none w-100 flex-grow-1" for="clear_emoji"
-                           th:text="'Все'">
-                    </label>
-                    <div class="d-flex w-100 flex-wrap">
-                        <th:block th:each="emojiSymbol : ${emojis}">
-                            <input type="radio" class="btn-check" name="emoji" th:id="${emojiSymbol}"
-                                   autocomplete="off"
-                                   onchange="setFilter(this)" th:value="${emojiSymbol}"
-                                   th:checked="${emojiSymbol} == ${emoji}">
-                            <label class="btn btn-secondary menu-button shadow-none w-25" th:for="${emojiSymbol}"
-                                   th:text="${emojiSymbol}"></label>
-                        </th:block>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header bg-secondary" id="headingSortBy">
-                <button class="accordion-button text-light bg-secondary collapsed" type="button"
-                        data-bs-toggle="collapse" th:text="'Сортировка ' + ${sortBy != null && sortBy != '' ? '(' + (
-                        sortBy == 'tier_desc' ? 'Тир по убыванию' :
-                        sortBy == 'title' ? 'Название' :
-                        sortBy == 'tier' ? 'Тир по возрастанию': 'Автор') + ')' : '(Нет)'}"
-                        data-bs-target="#collapseSortBy" aria-expanded="false" aria-controls="collapseSortBy">
-                </button>
-            </h2>
-            <div id="collapseSortBy" class="accordion-collapse collapse" aria-labelledby="headingSortBy"
-                 data-bs-parent="#filtersAccordion">
-                <!--/*@thymesVar id="authors" type="java.util.List<String>"*/-->
-                <div class="accordion-body scroller-menu d-flex flex-column bg-secondary">
-                    <input type="radio" class="btn-check" name="sortBy" id="clear_sortBy" autocomplete="off"
-                           onchange="setFilter(this)" th:value="${sortBy}" th:checked="${sortBy} == null">
-                    <label class="btn btn-secondary menu-button shadow-none" for="clear_sortBy" th:text="'Нет'">
-                    </label>
-                    <input type="radio" class="btn-check" name="sortBy" id="tier" autocomplete="off"
-                           onchange="setFilter(this)" th:value="${sortBy}" th:checked="${sortBy} == 'tier'">
-                    <label class="btn btn-secondary menu-button shadow-none" for="tier" th:text="'Тир'">
-                    </label>
-                    <input type="radio" class="btn-check" name="sortBy" id="tier_desc" autocomplete="off"
-                           onchange="setFilter(this)" th:value="${sortBy}" th:checked="${sortBy} == 'tier_desc'">
-                    <label class="btn btn-secondary menu-button shadow-none" for="tier_desc"
-                           th:text="'Тир (убывание)'">
-                    </label>
-                    <input type="radio" class="btn-check" name="sortBy" id="title" autocomplete="off"
-                           onchange="setFilter(this)" th:value="${sortBy}" th:checked="${sortBy} == 'title'">
-                    <label class="btn btn-secondary menu-button shadow-none" for="title" th:text="'Название'">
-                    </label>
-                    <input type="radio" class="btn-check" name="sortBy" id="author" autocomplete="off"
-                           onchange="setFilter(this)" th:value="${sortBy}" th:checked="${sortBy} == 'author'">
-                    <label class="btn btn-secondary menu-button shadow-none" for="author" th:text="'Автор'">
-                    </label>
-                </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="sort_filter(sortBy)">
+    <div class="filters__accordion-item">
+        <h2 id="headingSortBy" class="filters__accordion-title">
+            <button th:text="'Сортировка (' + ${
+                            sortBy == 'tier_desc' ? 'Тир по убыванию' :
+                            sortBy == 'title' ? 'Название' :
+                            sortBy == 'tier' ? 'Тир по возрастанию' :
+                            sortBy == 'author' ? 'Автор' : 'Нет'
+                            } + ')'" class="filters__accordion-button" type="button"></button>
+        </h2>
+        <div id="collapseSortBy" class="filters__accordion-collapse">
+            <div class="filters__accordion-body">
+                <input type="radio" class="filters__variant" name="sortBy" id="clear_sortBy"
+                       autocomplete="off"
+                       onchange="setFilter(this)"
+                       th:value="${sortBy}" th:checked="${sortBy == null || sortBy == ''}">
+                <label class="filters__variant-title" for="clear_sortBy">Нет</label>
+                <input type="radio" class="filters__variant" name="sortBy" id="tier" autocomplete="off"
+                       onchange="setFilter(this)"
+                       th:value="${sortBy}" th:checked="${sortBy} == 'tier'">
+                <label class="filters__variant-title" for="tier">Тир</label>
+                <input type="radio" class="filters__variant" name="sortBy" id="tier_desc"
+                       autocomplete="off"
+                       onchange="setFilter(this)"
+                       th:value="${sortBy}" th:checked="${sortBy} == 'tier_desc'">
+                <label class="filters__variant-title" for="tier_desc">Тир (убывание)</label>
+                <input type="radio" class="filters__variant" name="sortBy" id="title" autocomplete="off"
+                       onchange="setFilter(this)"
+                       th:value="${sortBy}" th:checked="${sortBy} == 'title'">
+                <label class="filters__variant-title" for="title">Название</label>
+                <input type="radio" class="filters__variant" name="sortBy" id="author"
+                       autocomplete="off"
+                       onchange="setFilter(this)"
+                       th:value="${sortBy}" th:checked="${sortBy} == 'author'">
+                <label class="filters__variant-title" for="author">Автор</label>
             </div>
         </div>
     </div>
-    <button class="btn btn-secondary shadow-none mt-1" onclick="applyFilters()">Применить</button>
 </th:block>

@@ -1,35 +1,33 @@
-<!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
-<head th:insert="blocks/includes :: header"></head>
-<body class="bg-dark d-flex flex-column h-100">
-<nav th:replace="blocks/header :: header"></nav>
-<div class="flex-shrink-0 container d-flex justify-content-around flex-wrap">
-    <th:block th:each="sticker,iter : ${stickers}">
-        <div class="card bg-secondary mb-2 text-dark container" style="max-width: 540px;">
-            <div class="row g-0">
-                <div class="col-md-4 margin mx-auto sticker-thumb-md">
-                    <tgs-player th:if="${sticker.Animated}"
-                                autoplay loop mode="normal"
-                                class="img-fluid"
-                                th:src="${sticker.getForSaleFilePath()}">
-                    </tgs-player>
-                    <img th:if="${!sticker.Animated}"
-                         class="img-fluid"
-                         th:src="${sticker.getForSaleFilePath()}">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${sticker.Title}"></h5>
-                        <h5 class="card-title" th:text="${sticker.getStarTier()}"></h5>
-                        <p class="card-text" th:text="${sticker.Description}"></p>
-                        <a class="stretched-link" th:href="'/sticker?hash=' + ${sticker.MD5Hash}"></a>
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: pack_head"></head>
+
+<body>
+<div class="wrapper">
+    <!--Шапка-->
+    <header th:insert="blocks/header :: header"></header>
+
+    <!--Основная часть-->
+    <main class="main">
+        <div class="main__wrapper">
+            <th:block th:fragment="pack_page(pack, stickers)">
+                <div class="stickerPack-bg">
+                    <div class="page-title">
+                        <h1 class="page-title__text">Стикерпак от <span class="page-title_name"
+                                                                        th:text="${pack.Author}"></span></h1>
+                    </div>
+                    <div class="stickerPack">
+                        <th:block th:each="i: ${#numbers.sequence(0, stickers.size(), 2)}">
+                            <th:block th:replace="pack/blocks :: sticker_row(${stickers}, ${i}, ${i+1})"/>
+                        </th:block>
                     </div>
                 </div>
-            </div>
+            </th:block>
         </div>
-    </th:block>
+    </main>
+    <th:block th:replace="blocks/footer :: footer"/>
 </div>
-<footer th:replace="blocks/footer :: footer"></footer>
-<div th:replace="blocks/includes :: footer"></div>
+
+<script th:src="@{~/js/tgs-player.js}"></script>
 </body>
 </html>

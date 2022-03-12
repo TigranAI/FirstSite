@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="profile(user, cash, level)">
+    <div class="collection__info">
+        <p class="collection__info-title">Пользователь: <span
+                class="collection__info-user" th:text="${user.Username}"></span></p>
+        <div class="collection__data">
+            <div class="collection__data-column">
+                <p class="collection__data-text collection__data-text_yellow">Уровень:
+                    <span class="collection__data-num" th:text="${level.Level}"></span>
+                    <span class="collection__data-symbol"> 🆙</span></p>
+                <p class="collection__data-text  collection__data-text_yellow">Текущий опыт:
+                    <span class="collection__data-num" th:text="${level.CurrentExp}"></span>
+                    <span class="collection__data-symbol"> 🧪</span></p>
+                <p class="collection__data-text  collection__data-text_yellow">Всего опыта:
+                    <span class="collection__data-num" th:text="${level.TotalExp}"></span>
+                    <span class="collection__data-symbol"> 🧪</span></p>
+            </div>
+
+            <div class="collection__data-column">
+                <p class="collection__data-title">Баланс</p>
+                <p class="collection__data-text  collection__data-text_blue">Монеты:
+                    <span class="collection__data-num" th:text="${cash.Coins}"></span>
+                    <span class="collection__data-symbol"> 💰</span></p>
+                <p class="collection__data-text  collection__data-text_blue">Алмазы:
+                    <span class="collection__data-num" th:text="${cash.Gems}"></span>
+                    <span class="collection__data-symbol"> 💎</span></p>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="sticker_preview(sticker, count)">
+        <a th:href="@{~/collection/sticker(hash=${sticker.MD5Hash})}" class="stickers__sticker-link">
+            <th:block th:replace="blocks/previews :: sticker(${sticker}, 'stickers\_\_sticker-img')"/>
+            <h2 class="stickers__sticker-title" th:text="${sticker.Title}"></h2>
+            <th:block th:each="i : ${#numbers.sequence(1, sticker.Tier)}">
+                <img th:src="@{~/img/star.svg}" alt="star">
+            </th:block>
+        </a>
+        <div class="stickers__num" th:text="${count}"></div>
+</th:block>
+
+<th:block th:fragment="stickers(stickers)">
+    <div class="stickers">
+        <h2 th:if="${stickers.size() == 0}">Ничего не найдено, попробуйте изменить критерии запроса</h2>
+        <div th:each="sticker : ${stickers}" th:if="${stickers.size() > 0}" class="stickers__sticker">
+            <th:block th:replace="collection/blocks :: sticker_preview(${sticker.sticker}, ${sticker.Count})"/>
+        </div>
+    </div>
+</th:block>

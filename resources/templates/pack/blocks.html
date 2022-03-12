@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="pack_preview(pack)">
+    <div class="stickerPack">
+        <a th:href="@{~/pack(id=${pack.Id})}" class="stickerPack__link">
+            <th:block th:replace="blocks/previews :: pack(${pack}, 'stickerPack\_\_sticker')"/>
+            <h2 class="stickerPack__title" th:text="${pack.Author}">Texic</h2>
+        </a>
+    </div>
+</th:block>
+
+<th:block th:fragment="pack_row(packs, from, to)">
+    <div class="stickerPacks__row">
+        <th:block th:each="i: ${#numbers.sequence(from, to)}">
+            <th:block th:if="${i < packs.size()}">
+                <th:block th:replace="pack/blocks :: pack_preview(${packs.get(i)})"/>
+            </th:block>
+        </th:block>
+    </div>
+</th:block>
+
+<th:block th:fragment="sticker_preview(sticker)">
+    <a th:href="@{~/pack/sticker(hash=${sticker.MD5Hash})}" class="stickerPack__card">
+        <th:block th:replace="blocks/previews :: sticker(${sticker}, 'stickerPack__sticker')"/>
+        <div class="stickerPack__card-info">
+            <h3 class="stickerPack__card-title" th:text="${sticker.Title}"></h3>
+            <div class="stickerPack__card-stars">
+                <th:block th:each="i : ${#numbers.sequence(1, sticker.Tier)}">
+                    <img th:src="@{~/img/star.svg}" alt="star">
+                </th:block>
+            </div>
+            <p class="stickerPack__card-text" th:text="${sticker.Description}"></p>
+        </div>
+    </a>
+</th:block>
+
+<th:block th:fragment="sticker_row(stickers, from, to)">
+    <div class="stickerPack__row">
+        <th:block th:each="i: ${#numbers.sequence(from, to)}">
+            <th:block th:if="${i < stickers.size()}">
+                <th:block th:replace="pack/blocks :: sticker_preview(${stickers.get(i)})"/>
+            </th:block>
+        </th:block>
+    </div>
+</th:block>

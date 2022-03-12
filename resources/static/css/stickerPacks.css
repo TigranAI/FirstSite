@@ -1,0 +1,262 @@
+.stickerPacks-bg {
+  background-color: rgba(158, 163, 255, 0.4);
+  margin: 130px 0 0 0;
+  padding: 40px;
+}
+
+@media (max-width: 941px) {
+  .stickerPacks-bg {
+    margin: 100px 0 0 0;
+  }
+}
+
+.stickerPacks__row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  margin: 0 0 2rem 0;
+}
+
+.stickerPacks__row:nth-child(odd) .stickerPack:nth-child(odd) {
+  background-color: #8b84da;
+}
+
+.stickerPacks__row:nth-child(odd) .stickerPack:nth-child(odd):hover {
+  -webkit-transition: all .2s ease-out 0s;
+  transition: all .2s ease-out 0s;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  z-index: 2;
+}
+
+.stickerPacks__row:nth-child(odd) .stickerPack:nth-child(odd) .stickerPack__title {
+  color: white;
+}
+
+.stickerPacks__row:nth-child(odd) .stickerPack:nth-child(even) {
+  background-color: #ffd600;
+}
+
+.stickerPacks__row:nth-child(odd) .stickerPack:nth-child(even):hover {
+  -webkit-transition: all 0.2s ease-out 0s;
+  transition: all 0.2s ease-out 0s;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  z-index: 2;
+}
+
+.stickerPacks__row:nth-child(odd) .stickerPack:nth-child(even) .stickerPack__title {
+  color: #282a4f;
+}
+
+.stickerPacks__row:nth-child(even) .stickerPack:nth-child(even) {
+  background-color: #8b84da;
+}
+
+.stickerPacks__row:nth-child(even) .stickerPack:nth-child(even):hover {
+  -webkit-transition: all 0.2s ease-out 0s;
+  transition: all 0.2s ease-out 0s;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  z-index: 2;
+}
+
+.stickerPacks__row:nth-child(even) .stickerPack:nth-child(even) .stickerPack__title {
+  color: white;
+}
+
+.stickerPacks__row:nth-child(even) .stickerPack:nth-child(odd) {
+  background-color: #ffd600;
+}
+
+.stickerPacks__row:nth-child(even) .stickerPack:nth-child(odd):hover {
+  -webkit-transition: all 0.1s ease 0s;
+  transition: all 0.1s ease 0s;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  z-index: 2;
+}
+
+.stickerPacks__row:nth-child(even) .stickerPack:nth-child(odd) .stickerPack__title {
+  color: #282a4f;
+}
+
+.stickerPacks__row:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 851px) {
+  .stickerPacks__row {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin: 0;
+  }
+  .stickerPacks__row:nth-child(odd) .stickerPack:nth-child(3) {
+    background-color: #ffd600;
+  }
+  .stickerPacks__row:nth-child(odd) .stickerPack:nth-child(3) .stickerPack__title {
+    color: #282a4f;
+  }
+  .stickerPacks__row:nth-child(odd) .stickerPack:nth-child(4) {
+    background-color: #8b84da;
+  }
+  .stickerPacks__row:nth-child(odd) .stickerPack:nth-child(4) .stickerPack__title {
+    color: white;
+  }
+  .stickerPacks__row:nth-child(odd) .stickerPack:nth-child(2),
+  .stickerPacks__row:nth-child(odd) .stickerPack:nth-child(4) {
+    margin-right: 0;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(2) {
+    background-color: #ffd600;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(2) .stickerPack__title {
+    color: #282a4f;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(1) {
+    background-color: #8b84da;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(1) .stickerPack__title {
+    color: white;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(2),
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(4) {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 456px) {
+  .stickerPacks__row:nth-child(odd) .stickerPack:nth-child(4) {
+    background-color: #ffd600;
+  }
+  .stickerPacks__row:nth-child(odd) .stickerPack:nth-child(4) .stickerPack__title {
+    color: #282a4f;
+  }
+  .stickerPacks__row:nth-child(odd) .stickerPack:nth-child(3) {
+    background-color: #8b84da;
+  }
+  .stickerPacks__row:nth-child(odd) .stickerPack:nth-child(3) .stickerPack__title {
+    color: white;
+  }
+  .stickerPacks__row:nth-child(odd) .stickerPack {
+    margin-right: 0;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(2) {
+    background-color: #ffd600;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(2) .stickerPack__title {
+    color: #282a4f;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(1) {
+    background-color: #8b84da;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(1) .stickerPack__title {
+    color: white;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(4) {
+    background-color: #ffd600;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(4) .stickerPack__title {
+    color: #282a4f;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(3) {
+    background-color: #8b84da;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack:nth-child(3) .stickerPack__title {
+    color: white;
+  }
+  .stickerPacks__row:nth-child(even) .stickerPack {
+    margin-right: 0;
+  }
+}
+
+.stickerPack {
+  max-width: 245px;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 0 1rem 0 0;
+  border: 1px solid white;
+  -webkit-filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+          filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+@media (max-width: 851px) {
+  .stickerPack {
+    margin: 0 3rem 2rem 0;
+  }
+}
+
+@media (max-width: 642px) {
+  .stickerPack {
+    max-width: 190px;
+  }
+}
+
+@media (max-width: 572px) {
+  .stickerPack {
+    margin: 0 2rem 1.5rem 0;
+    max-width: 170px;
+  }
+}
+
+@media (max-width: 516px) {
+  .stickerPack {
+    max-width: 140px;
+  }
+}
+
+@media (max-width: 456px) {
+  .stickerPack {
+    max-width: 245px;
+    margin: 0 2rem 2rem 0;
+  }
+}
+
+.stickerPack:hover {
+  -webkit-box-shadow: 5px 5px 5px 5px #282a4f;
+          box-shadow: 5px 5px 5px 5px #282a4f;
+}
+
+.stickerPack__link {
+  display: block;
+  max-width: 225px;
+  text-decoration: none;
+}
+
+.stickerPack__sticker {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.stickerPack__title {
+  font-style: italic;
+  font-weight: bold;
+  line-height: 23px;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 767px) {
+  .stickerPack__title {
+    font-size: calc(16px + 6.8 * ((100vw - 320px) / 1440));
+  }
+}
+
+@media (min-width: 767px) {
+  .stickerPack__title {
+    font-size: calc(16px + 4 * (100vw / 1440));
+  }
+}

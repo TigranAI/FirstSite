@@ -3,27 +3,21 @@ package ru.tigran.cardcollector.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
-import ru.tigran.cardcollector.Utilities;
 import ru.tigran.cardcollector.database.entity.Pack;
 import ru.tigran.cardcollector.database.entity.Sticker;
-import ru.tigran.cardcollector.database.entity.User;
-import ru.tigran.cardcollector.database.entity.UserLevel;
-import ru.tigran.cardcollector.database.repository.*;
+import ru.tigran.cardcollector.database.repository.PackRepository;
+import ru.tigran.cardcollector.database.repository.StickerRepository;
 import ru.tigran.cardcollector.functions.ListHelper;
 
-import java.util.*;
+import java.util.ArrayList;
 
 @Controller
 @SessionAttributes(names = {"user"})
 public class MainController {
-
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserLevelRepository userLevelRepository;
     @Autowired
     private PackRepository packRepository;
     @Autowired
@@ -32,25 +26,13 @@ public class MainController {
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("title", "WyrmSticker | Главная страница");
-        /*TODO some problem here*/
-        List<User> users = userRepository.findAll();
-        Hashtable<Long, User> usersTable = ListHelper.ToHashTable(users, item -> item.Id, item -> item);
-        List<UserLevel> userLevels = userLevelRepository.findAll();
-        ListHelper.ToList(userLevels, item -> item).forEach(item -> {
-            if (usersTable.get(item.UserId).PrivilegeLevel >= 7 || item.TotalExp == 0) userLevels.remove(item);
-        });
-        userLevels.sort((o1, o2) -> {
-            long result = o2.TotalExp - o1.TotalExp;
-            if (result > 0) return 1;
-            if (result < 0) return -1;
-            return 0;
-        });
-        List<Map.Entry<String, Long>> expTop = ListHelper.ToList(ListHelper.GetRange(userLevels, 0, 5),
-                userLevel -> new AbstractMap.SimpleEntry<>(usersTable.get(userLevel.UserId).Username, userLevel.TotalExp));
-
+        ArrayList<Sticker> stickers = stickerRepository.findAll();
         ArrayList<Pack> lastPacks = packRepository.findLast(3);
-        model.addAttribute("expTop", expTop);
         model.addAttribute("lastPacks", lastPacks);
+        model.addAttribute("sticker1", ListHelper.Random(stickers));
+        model.addAttribute("sticker2", ListHelper.Random(stickers));
+        model.addAttribute("sticker3", ListHelper.Random(stickers));
+        model.addAttribute("sticker4", ListHelper.Random(stickers));
         return "index";
     }
 

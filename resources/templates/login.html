@@ -1,40 +1,32 @@
-<!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
-<head th:insert="blocks/includes :: header">
-</head>
-<body class="bg-dark d-flex flex-column h-100">
-<nav th:replace="blocks/header :: header"></nav>
-<form style="visibility: hidden; height: 0; width: 0">
-    <input type="text" name="botName" th:value="${botName}"/>
-</form>
-<div class="container card text-center bg-secondary" style="max-width: 512px">
-    <img th:src="@{images/logo.png}" class="img-fluid">
-    <div class="card-body">
-    <a href="#" id="BotLink" class="btn btn-outline-light btn-lg stretched-link w-100">Перейти к боту</a>
-    </div>
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: login_head"></head>
+
+<body>
+<div class="wrapper">
+    <!--Шапка-->
+    <header th:replace="blocks/header :: header"></header>
+
+    <!--Основная часть-->
+    <main class="main">
+        <div class="main__wrapper">
+            <div class="page-bg">
+                <div class="page-title">
+                    <h1 class="page-title__text">Вы не авторизированы</h1>
+                </div>
+
+                <div class="auth">
+                    <img th:src="@{~/img/Dragon_av.png}" alt="StickerBot" class="auth__img">
+                    <a id="BotLink" href="#" class="auth__link">Перейти к боту</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <th:block th:replace="blocks/footer :: footer"/>
 </div>
-<form id="login" action="/login" method="post">
-    <input type="text" id="userId" name="userId" class="visually-hidden">
-    <input type="text" id="secretKey" name="secretKey" class="visually-hidden">
-</form>
-<footer th:replace="blocks/footer :: footer"></footer>
-<div th:replace="blocks/includes :: footer"></div>
-<script th:inline="javascript">
-    $(document).ready(function () {
-        let eventUrl = "/events/login"
-        let botName = $("input[name=botName]").val()
-        let eventSource = new EventSource(eventUrl)
-        eventSource.addEventListener("INIT", function (event) {
-            let url = 'tg://resolve?domain=' + botName + '&start=login=' + event.data
-            $('#BotLink').attr("href", url)
-        })
-        eventSource.addEventListener("LoginData", function (event) {
-            let data = JSON.parse(event.data)
-            $('#userId').attr("value", data[0])
-            $('#secretKey').attr("value", data[1])
-            $('#login').submit()
-        })
-    })
-</script>
+<input type="text" name="botName" th:value="${botName}" style="visibility: hidden; height: 0; width: 0"/>
+
+<script th:src="@{~/js/jquery-3.6.0.min.js}"></script>
+<script th:src="@{~/js/login.js}"></script>
 </body>
 </html>

@@ -1,73 +1,244 @@
-<!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" class="h-100">
-<head th:insert="blocks/includes :: header"></head>
-<body class="bg-dark d-flex flex-column h-100">
-<nav th:replace="blocks/header :: header"></nav>
-<div class="flex-shrink-0 container">
-    <div id="carouselLastPacks" class="carousel slide mb-2" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button th:each="pack, iter : ${lastPacks}" type="button" data-bs-target="#carouselLastPacks"
-                    th:data-bs-slide-to="${iter.index}" th:classappend="${iter.index == 0 ? 'active' : ''}"
-                    class="carousel-indicators-low"
-                    th:aria-current="${iter.index == 0 ? 'true' : 'false'}" th:aria-label="${pack.Author}">
-            </button>
-        </div>
-        <div class="carousel-inner text-dark">
-            <div th:each="pack, iter : ${lastPacks}" class="card bg-secondary carousel-item"
-                 th:classappend="${iter.index == 0 ? 'active' : ''}">
-                <div class="d-flex">
-                    <div class="flex-shrink-1 sticker-carousel-thumb">
-                        <tgs-player th:if="${pack.Animated}"
-                                    autoplay loop mode="normal"
-                                    class="img-fluid"
-                                    th:src="${pack.getStickerPreviewPath()}">
-                        </tgs-player>
-                        <img th:if="${!pack.Animated}"
-                             class="img-fluid"
-                             th:src="${pack.getStickerPreviewPath()}">
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: index_head"></head>
+<body>
+    <div class="wrapper">
+        <!--Шапка-->
+        <header th:replace="blocks/header :: header"></header>
+
+        <!--Основная часть-->
+        <main class="main">
+            <div class="main__wrapper">
+                <!--Слайдер-->
+                <div class="slider">
+                    <!--Блок, в котором листаются слайды-->
+                    <div class="slider__wrapper">
+                        <!--Слайды-->
+                        <!--/*@thymesVar id="lastPacks" type="List<ru.tigran.cardcollector.database.entity.Pack>"*/-->
+                        <div th:each="pack, iter : ${lastPacks}" class="slider__item">
+                            <a th:href="@{~/pack(id=${pack.Id})}" class="slider__link">
+                                <th:block th:replace="blocks/previews :: pack(${pack}, slider__sticker)"/>
+                                <p class="slider__text">
+                                    Новый стикерпак от <span class="slider__author-name" th:text="${pack.Author}"></span> уже в
+                                    магазине!
+                                </p>
+                            </a>
+                        </div>
                     </div>
-                    <div class="align-self-center flex-grow-1 pr-2p">
-                        <h2 class="text-center" th:text="'Новый стикерпак от ' + ${pack.Author} + ' уже в магазине!'"></h2>
+
+                    <!--Навигация слайдера-->
+                    <ul id="pager" class="slider__nav"></ul>
+                </div>
+
+                <!--Блок с приветствием-->
+                <div class="welcome-card">
+                    <div class="welcome-card__info">
+                        <h1 class="welcome-card__title">Добро пожаловать <br> в wyrm sticker bot</h1>
+                        <p class="welcome-card__text">
+                            Здесь вы сможете коллекционировать уникальные стикеры, покупать и продавать их через аукцион,
+                            и получать крутые призы! Стикеры в WYRM STICKER BOT особенные - ты не сможешь прислать их
+                            как обычный telegram стикер, а отправлять можно только те стикеры, которые есть у тебя в
+                            коллекции. А еще у нас есть крутая инструкция  👇 , обязательно ее прочитай!
+                        </p>
+                    </div>
+
+                    <div class="welcome-card__stickers">
+                        <div class="welcome-card__sticker-group">
+                            <div class="welcome-card__sticker welcome-card__sticker_yellow">
+                                <!--/*@thymesVar id="sticker1" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+                                <th:block th:replace="blocks/previews :: sticker_link(${sticker1}, welcome-card__img, '')"/>
+                            </div>
+                            <div class="welcome-card__sticker welcome-card__sticker_purple">
+                                <!--/*@thymesVar id="sticker2" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+                                <th:block th:replace="blocks/previews :: sticker_link(${sticker2}, welcome-card__img, '')"/>
+                            </div>
+                        </div>
+
+                        <div class="welcome-card__sticker-group">
+                            <div class="welcome-card__sticker welcome-card__sticker_purple">
+                                <!--/*@thymesVar id="sticker3" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+                                <th:block th:replace="blocks/previews :: sticker_link(${sticker3}, welcome-card__img, '')"/>
+                            </div>
+                            <div class="welcome-card__sticker welcome-card__sticker_yellow">
+                                <!--/*@thymesVar id="sticker4" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+                                <th:block th:replace="blocks/previews :: sticker_link(${sticker4}, welcome-card__img, '')"/>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <a class="stretched-link" th:href="'/pack?id=' + ${pack.Id}"></a>
+
+                <!--Инструкция-->
+                <div class="instruction">
+                    <h1 class="instruction__title">Инструкция</h1>
+
+                    <div id="instruction-01" class="instruction__item">
+                        <h2 class="instruction__item-title">Сбор прибыли</h2>
+                        <div class="instruction__info non-active">
+                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua</p>
+                            <div class="instruction__gif-bg instruction__gif-bg_right">
+                                <img th:src="@{~/img/gif/1.gif}" alt="gif" class="instruction__gif">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="instruction-02" class="instruction__item">
+                        <h2 class="instruction__item-title">Отправка стикера через коллекцию</h2>
+                        <div class="instruction__info non-active">
+                            <div class="instruction__gif-bg instruction__gif-bg_left">
+                                <img th:src="@{~/img/gif/2.gif}" alt="gif" class="instruction__gif">
+                            </div>
+                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua</p>
+                        </div>
+                    </div>
+
+                    <div id="instruction-03" class="instruction__item">
+                        <h2 class="instruction__item-title">Отправка стикера через @</h2>
+                        <div class="instruction__info">
+                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua</p>
+                            <div class="instruction__gif-bg instruction__gif-bg_right">
+                                <img th:src="@{~/img/gif/3.gif}" alt="gif" class="instruction__gif">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="instruction-04" class="instruction__item">
+                        <h2 class="instruction__item-title">Покупка обычного пака за золото</h2>
+                        <div class="instruction__info">
+                            <div class="instruction__gif-bg instruction__gif-bg_left">
+                                <img th:src="@{~/img/gif/4.gif}" alt="gif" class="instruction__gif">
+                            </div>
+                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua</p>
+                        </div>
+                    </div>
+
+                    <div id="instruction-05" class="instruction__item">
+                        <h2 class="instruction__item-title">Покупка пака художника</h2>
+                        <div class="instruction__info">
+                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua</p>
+                            <div class="instruction__gif-bg instruction__gif-bg_right">
+                                <img th:src="@{~/img/gif/5.gif}" alt="gif" class="instruction__gif">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="instruction-06" class="instruction__item">
+                        <h2 class="instruction__item-title">Покупка алмазов</h2>
+                        <div class="instruction__info">
+                            <div class="instruction__gif-bg instruction__gif-bg_left">
+                                <img th:src="@{~/img/gif/6.gif}" alt="gif" class="instruction__gif">
+                            </div>
+                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua</p>
+                        </div>
+                    </div>
+
+                    <div id="instruction-07" class="instruction__item">
+                        <h2 class="instruction__item-title">Открытие паков</h2>
+                        <div class="instruction__info">
+                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua</p>
+                            <div class="instruction__gif-bg instruction__gif-bg_right">
+                                <img th:src="@{~/img/gif/7.gif}" alt="gif" class="instruction__gif">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="instruction-08" class="instruction__item">
+                        <h2 class="instruction__item-title">Объединение стикеров</h2>
+                        <div class="instruction__info">
+                            <div class="instruction__gif-bg instruction__gif-bg_left">
+                                <img th:src="@{~/img/gif/8.gif}" alt="gif" class="instruction__gif">
+                            </div>
+                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua</p>
+                        </div>
+                    </div>
+
+                    <div id="instruction-09" class="instruction__item">
+                        <h2 class="instruction__item-title">Фильтр по стикерам через коллекцию</h2>
+                        <div class="instruction__info">
+                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua</p>
+                            <div class="instruction__gif-bg instruction__gif-bg_right">
+                                <img th:src="@{~/img/gif/9.gif}" alt="gif" class="instruction__gif">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="instruction-10" class="instruction__item">
+                        <h2 class="instruction__item-title">Фильтр по стикерам через @ (Смайлик/Имя)</h2>
+                        <div class="instruction__info">
+                            <div class="instruction__gif-bg instruction__gif-bg_left">
+                                <img th:src="@{~/img/gif/10.gif}" alt="gif" class="instruction__gif">
+                            </div>
+                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua</p>
+                        </div>
+                    </div>
+
+                    <div id="instruction-11" class="instruction__item">
+                        <h2 class="instruction__item-title">Продажа стикеров на аукционе</h2>
+                        <div class="instruction__info">
+                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua</p>
+                            <div class="instruction__gif-bg instruction__gif-bg_right">
+                                <img th:src="@{~/img/gif/11.gif}" alt="gif" class="instruction__gif">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="instruction-12" class="instruction__item">
+                        <h2 class="instruction__item-title">Покупка стикеров на аукционе</h2>
+                        <div class="instruction__info">
+                            <div class="instruction__gif-bg instruction__gif-bg_left">
+                                <img th:src="@{~/img/gif/12.gif}" alt="gif" class="instruction__gif">
+                            </div>
+                            <p class="instruction__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua. "Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                                aliqua</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </main>
     </div>
 
-    <div class="card-group">
-        <div class="card bg-secondary text-dark mb-2">
-            <div class="card-header">
-                <b>Топ-5 пользователей по опыту</b>
-            </div>
-            <span class="card-text" th:if="${expTop.size() == 0}">Здесь пока никого нет. Вы можете стать первым!</span>
-            <ul class="list-group list-group-flush">
-                <li th:each="pair, iter : ${expTop}"
-                    class="list-group-item bg-secondary text-dark">
-                    <th:block
-                            th:text="${iter.index+1} + '. ' + ${pair.getKey()} + ' - ' + ${pair.getValue()} + ' опыта'"/>
-                </li>
-            </ul>
-        </div>
-        <div class="card-horizontal-gutter"></div>
-        <div class="card bg-secondary text-dark mb-2">
-            <div class="row g-0">
-                <div class="col-md-6 margin mx-auto">
-                    <img th:src="@{images/logo.png}" class="img-fluid"/>
-                </div>
-                <div class="col-md-6">
-                    <div class="card-body">
-                        <h5 class="card-title">Запуск проекта!</h5>
-                        <p class="card-text">Совсем недавно стартовал наш проект.
-                            Переходите по ссылке, нажав на эту карточку, и испытайте удачу!</p>
-                    </div>
-                </div>
-            </div>
-            <a class="stretched-link" href="https://t.me/wyrm_sticker_bot"></a>
-        </div>
+    <th:block th:replace="blocks/footer :: footer"/>
     </div>
-</div>
-<footer th:replace="blocks/footer :: footer"></footer>
-<div th:replace="blocks/includes :: footer"></div>
+
+    <script th:src="@{~/js/jquery-3.6.0.min.js}"></script>
+    <script th:src="@{~/js/jquery.cycle.js}"></script>
+    <script th:src="@{~/js/main.js}"></script>
+    <script th:src="@{~/js/tgs-player.js}"></script>
 </body>
 </html>

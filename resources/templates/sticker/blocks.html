@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="sticker_preview(sticker)">
+    <a th:href="@{~/sticker(hash=${sticker.MD5Hash})}" class="stickers__sticker-link">
+        <th:block th:replace="blocks/previews :: sticker(${sticker}, 'stickers\_\_sticker-img')"/>
+        <div class="stickers__sticker-star">
+            <th:block th:each="i : ${#numbers.sequence(1, sticker.Tier)}">
+                <img th:src="@{~/img/star.svg}" alt="star">
+            </th:block>
+        </div>
+    </a>
+</th:block>
+
+<th:block th:fragment="stickers(stickers)">
+    <div class="stickers">
+        <h2 th:if="${stickers.size() == 0}">Ничего не найдено, попробуйте изменить критерии запроса</h2>
+        <div th:each="sticker : ${stickers}" th:if="${stickers.size() > 0}" class="stickers__sticker">
+            <th:block th:replace="sticker/blocks :: sticker_preview(${sticker})"/>
+        </div>
+    </div>
+</th:block>

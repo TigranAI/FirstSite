@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="blocks/header :: sticker_head"></head>
+
+<body>
+<div class="wrapper">
+    <!--Шапка-->
+    <header th:replace="blocks/header :: header"></header>
+
+    <!--Основная часть-->
+    <main class="main">
+        <div class="main__wrapper">
+            <th:block th:fragment="sticker_page(pack, sticker, previousHash, nextHash)">
+                <div class="sticker-bg">
+                    <div class="page-title">
+                        <h1 class="page-title__text">Стикерпак от
+                            <span class="page-title_name" th:text="${pack.Author}"></span></h1>
+                    </div>
+
+                    <th:block th:replace="blocks/previews :: sticker_card(${sticker})"/>
+
+                    <div class="sticker-nav">
+                        <a th:if="${previousHash}" th:href="@{~/pack/sticker(hash = ${previousHash})}"
+                           class="sticker-nav__link-prev"></a>
+                        <a th:href="@{~/pack(id=${pack.Id})}" class="sticker-nav__link">К стикерпаку</a>
+                        <a th:if="${nextHash}" th:href="@{~/pack/sticker(hash = ${nextHash})}"
+                           class="sticker-nav__link-next"></a>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </main>
+    <th:block th:replace="blocks/footer :: footer"/>
+</div>
+
+<script th:src="@{~/js/tgs-player.js}"></script>
+</body>
+
+</html>
