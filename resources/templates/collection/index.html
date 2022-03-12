@@ -22,7 +22,7 @@
                         </div>
                     </div>
 
-                    <th:block th:replace="blocks/pages :: pages(${filters.getPage()}, ${pagesCount})"/>
+                    <th:block th:replace="blocks/pages :: pages(${filters.getPage() ?: 1}, ${pagesCount})"/>
                 </th:block>
             </div>
         </div>

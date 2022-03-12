@@ -11,8 +11,8 @@
                 <button class="nav__button">..</button>
             </li>
 
-            <th:block th:each="pageNum : ${#numbers.sequence(1, pagesCount)}">
-                <li class="nav__page" th:if="${pageNum > page - 3 && pageNum < page + 3}" th:id="'page'+${pageNum}">
+            <th:block th:each="pageNum : ${#numbers.sequence(page - 2, page + 2)}">
+                <li class="nav__page" th:if="${pageNum > 0 && pageNum < pagesCount}" th:id="'page'+${pageNum}">
                     <button class="nav__button" th:onclick="'applyFilters('+${pageNum}+')'"
                             th:text="${pageNum}"></button>
                 </li>
