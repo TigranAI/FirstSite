@@ -24,8 +24,8 @@ public class TopController {
         List<User> tier4Top = userRepository.findTopByTier4Stickers(PageRequest.of(0, 10));
         Map<Long, Integer> tier4TopCount = new HashMap<>();
         for(User user : tier4Top){
-            long count = user.getStickers().stream().filter(item -> item.getSticker().getTier() == 4).count();
-            tier4TopCount.put(user.getId(), (int) count);
+            Long count = user.getStickers().stream().filter(item -> item.getSticker().getTier() == 4).count();
+            tier4TopCount.put(user.getId(), count.intValue());
         }
 
         model.addAttribute("expTop", userRepository.findTopByExp(PageRequest.of(0, 10)));

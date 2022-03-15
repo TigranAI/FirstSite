@@ -20,7 +20,7 @@
     </nav>
 </header>
 
-<th:block th:fragment="base_head">
+<th:block th:fragment="base_head(title)">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,51 +33,47 @@
     <title th:text="${title}"></title>
 </th:block>
 
-<head th:fragment="index_head">
-     <th:block th:replace="blocks/header :: base_head"/>
-</head>
-
-<head th:fragment="about_head">
-    <th:block th:replace="blocks/header :: base_head"/>
+<head th:fragment="about_head(title)">
+    <th:block th:replace="blocks/header :: base_head(${title})"/>
     <link rel="stylesheet" th:href="@{~/css/about.css}">
 </head>
 
-<head th:fragment="login_head">
-    <th:block th:replace="blocks/header :: base_head"/>
+<head th:fragment="login_head(title)">
+    <th:block th:replace="blocks/header :: base_head(${title})"/>
     <link rel="stylesheet" th:href="@{~/css/auth.css}">
 </head>
 
-<head th:fragment="top_head">
-    <th:block th:replace="blocks/header :: base_head"/>
+<head th:fragment="top_head(title)">
+    <th:block th:replace="blocks/header :: base_head(${title})"/>
     <link rel="stylesheet" th:href="@{~/css/top.css}">
 </head>
 
-<head th:fragment="stickers_head">
-    <th:block th:replace="blocks/header :: base_head"/>
+<head th:fragment="stickers_head(title)">
+    <th:block th:replace="blocks/header :: base_head(${title})"/>
     <link rel="stylesheet" th:href="@{~/css/allStickers.css}">
 </head>
 
-<head th:fragment="sticker_head">
-    <th:block th:replace="blocks/header :: base_head"/>
+<head th:fragment="sticker_head(title)">
+    <th:block th:replace="blocks/header :: base_head(${title})"/>
     <link rel="stylesheet" th:href="@{~/css/sticker.css}">
 </head>
 
-<head th:fragment="docs_head">
-    <th:block th:replace="blocks/header :: base_head"/>
+<head th:fragment="docs_head(title)">
+    <th:block th:replace="blocks/header :: base_head(${title})"/>
     <link rel="stylesheet" th:href="@{~/css/documents.css}">
 </head>
 
-<head th:fragment="packs_head">
-    <th:block th:replace="blocks/header :: base_head"/>
+<head th:fragment="packs_head(title)">
+    <th:block th:replace="blocks/header :: base_head(${title})"/>
     <link rel="stylesheet" th:href="@{~/css/stickerPacks.css}">
 </head>
 
-<head th:fragment="pack_head">
-    <th:block th:replace="blocks/header :: base_head"/>
+<head th:fragment="pack_head(title)">
+    <th:block th:replace="blocks/header :: base_head(${title})"/>
     <link rel="stylesheet" th:href="@{~/css/stickerPack.css}">
 </head>
 
-<head th:fragment="collection_head">
-    <th:block th:replace="blocks/header :: base_head"/>
+<head th:fragment="collection_head(title)">
+    <th:block th:replace="blocks/header :: base_head(${title})"/>
     <link rel="stylesheet" th:href="@{~/css/collection.css}">
 </head>

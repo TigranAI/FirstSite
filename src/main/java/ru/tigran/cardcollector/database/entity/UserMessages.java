@@ -19,22 +19,22 @@ public class UserMessages {
     private User user;
 
     @Column(nullable = false)
-    private int menuMessageId;
+    private Integer menuMessageId;
 
     @Column(nullable = false)
-    private int collectIncomeMessageId;
+    private Integer collectIncomeMessageId;
 
     @Column(nullable = false)
-    private int topUsersMessageId;
+    private Integer topUsersMessageId;
 
     @Column(nullable = false)
-    private int dailyTaskMessageId;
+    private Integer dailyTaskMessageId;
 
     @Column(nullable = false)
-    private int dailyTaskAlertMessageId;
+    private Integer dailyTaskAlertMessageId;
 
     @Column(nullable = false)
-    private int dailyTaskProgressMessageId;
+    private Integer dailyTaskProgressMessageId;
 
     @Column(columnDefinition = "longtext")
     @Convert(converter = ListToJsonConverter.class)
@@ -60,51 +60,51 @@ public class UserMessages {
         this.user = user;
     }
 
-    public int getMenuMessageId() {
+    public Integer getMenuMessageId() {
         return menuMessageId;
     }
 
-    public void setMenuMessageId(int menuMessageId) {
+    public void setMenuMessageId(Integer menuMessageId) {
         this.menuMessageId = menuMessageId;
     }
 
-    public int getCollectIncomeMessageId() {
+    public Integer getCollectIncomeMessageId() {
         return collectIncomeMessageId;
     }
 
-    public void setCollectIncomeMessageId(int collectIncomeMessageId) {
+    public void setCollectIncomeMessageId(Integer collectIncomeMessageId) {
         this.collectIncomeMessageId = collectIncomeMessageId;
     }
 
-    public int getTopUsersMessageId() {
+    public Integer getTopUsersMessageId() {
         return topUsersMessageId;
     }
 
-    public void setTopUsersMessageId(int topUsersMessageId) {
+    public void setTopUsersMessageId(Integer topUsersMessageId) {
         this.topUsersMessageId = topUsersMessageId;
     }
 
-    public int getDailyTaskMessageId() {
+    public Integer getDailyTaskMessageId() {
         return dailyTaskMessageId;
     }
 
-    public void setDailyTaskMessageId(int dailyTaskMessageId) {
+    public void setDailyTaskMessageId(Integer dailyTaskMessageId) {
         this.dailyTaskMessageId = dailyTaskMessageId;
     }
 
-    public int getDailyTaskAlertMessageId() {
+    public Integer getDailyTaskAlertMessageId() {
         return dailyTaskAlertMessageId;
     }
 
-    public void setDailyTaskAlertMessageId(int dailyTaskAlertMessageId) {
+    public void setDailyTaskAlertMessageId(Integer dailyTaskAlertMessageId) {
         this.dailyTaskAlertMessageId = dailyTaskAlertMessageId;
     }
 
-    public int getDailyTaskProgressMessageId() {
+    public Integer getDailyTaskProgressMessageId() {
         return dailyTaskProgressMessageId;
     }
 
-    public void setDailyTaskProgressMessageId(int dailyTaskProgressMessageId) {
+    public void setDailyTaskProgressMessageId(Integer dailyTaskProgressMessageId) {
         this.dailyTaskProgressMessageId = dailyTaskProgressMessageId;
     }
 

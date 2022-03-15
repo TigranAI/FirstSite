@@ -24,7 +24,7 @@ public class TelegramChat {
     private String title;
 
     @Column(nullable = false)
-    private boolean isBlocked;
+    private Boolean isBlocked;
 
     @ManyToMany
     @JoinTable(name = "telegram_chat_user",
@@ -64,11 +64,11 @@ public class TelegramChat {
         this.title = title;
     }
 
-    public boolean isBlocked() {
+    public Boolean isBlocked() {
         return isBlocked;
     }
 
-    public void setBlocked(boolean blocked) {
+    public void setBlocked(Boolean blocked) {
         isBlocked = blocked;
     }
 

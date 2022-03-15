@@ -14,7 +14,7 @@ public class Payment {
     private User user;
 
     @Column(nullable = false)
-    private int totalAmount;
+    private Integer totalAmount;
 
     @Column(length = 16, nullable = false)
     private String invoicePayload;

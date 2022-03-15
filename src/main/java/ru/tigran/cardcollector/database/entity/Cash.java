@@ -15,13 +15,13 @@ public class Cash {
     private User user;
 
     @Column(nullable = false)
-    private int coins;
+    private Integer coins;
 
     @Column(nullable = false)
-    private int gems;
+    private Integer gems;
 
     @Column(nullable = false)
-    private int maxCapacity;
+    private Integer maxCapacity;
 
     @Column(nullable = false)
     private LocalDateTime lastPayout;
@@ -42,27 +42,27 @@ public class Cash {
         this.user = user;
     }
 
-    public int getCoins() {
+    public Integer getCoins() {
         return coins;
     }
 
-    public void setCoins(int coins) {
+    public void setCoins(Integer coins) {
         this.coins = coins;
     }
 
-    public int getGems() {
+    public Integer getGems() {
         return gems;
     }
 
-    public void setGems(int gems) {
+    public void setGems(Integer gems) {
         this.gems = gems;
     }
 
-    public int getMaxCapacity() {
+    public Integer getMaxCapacity() {
         return maxCapacity;
     }
 
-    public void setMaxCapacity(int maxCapacity) {
+    public void setMaxCapacity(Integer maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
 

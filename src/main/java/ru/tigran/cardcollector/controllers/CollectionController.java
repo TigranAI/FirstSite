@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/collection")
@@ -81,27 +80,27 @@ public class CollectionController {
     }
 
     private void PrepareContent(Model model, FiltersDTO filters, User user) {
-        Stream<UserSticker> userStickers = userStickerRepository.findAllByUser(user).stream();
+        List<UserSticker> userStickers = userStickerRepository.findAllByUser(user);
 
         List<String> authors = getAuthors(userStickers);
 
         if (filters.getAuthor() != null)
-            userStickers = userStickers.filter(item -> item.getSticker().getAuthor().equals(filters.getAuthor()));
+            userStickers.removeIf(item -> !item.getSticker().getAuthor().equals(filters.getAuthor()));
 
         if (filters.getTier() != null)
-            userStickers = userStickers.filter(item -> item.getSticker().getTier() == filters.getTier());
+            userStickers.removeIf(item -> item.getSticker().getTier() != filters.getTier());
 
         List<String> emojis = getEmojis(userStickers);
 
         if (filters.getEmoji() != null)
-            userStickers = userStickers.filter(item -> item.getSticker().getEmoji().equals(filters.getEmoji()));
+            userStickers.removeIf(item -> !item.getSticker().getEmoji().equals(filters.getEmoji()));
 
         if (filters.getSortBy() != null)
-            userStickers = SortList(userStickers, filters.getSortBy());
+            SortList(userStickers, filters.getSortBy());
 
         int page = filters.getPage() == null ? 1 : filters.getPage();
-        long pagesCount = userStickers.count() / 24;
-        if (userStickers.count() % 24 > 0) pagesCount++;
+        Integer pagesCount = userStickers.size() / 24;
+        if (userStickers.size() % 24 > 0) pagesCount++;
 
         model.addAttribute("stickers", ListHelper.GetRange(userStickers, (page - 1) * 24, 24));
         model.addAttribute("pagesCount", pagesCount);
@@ -110,34 +109,36 @@ public class CollectionController {
         model.addAttribute("filters", filters);
     }
 
-    private List<String> getEmojis(Stream<UserSticker> userStickers) {
-        return userStickers
+    private List<String> getEmojis(List<UserSticker> userStickers) {
+        return userStickers.stream()
                 .map(UserSticker::getSticker)
                 .map(Sticker::getEmoji)
                 .distinct()
                 .collect(Collectors.toList());
     }
 
-    private List<String> getAuthors(Stream<UserSticker> userStickers) {
-        return userStickers
+    private List<String> getAuthors(List<UserSticker> userStickers) {
+        return userStickers.stream()
                 .map(UserSticker::getSticker)
                 .map(Sticker::getAuthor)
                 .distinct()
                 .collect(Collectors.toList());
     }
 
-    private Stream<UserSticker> SortList(Stream<UserSticker> list, String sortParam) {
+    private void SortList(List<UserSticker> list, String sortParam) {
         switch (sortParam) {
             case "author":
-                return list.sorted(Comparator.comparing(o -> o.getSticker().getAuthor(), String::compareToIgnoreCase));
+                list.sort(Comparator.comparing(o -> o.getSticker().getAuthor(), String::compareToIgnoreCase));
+                break;
             case "tier":
-                return list.sorted(Comparator.comparingInt(o -> o.getSticker().getTier()));
+                list.sort(Comparator.comparingInt(o -> o.getSticker().getTier()));
+                break;
             case "tier_desc":
-                return list.sorted((o1, o2) -> o2.getSticker().getTier() - o1.getSticker().getTier());
+                list.sort((o1, o2) -> o2.getSticker().getTier() - o1.getSticker().getTier());
+                break;
             case "title":
-                return list.sorted(Comparator.comparing(o -> o.getSticker().getTitle(), String::compareToIgnoreCase));
-            default:
-                return list;
+                list.sort(Comparator.comparing(o -> o.getSticker().getTitle(), String::compareToIgnoreCase));
+                break;
         }
     }
 }

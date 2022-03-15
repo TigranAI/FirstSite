@@ -26,7 +26,7 @@ public class PackController {
 
     @GetMapping()
     public String showAllPacks(Model model) {
-        model.addAttribute("packs", packRepository.findAll());
+        model.addAttribute("packs", packRepository.findAllSkipId1());
         return "pack/index";
     }
 

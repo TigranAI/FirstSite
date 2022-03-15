@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="blocks/header :: login_head"></head>
+<head th:insert="blocks/header :: login_head('WyrmSticker | Вход')"></head>
 
 <body>
 <div class="wrapper">
@@ -24,7 +24,7 @@
     </main>
     <th:block th:replace="blocks/footer :: footer"/>
 </div>
-<input type="text" name="botName" th:value="${botName}" style="visibility: hidden; height: 0; width: 0"/>
+<input type="text" name="botName" th:value="${botName}" class="filters__form"/>
 
 <script th:src="@{~/js/jquery-3.6.0.min.js}"></script>
 <script th:src="@{~/js/login.js}"></script>

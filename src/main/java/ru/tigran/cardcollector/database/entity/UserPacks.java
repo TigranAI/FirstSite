@@ -18,7 +18,7 @@ public class UserPacks {
     private Pack pack;
 
     @Column(nullable = false)
-    private int count;
+    private Integer count;
 
     public long getId() {
         return id;
@@ -44,11 +44,11 @@ public class UserPacks {
         this.pack = pack;
     }
 
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 }

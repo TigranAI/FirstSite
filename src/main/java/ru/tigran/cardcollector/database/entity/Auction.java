@@ -18,10 +18,10 @@ public class Auction {
     private Sticker sticker;
 
     @Column(nullable = false)
-    private int price;
+    private Integer price;
 
     @Column(nullable = false)
-    private int count;
+    private Integer count;
 
     public long getId() {
         return id;
@@ -47,19 +47,19 @@ public class Auction {
         this.sticker = sticker;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 }

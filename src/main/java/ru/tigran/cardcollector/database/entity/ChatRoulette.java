@@ -23,14 +23,14 @@ public class ChatRoulette {
     private TelegramChat group;
 
     @Column(nullable = false)
-    private int messageId;
+    private Integer messageId;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "chat_roulette_id", nullable = false)
     private List<UserSticker> bets;
 
     @Column(nullable = false)
-    private boolean isStarted;
+    private Boolean isStarted;
 
     public long getId() {
         return id;
@@ -64,11 +64,11 @@ public class ChatRoulette {
         this.group = group;
     }
 
-    public int getMessageId() {
+    public Integer getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(int messageId) {
+    public void setMessageId(Integer messageId) {
         this.messageId = messageId;
     }
 
@@ -80,11 +80,11 @@ public class ChatRoulette {
         this.bets = bets;
     }
 
-    public boolean isStarted() {
+    public Boolean isStarted() {
         return isStarted;
     }
 
-    public void setStarted(boolean started) {
+    public void setStarted(Boolean started) {
         isStarted = started;
     }
 }

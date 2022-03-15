@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="blocks/header :: sticker_head"></head>
+<!--/*@thymesVar id="sticker" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+<head th:insert="blocks/header :: sticker_head('WyrmSticker | ' + ${sticker.getTitle()})"></head>
 
 <body>
 <div class="wrapper">
@@ -17,10 +18,12 @@
                 <th:block th:replace="blocks/previews :: sticker_card(${sticker})"/>
 
                 <div class="sticker-nav">
-                    <a th:if="${previousHash}" th:href="@{~/sticker(hash = ${previousHash})}"
+                    <!--/*@thymesVar id="previous" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+                    <a th:if="${previous}" th:href="@{~/sticker(id = ${previous.getId()})}"
                        class="sticker-nav__link-prev"></a>
                     <a th:href="@{~/sticker/back}" class="sticker-nav__link">К результатам поиска</a>
-                    <a th:if="${nextHash}" th:href="@{~/sticker(hash = ${nextHash})}"
+                    <!--/*@thymesVar id="next" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+                    <a th:if="${next}" th:href="@{~/sticker(id = ${next.getId()})}"
                        class="sticker-nav__link-next"></a>
                 </div>
             </div>

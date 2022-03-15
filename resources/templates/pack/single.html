@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="blocks/header :: pack_head"></head>
+<!--/*@thymesVar id="pack" type="ru.tigran.cardcollector.database.entity.Pack"*/-->
+<head th:insert="blocks/header :: pack_head('WyrmSticker | ' + ${pack.getAuthor()})"></head>
 
 <body>
 <div class="wrapper">
@@ -13,8 +14,8 @@
             <th:block th:fragment="pack_page(pack, stickers)">
                 <div class="stickerPack-bg">
                     <div class="page-title">
-                        <h1 class="page-title__text">Стикерпак от <span class="page-title_name"
-                                                                        th:text="${pack.Author}"></span></h1>
+                        <h1 class="page-title__text">Стикерпак от
+                            <span class="page-title_name" th:text="${pack.getAuthor()}"></span></h1>
                     </div>
                     <div class="stickerPack">
                         <th:block th:each="i: ${#numbers.sequence(0, stickers.size(), 2)}">

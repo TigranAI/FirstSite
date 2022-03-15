@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="blocks/header :: index_head"></head>
+<head th:insert="blocks/header :: base_head('WyrmSticker | Главная')"></head>
 <body>
 <div class="wrapper">
     <!--Шапка-->
@@ -16,10 +16,10 @@
                     <!--Слайды-->
                     <!--/*@thymesVar id="lastPacks" type="List<ru.tigran.cardcollector.database.entity.Pack>"*/-->
                     <div th:each="pack, iter : ${lastPacks}" class="slider__item">
-                        <a th:href="@{~/pack(id=${pack.Id})}" class="slider__link">
+                        <a th:href="@{~/pack(id=${pack.getId()})}" class="slider__link">
                             <th:block th:replace="blocks/previews :: pack(${pack}, slider__sticker)"/>
                             <p class="slider__text">
-                                Новый стикерпак от <span class="slider__author-name" th:text="${pack.Author}"></span>
+                                Новый стикерпак от <span class="slider__author-name" th:text="${pack.getAuthor()}"></span>
                                 уже в
                                 магазине!
                             </p>

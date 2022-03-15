@@ -11,11 +11,11 @@
 <!--/*@thymesVar id="sticker" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
 <th:block th:fragment="sticker(sticker, class)">
     <th:block
-            th:replace="blocks/previews :: webp_tgs_selector(${sticker.Animated}, ${sticker.getForSaleFilePath()}, ${class})"/>
+            th:replace="blocks/previews :: webp_tgs_selector(${sticker.isAnimated()}, ${sticker.getCacheForSaleFilePath()}, ${class})"/>
 </th:block>
 
 <th:block th:fragment="sticker_link(sticker, class, link_class)">
-    <a th:href="@{~/sticker(hash=${sticker.MD5Hash})}" th:class="${link_class}">
+    <a th:href="@{~/sticker(id=${sticker.getId()})}" th:class="${link_class}">
         <th:block th:replace="blocks/previews :: sticker(${sticker}, ${class})"/>
     </a>
 </th:block>
@@ -23,11 +23,11 @@
 <!--/*@thymesVar id="pack" type="ru.tigran.cardcollector.database.entity.Pack"*/-->
 <th:block th:fragment="pack(pack, class)">
     <th:block
-            th:replace="blocks/previews :: webp_tgs_selector(${pack.Animated}, ${pack.getStickerPreviewPath()}, ${class})"/>
+            th:replace="blocks/previews :: webp_tgs_selector(${pack.isPreviewAnimated()}, ${pack.getCacheFilePath()}, ${class})"/>
 </th:block>
 
 <th:block th:fragment="pack_link(pack, class, link_class)">
-    <a th:href="@{~/pack(id=${pack.Id})}" th:class="${link_class}">
+    <a th:href="@{~/pack(id=${pack.getId()})}" th:class="${link_class}">
         <th:block th:replace="blocks/previews :: pack(${pack}, ${class})"/>
     </a>
 </th:block>
@@ -36,22 +36,22 @@
     <div class="sticker">
         <th:block th:replace="blocks/previews :: sticker(${sticker}, 'sticker__img')"/>
         <div class="sticker__card">
-            <h2 class="sticker__name" th:text="${sticker.Title}"></h2>
+            <h2 class="sticker__name" th:text="${sticker.getTitle()}"></h2>
             <div class="sticker__info">
                 <div class="sticker__info-row">
                     <p class="sticker__info-text">Редкость:</p>
-                    <th:block th:each="i : ${#numbers.sequence(1, sticker.Tier)}">
+                    <th:block th:each="i : ${#numbers.sequence(1, sticker.getTier())}">
                         <img th:src="@{~/img/star.svg}" class="sticker__star" alt="star">
                     </th:block>
                 </div>
 
                 <p class="sticker__info-text">Прибыль: Приносит
-                    <span class="sticker__text-num" th:text="${sticker.Income}"></span><span class="sticker__symbol">💰</span>
-                    за <span class="sticker__text-time" th:text="${sticker.IncomeTime}"></span><span class="sticker__symbol">⏱</span> минут</p>
-                <p class="sticker__info-text">Эмоция: <span class="sticker__emoji" th:text="${sticker.Emoji}"></span></p>
+                    <span class="sticker__text-num" th:text="${sticker.getIncome()}"></span><span class="sticker__symbol">💰</span>
+                    за <span class="sticker__text-time" th:text="${sticker.getIncomeTime()}"></span><span class="sticker__symbol">⏱</span> минут</p>
+                <p class="sticker__info-text">Эмоция: <span class="sticker__emoji" th:text="${sticker.getEmoji()}"></span></p>
                 <p class="sticker__info-text">Эффект: <span class="sticker__effect" th:text="${sticker.getEffectDescription()}"></span></p>
             </div>
-            <p class="sticker__description" th:text="${sticker.Description}"></p>
+            <p class="sticker__description" th:text="${sticker.getDescription()}"></p>
         </div>
     </div>
 </th:block>

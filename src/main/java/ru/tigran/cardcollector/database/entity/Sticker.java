@@ -1,7 +1,10 @@
 package ru.tigran.cardcollector.database.entity;
 
+import org.springframework.transaction.annotation.Transactional;
+import ru.tigran.cardcollector.Utilities;
 import ru.tigran.cardcollector.database.converters.EffectConverter;
 import ru.tigran.cardcollector.enums.Effect;
+import ru.tigran.cardcollector.translations.Effects;
 
 import javax.persistence.*;
 
@@ -19,13 +22,13 @@ public class Sticker {
     private String author;
 
     @Column(nullable = false)
-    private int income;
+    private Integer income;
 
     @Column(nullable = false)
-    private int incomeTime;
+    private Integer incomeTime;
 
     @Column(nullable = false)
-    private int tier;
+    private Integer tier;
 
     @Column(nullable = false)
     @Convert(converter = EffectConverter.class)
@@ -45,12 +48,12 @@ public class Sticker {
     private String fileId;
 
     @Column(nullable = false)
-    private boolean isAnimated;
+    private Boolean isAnimated;
 
     @Column(length = 127)
     private String forSaleFileId;
 
-    private boolean isForSaleAnimated;
+    private Boolean isForSaleAnimated;
 
     @Column(length = 127)
     private String cacheFilePath;
@@ -82,27 +85,27 @@ public class Sticker {
         this.author = author;
     }
 
-    public int getIncome() {
+    public Integer getIncome() {
         return income;
     }
 
-    public void setIncome(int income) {
+    public void setIncome(Integer income) {
         this.income = income;
     }
 
-    public int getIncomeTime() {
+    public Integer getIncomeTime() {
         return incomeTime;
     }
 
-    public void setIncomeTime(int incomeTime) {
+    public void setIncomeTime(Integer incomeTime) {
         this.incomeTime = incomeTime;
     }
 
-    public int getTier() {
+    public Integer getTier() {
         return tier;
     }
 
-    public void setTier(int tier) {
+    public void setTier(Integer tier) {
         this.tier = tier;
     }
 
@@ -146,11 +149,11 @@ public class Sticker {
         this.fileId = fileId;
     }
 
-    public boolean isAnimated() {
+    public Boolean isAnimated() {
         return isAnimated;
     }
 
-    public void setAnimated(boolean animated) {
+    public void setAnimated(Boolean animated) {
         isAnimated = animated;
     }
 
@@ -162,11 +165,11 @@ public class Sticker {
         this.forSaleFileId = forSaleFileId;
     }
 
-    public boolean isForSaleAnimated() {
+    public Boolean isForSaleAnimated() {
         return isForSaleAnimated;
     }
 
-    public void setForSaleAnimated(boolean forSaleAnimated) {
+    public void setForSaleAnimated(Boolean forSaleAnimated) {
         isForSaleAnimated = forSaleAnimated;
     }
 
@@ -179,10 +182,15 @@ public class Sticker {
     }
 
     public String getCacheForSaleFilePath() {
+        if (forSaleFileId == null) return getCacheFilePath();
         return cacheForSaleFilePath;
     }
 
     public void setCacheForSaleFilePath(String cacheForSaleFilePath) {
         this.cacheForSaleFilePath = cacheForSaleFilePath;
+    }
+
+    public String getEffectDescription(){
+        return Effects.get(effect.getValue());
     }
 }

@@ -11,6 +11,19 @@ import java.util.List;
 @Repository
 public interface PackRepository extends JpaRepository<Pack, Integer> {
 
-    @Query(value = "select pack from Pack pack order by pack.id desc")
+    @Query("select pack " +
+            "from Pack pack " +
+            "where pack.id <> 1 " +
+            "order by pack.id desc")
     List<Pack> findLast(Pageable pageable);
+
+    @Query("select pack " +
+            "from Pack pack " +
+            "where pack.id <> 1")
+    List<Pack> findAllSkipId1();
+
+    @Query("select pack " +
+            "from Pack pack " +
+            "where pack.previewFileId is not null and pack.cacheFilePath is null")
+    List<Pack> findAllUncached();
 }

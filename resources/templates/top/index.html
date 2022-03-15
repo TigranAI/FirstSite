@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="blocks/header :: top_head"></head>
+<head th:insert="blocks/header :: top_head('WyrmSticker | Топ пользователей')"></head>
 
 <body>
 <div class="wrapper">
@@ -16,35 +16,40 @@
                 </div>
 
                 <div class="top">
-                    <div class="top__experience">
-                        <h2 class="top__title">Топ пользователей по опыту</h2>
-                        <h2 th:if="${expTop.size() == 0}" class="top__title">Здесь пока никого нет. Вы можете стать
-                            первым!</h2>
-                        <div class="top__wrapper">
-                            <ul class="top__list">
-                                <!--/*@thymesVar id="expTop" type="List<Map.Entry<String, Long>>"*/-->
-                                <li th:each="pair : ${expTop}" class="top__item">
-                                    <span class="top__item-name" th:text="${pair.getKey()}"></span> -
-                                    <span class="top__item-num" th:text="${pair.getValue()}"></span> опыта
-                                </li>
-                            </ul>
+                    <th:block th:fragment(expTop, tier4Top, tier4TopCount)>
+                        <div class="top__experience">
+                            <h2 class="top__title">Топ пользователей по опыту</h2>
+                            <!--/*@thymesVar id="expTop" type="List<>"*/-->
+                            <h2 th:if="${expTop.size() == 0}" class="top__title">Здесь пока никого нет. Вы можете стать
+                                первым!</h2>
+                            <div class="top__wrapper">
+                                <ul class="top__list">
+                                    <li th:each="userTop : ${expTop}" class="top__item">
+                                        <!--/*@thymesVar id="userTop" type="ru.tigran.cardcollector.database.entity.User"*/-->
+                                        <span class="top__item-name" th:text="${userTop.getUsername()}"></span> -
+                                        <span class="top__item-num"
+                                              th:text="${userTop.getLevel().getTotalExp()}"></span> опыта
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="top__range">
-                        <h2 class="top__title">Топ пользователей по стикерам <span class="num">4</span> тира</h2>
-                        <h2 th:if="${tier4Top.size() == 0}" class="top__title">Здесь пока никого нет. Вы можете стать
-                            первым!</h2>
-                        <div class="top__wrapper">
-                            <ul class="top__list">
-                                <!--/*@thymesVar id="tier4Top" type="List<Map.Entry<String, int>>"*/-->
-                                <li th:each="pair : ${tier4Top}" class="top__item">
-                                    <span class="top__item-name" th:text="${pair.getKey()}"></span> -
-                                    <span class="top__item-num" th:text="${pair.getValue()}"></span> стикеров
-                                </li>
-                            </ul>
+                        <div class="top__range">
+                            <h2 class="top__title">Топ пользователей по стикерам <span class="num">4</span> тира</h2>
+                            <!--/*@thymesVar id="tier4Top" type="List<>"*/-->
+                            <h2 th:if="${tier4Top.size() == 0}" class="top__title">Здесь пока никого нет. Вы можете
+                                стать первым!</h2>
+                            <div class="top__wrapper">
+                                <ul class="top__list">
+                                    <li th:each="userTop : ${tier4Top}" class="top__item">
+                                        <span class="top__item-name" th:text="${userTop.getUsername()}"></span> -
+                                        <!--/*@thymesVar id="tier4TopCount" type="Map<Long, Integer>"*/-->
+                                        <span class="top__item-num" th:text="${tier4TopCount.get(userTop.getId())}"></span> стикеров
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    </th:block>
                 </div>
             </div>
         </div>

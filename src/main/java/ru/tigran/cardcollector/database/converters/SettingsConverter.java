@@ -27,17 +27,19 @@ public class SettingsConverter implements AttributeConverter<Map<Settings, Boole
 
     @Override
     public Map<Settings, Boolean> convertToEntityAttribute(String s) {
-        String[] params = s.substring(1, s.length() - 2).split(",");
+        String[] params = s.substring(1, s.length() - 1).split(",");
         Map<Settings, Boolean> result = new HashMap<>();
         for (String param : params) {
             String[] pair = param.split(":");
-            result.put(getEnumValue(Integer.parseInt(pair[0])), Boolean.parseBoolean(pair[1]));
+            result.put(
+                    getEnumValue(Integer.parseInt(pair[0].substring(1, pair[0].length() - 1))),
+                    Boolean.parseBoolean(pair[1]));
         }
         return result;
     }
 
-    private Settings getEnumValue(int value){
-        for (Settings param: Settings.values()) {
+    private Settings getEnumValue(Integer value) {
+        for (Settings param : Settings.values()) {
             if (param.getValue() == value) return param;
         }
         return null;

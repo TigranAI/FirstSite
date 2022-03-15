@@ -13,14 +13,14 @@ import java.util.List;
 public class ChannelGiveaway {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     @Convert(converter = PrizeConverter.class)
     private Prize prize;
 
     @Column(nullable = false)
-    private int prizeCount;
+    private Integer prizeCount;
 
     @Column(columnDefinition = "longtext")
     private String message;
@@ -32,7 +32,7 @@ public class ChannelGiveaway {
     private String imageFileId;
 
     @Column(nullable = false)
-    private int messageId;
+    private Integer messageId;
 
     private LocalDateTime sendAt;
 
@@ -40,7 +40,7 @@ public class ChannelGiveaway {
     @JoinColumn(name = "selected_sticker_id")
     private Sticker selectedSticker;
 
-    private int selectedStickerTier;
+    private Integer selectedStickerTier;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "channel_id", nullable = false)
@@ -52,11 +52,11 @@ public class ChannelGiveaway {
             inverseJoinColumns = @JoinColumn(name = "awarded_users_id", nullable = false))
     private List<User> awardedUsers;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -68,11 +68,11 @@ public class ChannelGiveaway {
         this.prize = prize;
     }
 
-    public int getPrizeCount() {
+    public Integer getPrizeCount() {
         return prizeCount;
     }
 
-    public void setPrizeCount(int prizeCount) {
+    public void setPrizeCount(Integer prizeCount) {
         this.prizeCount = prizeCount;
     }
 
@@ -100,11 +100,11 @@ public class ChannelGiveaway {
         this.imageFileId = imageFileId;
     }
 
-    public int getMessageId() {
+    public Integer getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(int messageId) {
+    public void setMessageId(Integer messageId) {
         this.messageId = messageId;
     }
 
@@ -124,11 +124,11 @@ public class ChannelGiveaway {
         this.selectedSticker = selectedSticker;
     }
 
-    public int getSelectedStickerTier() {
+    public Integer getSelectedStickerTier() {
         return selectedStickerTier;
     }
 
-    public void setSelectedStickerTier(int selectedStickerTier) {
+    public void setSelectedStickerTier(Integer selectedStickerTier) {
         this.selectedStickerTier = selectedStickerTier;
     }
 

@@ -20,14 +20,14 @@ public class User {
     private String username;
 
     @Column(nullable = false)
-    private boolean isBlocked;
+    private Boolean isBlocked;
 
     @Column(nullable = false)
     @Convert(converter = PrivilegeLevelConverter.class)
     private PrivilegeLevel privilegeLevel;
 
     @Column(nullable = false)
-    private boolean firstReward;
+    private Boolean firstReward;
 
     @OneToOne(mappedBy = "user")
     private Cash cash;
@@ -77,11 +77,11 @@ public class User {
         this.username = username;
     }
 
-    public boolean isBlocked() {
+    public Boolean isBlocked() {
         return isBlocked;
     }
 
-    public void setBlocked(boolean blocked) {
+    public void setBlocked(Boolean blocked) {
         isBlocked = blocked;
     }
 
@@ -93,11 +93,11 @@ public class User {
         this.privilegeLevel = privilegeLevel;
     }
 
-    public boolean isFirstReward() {
+    public Boolean isFirstReward() {
         return firstReward;
     }
 
-    public void setFirstReward(boolean firstReward) {
+    public void setFirstReward(Boolean firstReward) {
         this.firstReward = firstReward;
     }
 

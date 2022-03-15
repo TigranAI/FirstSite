@@ -14,34 +14,34 @@ public class CountLogs {
     private LocalDateTime Date = LocalDate.now().atStartOfDay();
 
     @Column(nullable = false)
-    private int peopleCollectedIncomeOneToThreeTimes;
+    private Integer peopleCollectedIncomeOneToThreeTimes;
 
     @Column(nullable = false)
-    private int peopleCollectedIncomeMoreTimes;
+    private Integer peopleCollectedIncomeMoreTimes;
 
     @Column(nullable = false)
-    private int peopleCompletedDailyTask;
+    private Integer peopleCompletedDailyTask;
 
     @Column(nullable = false)
-    private int peopleSendsStickerOneOrMoreTimes;
+    private Integer peopleSendsStickerOneOrMoreTimes;
 
     @Column(nullable = false)
-    private int peopleDonated;
+    private Integer peopleDonated;
 
     @Column(nullable = false)
-    private int peoplePutsStickerToAuction;
+    private Integer peoplePutsStickerToAuction;
 
     @Column(nullable = false)
-    private int groupCountWasAdded;
+    private Integer groupCountWasAdded;
 
     @Column(nullable = false)
-    private int groupCountWasActive;
+    private Integer groupCountWasActive;
 
     @Column(nullable = false)
-    private int roulettePlayCount;
+    private Integer roulettePlayCount;
 
     @Column(nullable = false)
-    private int groupPrizeCount;
+    private Integer groupPrizeCount;
 
     public LocalDateTime getDate() {
         return Date;
@@ -51,83 +51,83 @@ public class CountLogs {
         Date = date;
     }
 
-    public int getPeopleCollectedIncomeOneToThreeTimes() {
+    public Integer getPeopleCollectedIncomeOneToThreeTimes() {
         return peopleCollectedIncomeOneToThreeTimes;
     }
 
-    public void setPeopleCollectedIncomeOneToThreeTimes(int peopleCollectedIncomeOneToThreeTimes) {
+    public void setPeopleCollectedIncomeOneToThreeTimes(Integer peopleCollectedIncomeOneToThreeTimes) {
         this.peopleCollectedIncomeOneToThreeTimes = peopleCollectedIncomeOneToThreeTimes;
     }
 
-    public int getPeopleCollectedIncomeMoreTimes() {
+    public Integer getPeopleCollectedIncomeMoreTimes() {
         return peopleCollectedIncomeMoreTimes;
     }
 
-    public void setPeopleCollectedIncomeMoreTimes(int peopleCollectedIncomeMoreTimes) {
+    public void setPeopleCollectedIncomeMoreTimes(Integer peopleCollectedIncomeMoreTimes) {
         this.peopleCollectedIncomeMoreTimes = peopleCollectedIncomeMoreTimes;
     }
 
-    public int getPeopleCompletedDailyTask() {
+    public Integer getPeopleCompletedDailyTask() {
         return peopleCompletedDailyTask;
     }
 
-    public void setPeopleCompletedDailyTask(int peopleCompletedDailyTask) {
+    public void setPeopleCompletedDailyTask(Integer peopleCompletedDailyTask) {
         this.peopleCompletedDailyTask = peopleCompletedDailyTask;
     }
 
-    public int getPeopleSendsStickerOneOrMoreTimes() {
+    public Integer getPeopleSendsStickerOneOrMoreTimes() {
         return peopleSendsStickerOneOrMoreTimes;
     }
 
-    public void setPeopleSendsStickerOneOrMoreTimes(int peopleSendsStickerOneOrMoreTimes) {
+    public void setPeopleSendsStickerOneOrMoreTimes(Integer peopleSendsStickerOneOrMoreTimes) {
         this.peopleSendsStickerOneOrMoreTimes = peopleSendsStickerOneOrMoreTimes;
     }
 
-    public int getPeopleDonated() {
+    public Integer getPeopleDonated() {
         return peopleDonated;
     }
 
-    public void setPeopleDonated(int peopleDonated) {
+    public void setPeopleDonated(Integer peopleDonated) {
         this.peopleDonated = peopleDonated;
     }
 
-    public int getPeoplePutsStickerToAuction() {
+    public Integer getPeoplePutsStickerToAuction() {
         return peoplePutsStickerToAuction;
     }
 
-    public void setPeoplePutsStickerToAuction(int peoplePutsStickerToAuction) {
+    public void setPeoplePutsStickerToAuction(Integer peoplePutsStickerToAuction) {
         this.peoplePutsStickerToAuction = peoplePutsStickerToAuction;
     }
 
-    public int getGroupCountWasAdded() {
+    public Integer getGroupCountWasAdded() {
         return groupCountWasAdded;
     }
 
-    public void setGroupCountWasAdded(int groupCountWasAdded) {
+    public void setGroupCountWasAdded(Integer groupCountWasAdded) {
         this.groupCountWasAdded = groupCountWasAdded;
     }
 
-    public int getGroupCountWasActive() {
+    public Integer getGroupCountWasActive() {
         return groupCountWasActive;
     }
 
-    public void setGroupCountWasActive(int groupCountWasActive) {
+    public void setGroupCountWasActive(Integer groupCountWasActive) {
         this.groupCountWasActive = groupCountWasActive;
     }
 
-    public int getRoulettePlayCount() {
+    public Integer getRoulettePlayCount() {
         return roulettePlayCount;
     }
 
-    public void setRoulettePlayCount(int roulettePlayCount) {
+    public void setRoulettePlayCount(Integer roulettePlayCount) {
         this.roulettePlayCount = roulettePlayCount;
     }
 
-    public int getGroupPrizeCount() {
+    public Integer getGroupPrizeCount() {
         return groupPrizeCount;
     }
 
-    public void setGroupPrizeCount(int groupPrizeCount) {
+    public void setGroupPrizeCount(Integer groupPrizeCount) {
         this.groupPrizeCount = groupPrizeCount;
     }
 }

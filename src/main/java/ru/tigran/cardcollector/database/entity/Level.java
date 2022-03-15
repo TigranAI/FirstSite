@@ -10,10 +10,10 @@ import javax.persistence.*;
 public class Level {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
-    private int levelValue;
+    private Integer levelValue;
 
     @Column(nullable = false)
     private long levelExpGoal;
@@ -22,19 +22,19 @@ public class Level {
     @Convert(converter = LevelRewardConverter.class)
     private LevelReward levelReward;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getLevelValue() {
+    public Integer getLevelValue() {
         return levelValue;
     }
 
-    public void setLevelValue(int levelValue) {
+    public void setLevelValue(Integer levelValue) {
         this.levelValue = levelValue;
     }
 

@@ -14,7 +14,7 @@ public class UserLevel {
     private User user;
 
     @Column(nullable = false)
-    private int level;
+    private Integer level;
 
     @Column(nullable = false)
     private long currentExp;
@@ -38,11 +38,11 @@ public class UserLevel {
         this.user = user;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 

@@ -11,9 +11,9 @@ import ru.tigran.cardcollector.models.FiltersDTO;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/sticker")
@@ -67,32 +67,33 @@ public class StickerController {
 
     @PostMapping
     public String updateStickers(Model model, FiltersDTO filters) {
+        System.out.println("here");
         PrepareContent(model, filters);
         return "sticker/index :: stickers_page";
     }
 
     private void PrepareContent(Model model, FiltersDTO filters) {
-        Stream<Sticker> stickers = stickerRepository.findAll().stream();
+        List<Sticker> stickers = stickerRepository.findAll();
 
         List<String> authors = getAuthors(stickers);
 
         if (filters.getAuthor() != null)
-            stickers = stickers.filter(item -> item.getAuthor().equals(filters.getAuthor()));
+            stickers.removeIf(item -> !item.getAuthor().equals(filters.getAuthor()));
 
         if (filters.getTier() != null)
-            stickers = stickers.filter(item -> item.getTier() == filters.getTier());
+            stickers.removeIf(item -> !Objects.equals(item.getTier(), filters.getTier()));
 
         List<String> emojis = getEmojis(stickers);
 
         if (filters.getEmoji() != null)
-                stickers = stickers.filter(item -> item.getEmoji().equals(filters.getEmoji()));
+            stickers.removeIf(item -> !item.getEmoji().equals(filters.getEmoji()));
 
         if (filters.getSortBy() != null)
-            stickers = SortList(stickers, filters.getSortBy());
+            SortList(stickers, filters.getSortBy());
 
         int page = filters.getPage() == null ? 1 : filters.getPage();
-        long pagesCount = stickers.count() / 24;
-        if (stickers.count() % 24 > 0) pagesCount++;
+        Integer pagesCount = stickers.size() / 24;
+        if (stickers.size() % 24 > 0) pagesCount++;
 
         model.addAttribute("stickers", ListHelper.GetRange(stickers, (page - 1) * 24, 24));
         model.addAttribute("pagesCount", pagesCount);
@@ -101,32 +102,34 @@ public class StickerController {
         model.addAttribute("filters", filters);
     }
 
-    private List<String> getEmojis(Stream<Sticker> stickers) {
-        return stickers
+    private List<String> getEmojis(List<Sticker> stickers) {
+        return stickers.stream()
                 .map(Sticker::getEmoji)
                 .distinct()
                 .collect(Collectors.toList());
     }
 
-    private List<String> getAuthors(Stream<Sticker> stickers) {
-        return stickers
+    private List<String> getAuthors(List<Sticker> stickers) {
+        return stickers.stream()
                     .map(Sticker::getAuthor)
                     .distinct()
                     .collect(Collectors.toList());
     }
 
-    private Stream<Sticker> SortList(Stream<Sticker> list, String sortParam) {
+    private void SortList(List<Sticker> list, String sortParam) {
         switch (sortParam) {
             case "author":
-                return list.sorted(Comparator.comparing(Sticker::getAuthor, String::compareToIgnoreCase));
+                list.sort(Comparator.comparing(Sticker::getAuthor, String::compareToIgnoreCase));
+                break;
             case "tier":
-                return list.sorted(Comparator.comparingInt(Sticker::getTier));
+                list.sort(Comparator.comparingInt(Sticker::getTier));
+                break;
             case "tier_desc":
-                return list.sorted((o1, o2) -> o2.getTier() - o1.getTier());
+                list.sort((o1, o2) -> o2.getTier() - o1.getTier());
+                break;
             case "title":
-                return list.sorted(Comparator.comparing(Sticker::getTitle, String::compareToIgnoreCase));
-            default:
-                return list;
+                list.sort(Comparator.comparing(Sticker::getTitle, String::compareToIgnoreCase));
+                break;
         }
     }
 }

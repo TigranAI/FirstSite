@@ -1,5 +1,8 @@
 package ru.tigran.cardcollector.database.entity;
 
+import org.springframework.transaction.annotation.Transactional;
+import ru.tigran.cardcollector.Utilities;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -8,7 +11,7 @@ import java.time.LocalDateTime;
 public class SpecialOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pack_id", nullable = false)
@@ -18,22 +21,22 @@ public class SpecialOrder {
     private String title;
 
     @Column(nullable = false)
-    private boolean isInfinite;
+    private Boolean isInfinite;
 
     @Column(nullable = false)
-    private int count;
+    private Integer count;
 
     @Column(nullable = false)
-    private int priceCoins;
+    private Integer priceCoins;
 
     @Column(nullable = false)
-    private int priceGems;
+    private Integer priceGems;
 
     @Column(nullable = false)
-    private int discount;
+    private Integer discount;
 
     @Column(nullable = false)
-    private boolean timeLimited;
+    private Boolean timeLimited;
 
     private LocalDateTime timeLimit;
 
@@ -44,15 +47,15 @@ public class SpecialOrder {
     @Column(columnDefinition = "text")
     private String previewFileId;
 
-    private boolean isPreviewAnimated;
+    private Boolean isPreviewAnimated;
 
     private String cacheFilePath;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -72,51 +75,51 @@ public class SpecialOrder {
         this.title = title;
     }
 
-    public boolean isInfinite() {
+    public Boolean isInfinite() {
         return isInfinite;
     }
 
-    public void setInfinite(boolean infinite) {
+    public void setInfinite(Boolean infinite) {
         isInfinite = infinite;
     }
 
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
-    public int getPriceCoins() {
+    public Integer getPriceCoins() {
         return priceCoins;
     }
 
-    public void setPriceCoins(int priceCoins) {
+    public void setPriceCoins(Integer priceCoins) {
         this.priceCoins = priceCoins;
     }
 
-    public int getPriceGems() {
+    public Integer getPriceGems() {
         return priceGems;
     }
 
-    public void setPriceGems(int priceGems) {
+    public void setPriceGems(Integer priceGems) {
         this.priceGems = priceGems;
     }
 
-    public int getDiscount() {
+    public Integer getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(Integer discount) {
         this.discount = discount;
     }
 
-    public boolean isTimeLimited() {
+    public Boolean isTimeLimited() {
         return timeLimited;
     }
 
-    public void setTimeLimited(boolean timeLimited) {
+    public void setTimeLimited(Boolean timeLimited) {
         this.timeLimited = timeLimited;
     }
 
@@ -152,11 +155,11 @@ public class SpecialOrder {
         this.previewFileId = previewFileId;
     }
 
-    public boolean isPreviewAnimated() {
+    public Boolean isPreviewAnimated() {
         return isPreviewAnimated;
     }
 
-    public void setPreviewAnimated(boolean previewAnimated) {
+    public void setPreviewAnimated(Boolean previewAnimated) {
         isPreviewAnimated = previewAnimated;
     }
 

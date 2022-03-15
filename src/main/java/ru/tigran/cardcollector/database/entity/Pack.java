@@ -1,7 +1,5 @@
 package ru.tigran.cardcollector.database.entity;
 
-import org.springframework.transaction.annotation.Transactional;
-import ru.tigran.cardcollector.Utilities;
 import ru.tigran.cardcollector.functions.ListHelper;
 
 import javax.persistence.*;
@@ -12,7 +10,7 @@ import java.util.List;
 public class Pack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(length = 127, nullable = false)
     private String author;
@@ -21,15 +19,15 @@ public class Pack {
     private String description;
 
     @Column(nullable = false)
-    private int priceCoins;
+    private Integer priceCoins;
 
     @Column(nullable = false)
-    private int priceGems;
+    private Integer priceGems;
 
     @Column(length = 127)
     private String previewFileId;
 
-    private boolean isPreviewAnimated;
+    private Boolean isPreviewAnimated;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "pack")
     private List<Sticker> stickers;
@@ -39,11 +37,11 @@ public class Pack {
     @Column(nullable = false)
     private long openedCount;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -63,19 +61,19 @@ public class Pack {
         this.description = description;
     }
 
-    public int getPriceCoins() {
+    public Integer getPriceCoins() {
         return priceCoins;
     }
 
-    public void setPriceCoins(int priceCoins) {
+    public void setPriceCoins(Integer priceCoins) {
         this.priceCoins = priceCoins;
     }
 
-    public int getPriceGems() {
+    public Integer getPriceGems() {
         return priceGems;
     }
 
-    public void setPriceGems(int priceGems) {
+    public void setPriceGems(Integer priceGems) {
         this.priceGems = priceGems;
     }
 
@@ -87,11 +85,11 @@ public class Pack {
         this.previewFileId = previewFileId;
     }
 
-    public boolean isPreviewAnimated() {
+    public Boolean isPreviewAnimated() {
         return isPreviewAnimated;
     }
 
-    public void setPreviewAnimated(boolean previewAnimated) {
+    public void setPreviewAnimated(Boolean previewAnimated) {
         isPreviewAnimated = previewAnimated;
     }
 
@@ -113,14 +111,11 @@ public class Pack {
 
 
     public String getCacheFilePath() {
-        if (cacheFilePath != null) return cacheFilePath;
         if (previewFileId == null) return ListHelper.Random(getStickers()).getCacheForSaleFilePath();
 
-        setCacheFilePath(Utilities.getTelegramFile(previewFileId, "/sticker/" + id));
         return cacheFilePath;
     }
 
-    @Transactional
     public void setCacheFilePath(String cacheFilePath) {
         this.cacheFilePath = cacheFilePath;
     }

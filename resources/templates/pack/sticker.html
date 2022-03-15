@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="blocks/header :: sticker_head"></head>
+<!--/*@thymesVar id="sticker" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+<head th:insert="blocks/header :: sticker_head('WyrmSticker | ' + ${sticker.getTitle()})"></head>
 
 <body>
 <div class="wrapper">
@@ -14,16 +15,18 @@
                 <div class="sticker-bg">
                     <div class="page-title">
                         <h1 class="page-title__text">Стикерпак от
-                            <span class="page-title_name" th:text="${pack.Author}"></span></h1>
+                            <span class="page-title_name" th:text="${pack.getAuthor()}"></span></h1>
                     </div>
 
                     <th:block th:replace="blocks/previews :: sticker_card(${sticker})"/>
 
                     <div class="sticker-nav">
-                        <a th:if="${previousHash}" th:href="@{~/pack/sticker(hash = ${previousHash})}"
+                        <!--/*@thymesVar id="previous" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+                        <a th:if="${previous}" th:href="@{~/pack/sticker(id = ${previous.getId()})}"
                            class="sticker-nav__link-prev"></a>
-                        <a th:href="@{~/pack(id=${pack.Id})}" class="sticker-nav__link">К стикерпаку</a>
-                        <a th:if="${nextHash}" th:href="@{~/pack/sticker(hash = ${nextHash})}"
+                        <a th:href="@{~/pack(id=${pack.getId()})}" class="sticker-nav__link">К стикерпаку</a>
+                        <!--/*@thymesVar id="next" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
+                        <a th:if="${next}" th:href="@{~/pack/sticker(id = ${next.getId()})}"
                            class="sticker-nav__link-next"></a>
                     </div>
                 </div>

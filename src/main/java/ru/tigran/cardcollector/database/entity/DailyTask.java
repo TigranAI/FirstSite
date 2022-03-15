@@ -21,7 +21,7 @@ public class DailyTask {
     private DailyTaskType taskId;
 
     @Column(nullable = false)
-    private int progress;
+    private Integer progress;
 
     public long getId() {
         return id;
@@ -47,11 +47,11 @@ public class DailyTask {
         this.taskId = taskId;
     }
 
-    public int getProgress() {
+    public Integer getProgress() {
         return progress;
     }
 
-    public void setProgress(int progress) {
+    public void setProgress(Integer progress) {
         this.progress = progress;
     }
 }

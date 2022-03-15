@@ -17,8 +17,8 @@ public class ListToJsonConverter implements AttributeConverter<List<Integer>, St
 
     @Override
     public List<Integer> convertToEntityAttribute(String s) {
-        if (s == null || s == "[]") return new LinkedList<>();
-        String[] items = s.substring(1, s.length() - 2).split(",");
+        if (s == null || s.equals("[]")) return new LinkedList<>();
+        String[] items = s.substring(1, s.length() - 1).split(",");
         return Arrays.stream(items).map(Integer::parseInt).collect(Collectors.toList());
     }
 }

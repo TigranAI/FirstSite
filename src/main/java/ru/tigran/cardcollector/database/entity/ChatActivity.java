@@ -18,10 +18,10 @@ public class ChatActivity {
     private long messageCountAtLastGiveaway;
 
     @Column(nullable = false)
-    private boolean prizeClaimed;
+    private Boolean prizeClaimed;
 
     @Column(nullable = false)
-    private boolean giveawayAvailable;
+    private Boolean giveawayAvailable;
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
@@ -60,19 +60,19 @@ public class ChatActivity {
         this.messageCountAtLastGiveaway = messageCountAtLastGiveaway;
     }
 
-    public boolean isPrizeClaimed() {
+    public Boolean isPrizeClaimed() {
         return prizeClaimed;
     }
 
-    public void setPrizeClaimed(boolean prizeClaimed) {
+    public void setPrizeClaimed(Boolean prizeClaimed) {
         this.prizeClaimed = prizeClaimed;
     }
 
-    public boolean isGiveawayAvailable() {
+    public Boolean isGiveawayAvailable() {
         return giveawayAvailable;
     }
 
-    public void setGiveawayAvailable(boolean giveawayAvailable) {
+    public void setGiveawayAvailable(Boolean giveawayAvailable) {
         this.giveawayAvailable = giveawayAvailable;
     }
 

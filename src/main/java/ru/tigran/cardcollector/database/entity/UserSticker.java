@@ -19,7 +19,7 @@ public class UserSticker {
     private Sticker sticker;
 
     @Column(nullable = false)
-    private int count;
+    private Integer count;
 
     @Column(nullable = false)
     private LocalDateTime payout;
@@ -52,11 +52,11 @@ public class UserSticker {
         this.sticker = sticker;
     }
 
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 

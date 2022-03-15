@@ -3,9 +3,6 @@ $(document).ready(function () {
     $('.header__burger').click(function (event) {
         $('.header__burger, .header__links').toggleClass('active-menu');
     });
-});
-
-$(document).ready(function () {
     //Фильтры
     updateListeners();
 });
@@ -17,6 +14,14 @@ function updateListeners(){
         $(this).next().css('display', 'block');
         $(this).children().toggleClass('filters__accordion-button_clicked');
     });
+}
+
+function Filters(page, author, tier, emoji, sortBy){
+    this.page = page;
+    this.author = author;
+    this.tier = tier;
+    this.emoji = emoji;
+    this.sortBy = sortBy;
 }
 
 function setFilter(button) {
@@ -47,31 +52,31 @@ function applyFilters() {
     let emoji = url.searchParams.get('emoji')
     let sortBy = url.searchParams.get('sortBy')
 
-    updateFilters(page, author, tier, emoji, sortBy)
+    updateContent(page, author, tier, emoji, sortBy)
 }
 
 function clearFilters() {
-    updateFilters(null, null, null, null, null)
+    updateContent(null, null, null, null, null)
     updateUrl(window.location.href.split('?')[0]);
 }
 
-function updateFilters(page, author, tier, emoji, sortBy) {
-    let filters = { page: page, author: author, tier: tier, emoji: emoji, sortBy: sortBy }
+function updateContent(page, author, tier, emoji, sortBy) {
+    let filters = new Filters(page, author, tier, emoji, sortBy)
 
     $.ajax({
         type: 'POST',
         url: window.location.pathname,
-        name: '',
         data: filters,
         data_type: 'json',
+        async: true,
         success: function (resp) {
-            applyContentTo(resp, $("#stickersContent"))
+            applyContent(resp, $("#stickersContent"))
             updateListeners()
         }
     })
 }
 
-function applyContentTo(response, element) {
+function applyContent(response, element) {
     element.html(response.trim())
 }
 
