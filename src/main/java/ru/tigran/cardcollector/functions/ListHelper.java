@@ -2,43 +2,20 @@ package ru.tigran.cardcollector.functions;
 
 import ru.tigran.cardcollector.Utilities;
 import ru.tigran.cardcollector.database.entity.Sticker;
-import ru.tigran.cardcollector.database.entity.UserSticker;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ListHelper {
 
-    public static <E, R> void FilterListBy(List<E> list, Function<E, R> expr, R value) {
-        list.removeIf(item -> value != null && !value.toString().equals("") && !expr.apply(item).equals(value));
-    }
-
-    public static void SortList(List<Sticker> list, String sortParam) {
-        switch (sortParam) {
-            case "author":
-                list.sort(Comparator.comparing(o -> o.Author, String::compareToIgnoreCase));
-                break;
-            case "tier":
-                list.sort(Comparator.comparingInt(o -> o.Tier));
-                break;
-            case "tier_desc":
-                list.sort((o1, o2) -> o2.Tier - o1.Tier);
-                break;
-            case "title":
-                list.sort(Comparator.comparing(o -> o.Title, String::compareToIgnoreCase));
-                break;
-        }
-    }
-
-    public static <E> List<E> GetRange(List<E> list, Integer offset, Integer length) {
-        return list.stream().skip(offset).limit(length).collect(Collectors.toList());
+    public static <E> List<E> GetRange(Stream<E> list, Integer offset, Integer length) {
+        return list.skip(offset).limit(length).collect(Collectors.toList());
     }
 
     public static <E, R> List<R> Select(List<E> list, Function<E, R> expr) {
-        List<R> result = new LinkedList<>();
-        list.forEach(item -> result.add(expr.apply(item)));
-        return result;
+        return list.stream().map(expr).collect(Collectors.toList());
     }
 
     public static <E, R> Hashtable<R, List<E>> GroupBy(List<E> list, Function<E, R> expr) {
@@ -65,7 +42,7 @@ public class ListHelper {
         return result;
     }
 
-    public static Sticker Random(ArrayList<Sticker> stickers) {
+    public static Sticker Random(List<Sticker> stickers) {
         return stickers.get(Utilities.rnd.nextInt(stickers.size()));
     }
 

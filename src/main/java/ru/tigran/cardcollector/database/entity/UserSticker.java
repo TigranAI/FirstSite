@@ -1,29 +1,86 @@
 package ru.tigran.cardcollector.database.entity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_to_stickers_relations")
+@Table(name = "user_stickers")
 public class UserSticker {
     @Id
-    @Column(name = "id") public long Id;
-    @Column(name = "sticker_id") public String StickerId;
-    @Column(name = "user_id") public long UserId;
-    @Column(name = "count") public int Count;
-    @Column(name = "payout") public Date Payout;
-    @Column(name = "short_hash") public String ShortHash;
-    @Column(name = "additional_data") public String AdditionalData;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "sticker_id", referencedColumnName = "id", insertable = false, updatable = false)
-    public Sticker sticker;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    public Boolean getAnimated(){
-        return sticker.Animated;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sticker_id", referencedColumnName = "id", nullable = false)
+    private Sticker sticker;
+
+    @Column(nullable = false)
+    private int count;
+
+    @Column(nullable = false)
+    private LocalDateTime payout;
+
+    private LocalDateTime givePrizeDate;
+
+    private LocalDateTime lastUsage;
+
+    public long getId() {
+        return id;
     }
 
-    public String getFilePath(){
-        return sticker.getFilePath();
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Sticker getSticker() {
+        return sticker;
+    }
+
+    public void setSticker(Sticker sticker) {
+        this.sticker = sticker;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public LocalDateTime getPayout() {
+        return payout;
+    }
+
+    public void setPayout(LocalDateTime payout) {
+        this.payout = payout;
+    }
+
+    public LocalDateTime getGivePrizeDate() {
+        return givePrizeDate;
+    }
+
+    public void setGivePrizeDate(LocalDateTime givePrizeDate) {
+        this.givePrizeDate = givePrizeDate;
+    }
+
+    public LocalDateTime getLastUsage() {
+        return lastUsage;
+    }
+
+    public void setLastUsage(LocalDateTime lastUsage) {
+        this.lastUsage = lastUsage;
     }
 }
