@@ -1,7 +1,6 @@
 package ru.tigran.cardcollector.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -23,6 +22,7 @@ import java.util.Optional;
 @RequestMapping("/login")
 @SessionAttributes(names = {"user"})
 public class LoginController {
+
     private final String alphabet = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890";
     public Hashtable<String, ExtendedEmitter> emitters = new Hashtable<>();
 

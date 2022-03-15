@@ -9,9 +9,11 @@ import ru.tigran.cardcollector.database.repository.StickerRepository;
 import ru.tigran.cardcollector.functions.ListHelper;
 import ru.tigran.cardcollector.models.FiltersDTO;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/sticker")
@@ -21,21 +23,29 @@ public class StickerController {
     private StickerRepository stickerRepository;
 
     @GetMapping(params = {"hash"})
-    public String showSticker(@RequestParam String hash, Model model) {
+    public String showSticker(@RequestParam Long id, Model model) {
         List<Sticker> searchResults = (List<Sticker>) model.getAttribute("stickers");
-        Sticker sticker;
-        if (searchResults == null) sticker = stickerRepository.findByHash(hash);
-        else {
-            int index = ListHelper.FindIndexOf(searchResults, item -> Objects.equals(item.MD5Hash, hash));
-            if (index == -1) sticker = stickerRepository.findByHash(hash);
-            else {
+        Sticker sticker = null;
+        if (searchResults != null){
+            int index = ListHelper.FindIndexOf(searchResults, item -> item.getId() == id);
+            if (index != -1) {
                 sticker = searchResults.get(index);
-                model.addAttribute("previousHash", searchResults.get(index == 0 ? searchResults.size() - 1 : index - 1).MD5Hash);
-                model.addAttribute("nextHash", searchResults.get(index == searchResults.size() - 1 ? 0 : index + 1).MD5Hash);
+                if (searchResults.size() != 1) {
+                    model.addAttribute("previous",
+                            searchResults.get(index == 0 ? searchResults.size() - 1 : index - 1));
+                    model.addAttribute("next",
+                            searchResults.get(index == searchResults.size() - 1 ? 0 : index + 1));
+                }
             }
         }
+
+        if (sticker == null){
+            Optional<Sticker> result = stickerRepository.findById(id);
+            if (result.isPresent()) sticker = result.get();
+            else return "redirect:/error";
+        }
+
         model.addAttribute("sticker", sticker);
-        model.addAttribute("title", "WyrmSticker | " + sticker.Title);
         return "sticker/sticker";
     }
 
@@ -52,7 +62,6 @@ public class StickerController {
     @GetMapping
     public String showStickers(Model model, FiltersDTO filters) {
         PrepareContent(model, filters);
-        model.addAttribute("title", "WyrmSticker | Все стикеры");
         return "sticker/index";
     }
 
@@ -63,24 +72,61 @@ public class StickerController {
     }
 
     private void PrepareContent(Model model, FiltersDTO filters) {
-        List<Sticker> stickers = stickerRepository.findAll();
+        Stream<Sticker> stickers = stickerRepository.findAll().stream();
 
-        List<String> authors = ListHelper.Select(stickers, item -> item.Author).stream().distinct().collect(Collectors.toList());
-        if (filters.getAuthor() != null) ListHelper.FilterListBy(stickers, item -> item.Author, filters.getAuthor());
-        if (filters.getTier() != null) ListHelper.FilterListBy(stickers, item -> item.Tier, filters.getTier());
-        List<String> emojis = ListHelper.Select(stickers, item -> item.Emoji).stream().distinct().collect(Collectors.toList());
-        if (filters.getEmoji() != null) ListHelper.FilterListBy(stickers, item -> item.Emoji, filters.getEmoji());
+        List<String> authors = getAuthors(stickers);
 
-        if (filters.getSortBy() != null) ListHelper.SortList(stickers, filters.getSortBy());
+        if (filters.getAuthor() != null)
+            stickers = stickers.filter(item -> item.getAuthor().equals(filters.getAuthor()));
+
+        if (filters.getTier() != null)
+            stickers = stickers.filter(item -> item.getTier() == filters.getTier());
+
+        List<String> emojis = getEmojis(stickers);
+
+        if (filters.getEmoji() != null)
+                stickers = stickers.filter(item -> item.getEmoji().equals(filters.getEmoji()));
+
+        if (filters.getSortBy() != null)
+            stickers = SortList(stickers, filters.getSortBy());
 
         int page = filters.getPage() == null ? 1 : filters.getPage();
-        int pagesCount = stickers.size() / 24;
-        if (stickers.size() % 24 > 0) pagesCount++;
+        long pagesCount = stickers.count() / 24;
+        if (stickers.count() % 24 > 0) pagesCount++;
 
         model.addAttribute("stickers", ListHelper.GetRange(stickers, (page - 1) * 24, 24));
         model.addAttribute("pagesCount", pagesCount);
         model.addAttribute("authors", authors);
         model.addAttribute("emojis", emojis);
         model.addAttribute("filters", filters);
+    }
+
+    private List<String> getEmojis(Stream<Sticker> stickers) {
+        return stickers
+                .map(Sticker::getEmoji)
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    private List<String> getAuthors(Stream<Sticker> stickers) {
+        return stickers
+                    .map(Sticker::getAuthor)
+                    .distinct()
+                    .collect(Collectors.toList());
+    }
+
+    private Stream<Sticker> SortList(Stream<Sticker> list, String sortParam) {
+        switch (sortParam) {
+            case "author":
+                return list.sorted(Comparator.comparing(Sticker::getAuthor, String::compareToIgnoreCase));
+            case "tier":
+                return list.sorted(Comparator.comparingInt(Sticker::getTier));
+            case "tier_desc":
+                return list.sorted((o1, o2) -> o2.getTier() - o1.getTier());
+            case "title":
+                return list.sorted(Comparator.comparing(Sticker::getTitle, String::compareToIgnoreCase));
+            default:
+                return list;
+        }
     }
 }
