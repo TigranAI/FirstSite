@@ -44,7 +44,7 @@
                                     <li th:each="userTop : ${tier4Top}" class="top__item">
                                         <span class="top__item-name" th:text="${userTop.getUsername()}"></span> -
                                         <!--/*@thymesVar id="tier4TopCount" type="Map<Long, Integer>"*/-->
-                                        <span class="top__item-num" th:text="${tier4TopCount.get(userTop.getId())}"></span> стикеров
+                                        <span class="top__item-num" th:text="${tier4TopCount.get(userTop.getId())}"></span>
                                     </li>
                                 </ul>
                             </div>
@@ -58,6 +58,7 @@
 </div>
 
 <script th:src="@{~/js/jquery-3.6.0.min.js}"></script>
+<script th:src="@{~/js/header.js}"></script>
 <script th:src="@{~/js/top.js}"></script>
 </body>
 

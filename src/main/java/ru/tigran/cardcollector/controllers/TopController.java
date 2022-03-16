@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.tigran.cardcollector.database.entity.User;
+import ru.tigran.cardcollector.database.entity.UserSticker;
 import ru.tigran.cardcollector.database.repository.UserRepository;
 
 import java.util.HashMap;
@@ -24,8 +25,11 @@ public class TopController {
         List<User> tier4Top = userRepository.findTopByTier4Stickers(PageRequest.of(0, 10));
         Map<Long, Integer> tier4TopCount = new HashMap<>();
         for(User user : tier4Top){
-            Long count = user.getStickers().stream().filter(item -> item.getSticker().getTier() == 4).count();
-            tier4TopCount.put(user.getId(), count.intValue());
+            Integer count = user.getStickers().stream()
+                    .filter(item -> item.getSticker().getTier() == 4)
+                    .map(UserSticker::getCount)
+                    .reduce(0, Integer::sum);
+            tier4TopCount.put(user.getId(), count);
         }
 
         model.addAttribute("expTop", userRepository.findTopByExp(PageRequest.of(0, 10)));

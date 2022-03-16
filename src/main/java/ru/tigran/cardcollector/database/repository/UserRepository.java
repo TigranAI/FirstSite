@@ -18,10 +18,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select user " +
             "from User user " +
-            "   join UserSticker userSticker on user = userSticker.user " +
-            "   join Sticker sticker on userSticker.sticker = sticker and sticker.tier = 4" +
+            "   join UserSticker userSticker on user = userSticker.user and user.privilegeLevel < 6 " +
+            "   join Sticker sticker on userSticker.sticker = sticker and sticker.tier = 4 " +
             "group by user " +
-            "having user.privilegeLevel < 6 " +
-            "order by count(userSticker)")
+            "order by sum(userSticker.count) desc")
     List<User> findTopByTier4Stickers(Pageable pageable);
 }
