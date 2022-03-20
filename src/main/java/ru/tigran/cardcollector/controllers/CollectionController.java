@@ -80,7 +80,11 @@ public class CollectionController {
     }
 
     private void PrepareContent(Model model, FiltersDTO filters, User user) {
-        List<UserSticker> userStickers = userStickerRepository.findAllByUser(user);
+        List<UserSticker> userStickers = userStickerRepository
+                .findAllByUser(user)
+                .stream()
+                .filter(item -> item.getCount() > 0)
+                .collect(Collectors.toList());
 
         List<String> authors = getAuthors(userStickers);
 

@@ -26,13 +26,10 @@ public class MainController {
 
     @GetMapping()
     public String index(Model model) {
-        List<Sticker> stickers = stickerRepository.findAll();
+        List<Sticker> randomStickers = ListHelper.Random(stickerRepository.findAll(), 4);
         List<Pack> lastPacks = packRepository.findLast(PageRequest.of(0, 4));
         model.addAttribute("lastPacks", lastPacks);
-        model.addAttribute("sticker1", ListHelper.Random(stickers));
-        model.addAttribute("sticker2", ListHelper.Random(stickers));
-        model.addAttribute("sticker3", ListHelper.Random(stickers));
-        model.addAttribute("sticker4", ListHelper.Random(stickers));
+        model.addAttribute("stickers", randomStickers);
         return "index";
     }
 

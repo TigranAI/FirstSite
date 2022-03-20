@@ -13,17 +13,17 @@
         <div class="main__wrapper">
             <div class="sticker-bg">
                 <div class="page-title">
-                    <h1 class="page-title__text">'Результат поиска по «Коллекция»'</h1>
+                    <h1 class="page-title__text">Результат поиска по «Коллекция»</h1>
                 </div>
                 <th:block th:replace="blocks/previews :: sticker_card(${sticker})"/>
 
                 <div class="sticker-nav">
                     <!--/*@thymesVar id="previous" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
-                    <a th:if="${previous}" th:href="@{~/collection/sticker(hash = ${previous.getId()})}"
+                    <a th:if="${previous}" th:href="@{~/collection/sticker(id = ${previous.getId()})}"
                        class="sticker-nav__link-prev"></a>
                     <a th:href="@{~/collection/back}" class="sticker-nav__link">К коллекции</a>
                     <!--/*@thymesVar id="next" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
-                    <a th:if="${next}" th:href="@{~/collection/sticker(hash = ${next.getId()})}"
+                    <a th:if="${next}" th:href="@{~/collection/sticker(id = ${next.getId()})}"
                        class="sticker-nav__link-next"></a>
                 </div>
             </div>

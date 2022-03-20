@@ -1,6 +1,7 @@
 package ru.tigran.cardcollector.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +9,9 @@ import ru.tigran.cardcollector.database.entity.Sticker;
 import ru.tigran.cardcollector.database.repository.StickerRepository;
 import ru.tigran.cardcollector.functions.ListHelper;
 import ru.tigran.cardcollector.models.FiltersDTO;
+import ru.tigran.cardcollector.others.JSON;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +25,7 @@ public class StickerController {
     @Autowired
     private StickerRepository stickerRepository;
 
-    @GetMapping(params = {"hash"})
+    @GetMapping(params = {"id"})
     public String showSticker(@RequestParam Long id, Model model) {
         List<Sticker> searchResults = (List<Sticker>) model.getAttribute("stickers");
         Sticker sticker = null;
@@ -67,7 +70,6 @@ public class StickerController {
 
     @PostMapping
     public String updateStickers(Model model, FiltersDTO filters) {
-        System.out.println("here");
         PrepareContent(model, filters);
         return "sticker/index :: stickers_page";
     }

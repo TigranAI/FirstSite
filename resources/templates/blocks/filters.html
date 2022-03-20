@@ -61,8 +61,11 @@
                     <input type="radio" class="filters__variant" name="tier" autocomplete="off"
                            onchange="setFilter(this)"
                            th:id="${tierValue}" th:value="${tier}" th:checked="${tierValue} == ${tier}">
-                    <label class="filters__variant-title" th:for="${tierValue}"
-                           th:text="${tierValue}"></label>
+                    <label class="filters__variant-title" th:for="${tierValue}">
+					    <th:block th:each="star : ${#numbers.sequence(1, tierValue)}">
+							<img src="img/star.svg" alt="star" class="filters__variant-star">
+						</th:block>						   
+				    </label>
                 </th:block>
             </div>
         </div>

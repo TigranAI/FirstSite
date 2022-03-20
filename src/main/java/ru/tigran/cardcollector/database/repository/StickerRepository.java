@@ -10,8 +10,6 @@ import java.util.List;
 
 @Repository
 public interface StickerRepository extends JpaRepository<Sticker, Long> {
-    List<Sticker> findAllByPack(Pack pack);
-
     @Query("select sticker " +
             "from Sticker sticker " +
             "where sticker.cacheFilePath is null")

@@ -30,6 +30,7 @@ public class Pack {
     private Boolean isPreviewAnimated;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "pack")
+    @OrderBy("tier")
     private List<Sticker> stickers;
 
     private String cacheFilePath;

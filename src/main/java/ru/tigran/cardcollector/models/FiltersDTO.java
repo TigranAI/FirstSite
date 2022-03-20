@@ -2,6 +2,10 @@ package ru.tigran.cardcollector.models;
 
 import org.springframework.lang.Nullable;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 public class FiltersDTO {
     @Nullable
     private Integer page;
@@ -72,7 +76,7 @@ public class FiltersDTO {
                 '}';
     }
 
-    public String asUrl(String pathname){
+    public String asUrl(String pathname) {
         StringBuilder sb = new StringBuilder(pathname);
 
         if (page != null) {
@@ -91,9 +95,14 @@ public class FiltersDTO {
             sb.append("&");
         }
         if (emoji != null) {
-            sb.append("emoji=");
-            sb.append(emoji);
-            sb.append("&");
+            try{
+                String encodedEmoji = URLEncoder.encode(emoji, StandardCharsets.UTF_8);
+                sb.append("emoji=");
+                sb.append(encodedEmoji);
+                sb.append("&");
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         }
         if (sortBy != null) {
             sb.append("sortBy=");

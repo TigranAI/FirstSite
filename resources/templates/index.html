@@ -46,23 +46,19 @@
                 <div class="welcome-card__stickers">
                     <div class="welcome-card__sticker-group">
                         <div class="welcome-card__sticker welcome-card__sticker_yellow">
-                            <!--/*@thymesVar id="sticker1" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
-                            <th:block th:replace="blocks/previews :: sticker_link(${sticker1}, welcome-card__img, '')"/>
+                            <th:block th:replace="blocks/previews :: sticker_link(${stickers[0]}, welcome-card__img, '')"/>
                         </div>
                         <div class="welcome-card__sticker welcome-card__sticker_purple">
-                            <!--/*@thymesVar id="sticker2" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
-                            <th:block th:replace="blocks/previews :: sticker_link(${sticker2}, welcome-card__img, '')"/>
+                            <th:block th:replace="blocks/previews :: sticker_link(${stickers[1]}, welcome-card__img, '')"/>
                         </div>
                     </div>
 
                     <div class="welcome-card__sticker-group">
                         <div class="welcome-card__sticker welcome-card__sticker_purple">
-                            <!--/*@thymesVar id="sticker3" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
-                            <th:block th:replace="blocks/previews :: sticker_link(${sticker3}, welcome-card__img, '')"/>
+                            <th:block th:replace="blocks/previews :: sticker_link(${stickers[2]}, welcome-card__img, '')"/>
                         </div>
                         <div class="welcome-card__sticker welcome-card__sticker_yellow">
-                            <!--/*@thymesVar id="sticker4" type="ru.tigran.cardcollector.database.entity.Sticker"*/-->
-                            <th:block th:replace="blocks/previews :: sticker_link(${sticker4}, welcome-card__img, '')"/>
+                            <th:block th:replace="blocks/previews :: sticker_link(${stickers[3]}, welcome-card__img, '')"/>
                         </div>
                     </div>
 
