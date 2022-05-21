@@ -38,6 +38,9 @@ public class Pack {
     @Column(nullable = false)
     private long openedCount;
 
+    private String gifPreviewFileId;
+    private String gifCacheFilePath;
+
     public Integer getId() {
         return id;
     }
@@ -119,5 +122,27 @@ public class Pack {
 
     public void setCacheFilePath(String cacheFilePath) {
         this.cacheFilePath = cacheFilePath;
+    }
+
+    public Boolean getPreviewAnimated() {
+        return isPreviewAnimated;
+    }
+
+    public String getGifPreviewFileId() {
+        return gifPreviewFileId;
+    }
+
+    public void setGifPreviewFileId(String gifPreviewFileId) {
+        this.gifPreviewFileId = gifPreviewFileId;
+    }
+
+    public String getGifCacheFilePath() {
+        if (gifCacheFilePath == null) return getCacheFilePath();
+
+        return gifCacheFilePath;
+    }
+
+    public void setGifCacheFilePath(String gifCacheFilePath) {
+        this.gifCacheFilePath = gifCacheFilePath;
     }
 }

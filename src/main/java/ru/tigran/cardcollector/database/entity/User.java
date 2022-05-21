@@ -50,9 +50,6 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserPacks> packs;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<UserSendStickerToChat> sendStickerList;
-
     public long getId() {
         return id;
     }
@@ -155,13 +152,5 @@ public class User {
 
     public void setPacks(List<UserPacks> packs) {
         this.packs = packs;
-    }
-
-    public List<UserSendStickerToChat> getSendStickerList() {
-        return sendStickerList;
-    }
-
-    public void setSendStickerList(List<UserSendStickerToChat> sendStickerList) {
-        this.sendStickerList = sendStickerList;
     }
 }

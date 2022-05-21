@@ -6,7 +6,8 @@ public enum Settings {
     StickerEffects(2),
     DailyTaskProgress(3),
     PiggyBankCapacity(4),
-    DailyExpTop(5);
+    DailyExpTop(5),
+    Distributions(6);
 
     private final int value;
 

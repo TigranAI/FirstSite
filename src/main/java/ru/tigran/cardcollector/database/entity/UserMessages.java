@@ -1,11 +1,9 @@
 package ru.tigran.cardcollector.database.entity;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import ru.tigran.cardcollector.database.converters.ListToJsonConverter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "user_messages")

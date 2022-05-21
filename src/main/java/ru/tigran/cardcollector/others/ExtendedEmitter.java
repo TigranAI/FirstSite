@@ -2,18 +2,20 @@ package ru.tigran.cardcollector.others;
 
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import javax.servlet.http.HttpSession;
+
 public class ExtendedEmitter extends SseEmitter {
-    private Long userId;
+    private HttpSession session;
 
     public ExtendedEmitter(Long timeout) {
         super(timeout);
     }
 
-    public Long getUserId() {
-        return userId;
+    public HttpSession getSession() {
+        return session;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setSession(HttpSession session) {
+        this.session = session;
     }
 }

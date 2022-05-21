@@ -26,4 +26,9 @@ public interface PackRepository extends JpaRepository<Pack, Integer> {
             "from Pack pack " +
             "where pack.previewFileId is not null and pack.cacheFilePath is null")
     List<Pack> findAllUncached();
+
+    @Query("select pack " +
+            "from Pack pack " +
+            "where pack.gifPreviewFileId is not null and pack.gifCacheFilePath is null")
+    List<Pack> findAllGifUncached();
 }

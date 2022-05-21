@@ -17,7 +17,7 @@
                     <!--/*@thymesVar id="lastPacks" type="List<ru.tigran.cardcollector.database.entity.Pack>"*/-->
                     <div th:each="pack, iter : ${lastPacks}" class="slider__item">
                         <a th:href="@{~/pack(id=${pack.getId()})}" class="slider__link">
-                            <th:block th:replace="blocks/previews :: pack(${pack}, slider__sticker)"/>
+                            <th:block th:replace="blocks/previews :: pack_gif(${pack}, slider__sticker)"/>
                             <p class="slider__text">
                                 Новый стикерпак от <span class="slider__author-name" th:text="${pack.getAuthor()}"></span>
                                 уже в
@@ -46,19 +46,23 @@
                 <div class="welcome-card__stickers">
                     <div class="welcome-card__sticker-group">
                         <div class="welcome-card__sticker welcome-card__sticker_yellow">
-                            <th:block th:replace="blocks/previews :: sticker_link(${stickers[0]}, welcome-card__img, '')"/>
+                            <th:block th:replace="blocks/previews :: sticker_link(${stickers[0]},
+                             ${(stickers[0].isAnimated() ? 'welcome-card\_\_img-tgs' : 'welcome-card\_\_img')}, '')"/>
                         </div>
                         <div class="welcome-card__sticker welcome-card__sticker_purple">
-                            <th:block th:replace="blocks/previews :: sticker_link(${stickers[1]}, welcome-card__img, '')"/>
+                            <th:block th:replace="blocks/previews :: sticker_link(${stickers[1]},
+                             ${(stickers[1].isAnimated() ? 'welcome-card\_\_img-tgs' : 'welcome-card\_\_img')}, '')"/>
                         </div>
                     </div>
 
                     <div class="welcome-card__sticker-group">
                         <div class="welcome-card__sticker welcome-card__sticker_purple">
-                            <th:block th:replace="blocks/previews :: sticker_link(${stickers[2]}, welcome-card__img, '')"/>
+                            <th:block th:replace="blocks/previews :: sticker_link(${stickers[2]},
+                             ${(stickers[2].isAnimated() ? 'welcome-card\_\_img-tgs' : 'welcome-card\_\_img')}, '')"/>
                         </div>
                         <div class="welcome-card__sticker welcome-card__sticker_yellow">
-                            <th:block th:replace="blocks/previews :: sticker_link(${stickers[3]}, welcome-card__img, '')"/>
+                            <th:block th:replace="blocks/previews :: sticker_link(${stickers[3]},
+                             ${(stickers[3].isAnimated() ? 'welcome-card\_\_img-tgs' : 'welcome-card\_\_img')}, '')"/>
                         </div>
                     </div>
 

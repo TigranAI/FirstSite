@@ -1,7 +1,6 @@
 package ru.tigran.cardcollector.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -15,6 +14,7 @@ import ru.tigran.cardcollector.database.repository.UserRepository;
 import ru.tigran.cardcollector.others.ExtendedEmitter;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Optional;
@@ -23,28 +23,12 @@ import java.util.Optional;
 @RequestMapping("/login")
 @SessionAttributes(names = {"user"})
 public class LoginController {
-
     private final String alphabet = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890";
     public Hashtable<String, ExtendedEmitter> emitters = new Hashtable<>();
-
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping()
-    public String login(@RequestParam String key, Model model) {
-        if (!emitters.containsKey(key)) return "redirect:/";
-
-        ExtendedEmitter emitter = emitters.get(key);
-        emitter.complete();
-
-        Optional<User> userOptional = userRepository.findById(emitter.getUserId());
-        if (userOptional.isEmpty()) return "redirect:/";
-
-        model.addAttribute("user", userOptional.get());
-        return "redirect:/collection";
-    }
-
-    @GetMapping()
+    @RequestMapping()
     public String login(Model model) {
         if (model.containsAttribute("user")) return "redirect:/collection";
 
@@ -54,10 +38,11 @@ public class LoginController {
 
     @CrossOrigin
     @GetMapping(value = "/event", consumes = MediaType.ALL_VALUE)
-    public SseEmitter login() {
+    public SseEmitter login(HttpSession session) {
         String key = generateString(8);
 
         ExtendedEmitter emitter = new ExtendedEmitter(Long.MAX_VALUE);
+        emitter.setSession(session);
         try {
             emitter.send(SseEmitter.event().name("INIT").data(key));
         } catch (IOException e) {
@@ -79,8 +64,11 @@ public class LoginController {
 
         ExtendedEmitter emitter = emitters.get(key);
         try {
-            emitter.setUserId(Long.parseLong(userId));
-            emitter.send(SseEmitter.event().name("confirm").data(key));
+            Optional<User> userOptional = userRepository.findById(Long.parseLong(userId));
+            userOptional.ifPresent(user -> emitter.getSession().setAttribute("user", user));
+
+            emitter.send(SseEmitter.event().name("confirm").data(""));
+            emitter.complete();
             return HttpStatus.OK;
         } catch (IOException | NumberFormatException e) {
             emitter.complete();

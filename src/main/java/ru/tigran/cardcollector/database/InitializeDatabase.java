@@ -64,6 +64,17 @@ public class InitializeDatabase {
             String filePath = Utilities.getTelegramFile(pack.getPreviewFileId(), "pack");
             pack.setCacheFilePath(filePath);
         }
+
+        packRepository.saveAll(packs);
+    }
+
+    private void cachePackGifPreviews() {
+        List<Pack> packs = packRepository.findAllGifUncached();
+        for (Pack pack : packs) {
+            String filePath = Utilities.getTelegramFile(pack.getGifPreviewFileId(), "pack");
+            pack.setGifCacheFilePath(filePath);
+        }
+
         packRepository.saveAll(packs);
     }
 }

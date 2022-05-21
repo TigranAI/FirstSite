@@ -7,17 +7,7 @@ $(document).ready(function () {
         $('#BotLink').attr("href", url)
     })
     eventSource.addEventListener("confirm", function (event) {
-        let form = document.createElement("form")
-        form.method = 'POST'
-        form.action = '/login'
-
-        let input = document.createElement('input');
-        input.type = 'text';
-        input.name = 'key';
-        input.value = event.data;
-        form.appendChild(input);
-
-        document.body.appendChild(form);
-        form.submit();
+        eventSource.close()
+        window.location.href = "/login"
     })
 })

@@ -55,3 +55,17 @@
         </div>
     </div>
 </th:block>
+
+<th:block th:fragment="pack_gif_link(pack, class, link_class)">
+    <th:block th:if="${pack.getGifPreviewFileId() != null}">
+        <a th:href="@{~/pack(id=${pack.getId()})}" th:class="${link_class}">
+            <th:block th:replace="blocks/previews :: pack_gif(${pack}, ${class})"/>
+        </a>
+    </th:block>
+    <th:block th:if="${pack.getGifPreviewFileId() == null}"
+              th:replace="blocks/previews :: pack_link(${pack}, ${class}, ${link_class})"/>
+</th:block>
+
+<th:block th:fragment="pack_gif(pack, class)">
+    <img th:class="${class}" alt="gif image" th:src="${pack.getGifCacheFilePath()}">
+</th:block>

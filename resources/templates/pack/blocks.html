@@ -4,7 +4,7 @@
 <th:block th:fragment="pack_preview(pack)">
     <div class="stickerPack">
         <a th:href="@{~/pack(id=${pack.getId()})}" class="stickerPack__link">
-            <th:block th:replace="blocks/previews :: pack(${pack}, 'stickerPack\_\_sticker')"/>
+            <th:block th:replace="blocks/previews :: pack_gif(${pack}, 'stickerPack\_\_sticker')"/>
             <h2 class="stickerPack__title" th:text="${pack.getAuthor()}">Texic</h2>
         </a>
     </div>

@@ -49,4 +49,10 @@ public class MainController {
     public String error(Model model) {
         return "error";
     }
+
+    @GetMapping("/webbot")
+    public String showSample(Model model){
+        System.out.println("here");
+        return "webbot/index";
+    }
 }
