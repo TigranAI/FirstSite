@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
     //Склонение
-    $('.top__range .top__item').each(function () {
+    /*$('.top__range .top__item').each(function () {
         $sticker_num = $(this).children('.top__item-num').text();
         if (($sticker_num % 10 == 1) && ($sticker_num != 11)) {
             $(this).append('стикер');
@@ -12,6 +12,6 @@ $(document).ready(function () {
         } else {
             $(this).append('стикеров');
         }
-    });
+    });*/
 
 });

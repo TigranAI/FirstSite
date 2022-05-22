@@ -363,3 +363,16 @@ ul {
 .num {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.skip-pos-item, .user-pos-item {
+  background-image: none!important;
+}
+
+.skip-pos-item::before {
+  content: ""!important;
+}
+
+.user-pos-item::before {
+  counter-reset: user-pos var(--user-pos);
+  content: counter(user-pos)!important;
+}

@@ -3,8 +3,13 @@ package ru.tigran.cardcollector.database.entity;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tigran.cardcollector.Utilities;
 import ru.tigran.cardcollector.database.converters.EffectConverter;
+import ru.tigran.cardcollector.database.converters.ExclusiveTaskConverter;
+import ru.tigran.cardcollector.database.converters.IncomeTypeConverter;
 import ru.tigran.cardcollector.enums.Effect;
+import ru.tigran.cardcollector.enums.ExclusiveTask;
+import ru.tigran.cardcollector.enums.IncomeType;
 import ru.tigran.cardcollector.translations.Effects;
+import ru.tigran.cardcollector.translations.ExclusiveTasks;
 
 import javax.persistence.*;
 
@@ -28,11 +33,19 @@ public class Sticker {
     private Integer incomeTime;
 
     @Column(nullable = false)
+    @Convert(converter = IncomeTypeConverter.class)
+    public IncomeType incomeType = IncomeType.Coins;
+
+    @Column(nullable = false)
     private Integer tier;
 
     @Column(nullable = false)
     @Convert(converter = EffectConverter.class)
     private Effect effect;
+
+    @Column(nullable = false)
+    @Convert(converter = ExclusiveTaskConverter.class)
+    public ExclusiveTask exclusiveTask;
 
     @Column(length = 127, nullable = false)
     private String emoji;
@@ -52,6 +65,11 @@ public class Sticker {
 
     @Column(length = 127)
     private String forSaleFileId;
+
+    @Column(length = 127)
+    public String grayFileId;
+
+    public int exclusiveTaskGoal;
 
     private Boolean isForSaleAnimated;
 
@@ -190,7 +208,55 @@ public class Sticker {
         this.cacheForSaleFilePath = cacheForSaleFilePath;
     }
 
+    public IncomeType getIncomeType() {
+        return incomeType;
+    }
+
+    public void setIncomeType(IncomeType incomeType) {
+        this.incomeType = incomeType;
+    }
+
+    public ExclusiveTask getExclusiveTask() {
+        return exclusiveTask;
+    }
+
+    public void setExclusiveTask(ExclusiveTask exclusiveTask) {
+        this.exclusiveTask = exclusiveTask;
+    }
+
+    public Boolean getAnimated() {
+        return isAnimated;
+    }
+
+    public String getGrayFileId() {
+        return grayFileId;
+    }
+
+    public void setGrayFileId(String grayFileId) {
+        this.grayFileId = grayFileId;
+    }
+
+    public int getExclusiveTaskGoal() {
+        return exclusiveTaskGoal;
+    }
+
+    public void setExclusiveTaskGoal(int exclusiveTaskGoal) {
+        this.exclusiveTaskGoal = exclusiveTaskGoal;
+    }
+
+    public Boolean getForSaleAnimated() {
+        return isForSaleAnimated;
+    }
+
     public String getEffectDescription(){
         return Effects.get(effect.getValue());
+    }
+
+    public String getTaskDescription(){
+        return String.format(ExclusiveTasks.get(exclusiveTask.getValue()), exclusiveTaskGoal);
+    }
+
+    public boolean isExclusive(){
+        return tier == 10;
     }
 }

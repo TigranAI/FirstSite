@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="0">Нет задачи (нельзя прокачать)</entry>
+    <entry key="1">Победить в рулетке %d раз</entry>
+    <entry key="2">Выполнить ежедневное задание %d раз</entry>
+    <entry key="3">Забрать награду в "Лесенке" %d раз</entry>
+    <entry key="4">Получить награду в "Пазле" %d раз</entry>
+    <entry key="5">&lt;a href="https://t.me/WyrmStickerBot"&gt;Забрать раздачу из официального канала %d раз&lt;/a&gt;</entry>
+    <entry key="6">Получить %d алмазов</entry>
+    <entry key="7">Пригласить %d друзей</entry>
+    <entry key="8">Потратить %d золота</entry>
+</properties>

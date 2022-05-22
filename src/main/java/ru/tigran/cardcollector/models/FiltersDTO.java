@@ -2,7 +2,6 @@ package ru.tigran.cardcollector.models;
 
 import org.springframework.lang.Nullable;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 

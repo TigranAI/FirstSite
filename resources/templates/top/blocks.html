@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="top(title, list, unit, position)">
+    <h2 class="top__title" th:text="${title}"></h2>
+    <h2 th:if="${list.size() == 0}" class="top__title">Здесь пока никого нет. Вы можете стать первым!</h2>
+    <div class="top__wrapper">
+        <ul class="top__list" th:if="${list.size() == 0}">
+            <li th:each="top : ${list}" class="top__item">
+                <span class="top__item-name" th:text="${top.getUsername()}"></span> -
+                <span class="top__item-num" th:text="${top.getValue() + ' ' + unit}"></span>
+            </li>
+            <li class="top__item skip-pos-item" th:if="${user != null && position.getPosition() > 6}">
+                <span class="top__item-num">...</span>
+            </li>
+            <li th:if="${user != null && position.getPosition() >= 6}"
+                th:style="'--user-pos: ' + ${position}" class="top__item user-pos-item">
+                <span class="top__item-name" th:text="${position.getUsername()}"></span> -
+                <span class="top__item-num" th:text="${position.getValue() + ' ' + unit}"></span>
+            </li>
+        </ul>
+    </div>
+</th:block>

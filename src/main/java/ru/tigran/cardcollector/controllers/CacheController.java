@@ -31,6 +31,7 @@ public class CacheController {
             switch (type) {
                 case UploadPack:
                     cachePackStickers(pack);
+                    cachePackPreview(pack);
                     break;
                 case UploadPackGifPreview:
                     cachePackGifPreview(pack);

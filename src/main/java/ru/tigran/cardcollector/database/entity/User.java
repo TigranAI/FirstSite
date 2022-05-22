@@ -38,6 +38,9 @@ public class User {
     @OneToOne(mappedBy = "user")
     private UserLevel level;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserStats userStats;
+
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private UserMessages messages;
 
@@ -152,5 +155,21 @@ public class User {
 
     public void setPacks(List<UserPacks> packs) {
         this.packs = packs;
+    }
+
+    public Boolean getBlocked() {
+        return isBlocked;
+    }
+
+    public Boolean getFirstReward() {
+        return firstReward;
+    }
+
+    public UserStats getUserStats() {
+        return userStats;
+    }
+
+    public void setUserStats(UserStats userStats) {
+        this.userStats = userStats;
     }
 }
