@@ -88,17 +88,17 @@ public class TopController {
 
             model.addAttribute("expPosition", new TopDTO(user.getUsername(), stats.getEarnedExp(),
                     userStatsRepository.getExpPosition(stats.getEarnedExp(), stats.getLastExpAccrual())));
-            model.addAttribute("tier4Position", new TopDTO(user.getUsername(), stats.getEarnedExp(),
+            model.addAttribute("tier4Position", new TopDTO(user.getUsername(), stats.getEarned4TierStickers(),
                     userStatsRepository.getTier4Position(stats.getEarned4TierStickers(), stats.getLast4TierStickerAccrual())));
-            model.addAttribute("roulettePosition", new TopDTO(user.getUsername(), stats.getEarnedExp(),
+            model.addAttribute("roulettePosition", new TopDTO(user.getUsername(), stats.getRouletteGames(),
                     userStatsRepository.getRoulettePosition(stats.getRouletteGames(), stats.getLastRouletteGame())));
-            model.addAttribute("ladderPosition", new TopDTO(user.getUsername(), stats.getEarnedExp(),
+            model.addAttribute("ladderPosition", new TopDTO(user.getUsername(), stats.getLadderGames(),
                     userStatsRepository.getLadderPosition(stats.getLadderGames(), stats.getLastLadderGame())));
-            model.addAttribute("puzzlePosition", new TopDTO(user.getUsername(), stats.getEarnedExp(),
+            model.addAttribute("puzzlePosition", new TopDTO(user.getUsername(), stats.getPuzzleGames(),
                     userStatsRepository.getPuzzlePosition(stats.getPuzzleGames(), stats.getLastPuzzleGame())));
-            model.addAttribute("giftPosition", new TopDTO(user.getUsername(), stats.getEarnedExp(),
+            model.addAttribute("giftPosition", new TopDTO(user.getUsername(), stats.getGiftsReceived(),
                     userStatsRepository.getGiftPosition(stats.getGiftsReceived(), stats.getLastReceivedGift())));
-            model.addAttribute("invitePosition", new TopDTO(user.getUsername(), stats.getEarnedExp(),
+            model.addAttribute("invitePosition", new TopDTO(user.getUsername(), stats.getFriendsInvited(),
                     userStatsRepository.getInvitePosition(stats.getFriendsInvited(), stats.getLastInvitedFriend())));
         }
 

@@ -40,13 +40,12 @@
             <div class="sticker__info">
                 <div class="sticker__info-row">
                     <p class="sticker__info-text">Редкость:</p>
-                    <!--<th:block th:if="${!sticker.isExclusive()}" th:each="i : ${#numbers.sequence(1, sticker.getTier())}">-->
-                    <th:block th:each="i : ${#numbers.sequence(1, sticker.getTier())}">
+                    <th:block th:if="${!sticker.isExclusive()}" th:each="i : ${#numbers.sequence(1, sticker.getTier())}">
                         <img th:src="@{~/img/star.svg}" class="sticker__star" alt="star">
                     </th:block>
-                    <!--<th:block th:if="${sticker.isExclusive()}">
-                        <span class="sticker__symbol">🎆</span>
-                    </th:block>-->
+                    <th:block th:if="${sticker.isExclusive()}">
+                        <img th:src="@{~/img/glowing-star.svg}" class="sticker__star" alt="exclusive_star">
+                    </th:block>
                 </div>
                 <th:block th:if="${!sticker.isExclusive()}">
                     <th:block th:replace="blocks/previews :: sticker_info(${sticker})"/>

@@ -26,8 +26,11 @@
         <div class="stickerPack__card-info">
             <h3 class="stickerPack__card-title" th:text="${sticker.getTitle()}"></h3>
             <div class="stickerPack__card-stars">
-                <th:block th:each="i : ${#numbers.sequence(1, sticker.getTier())}">
+                <th:block th:if="${!sticker.isExclusive()}" th:each="i : ${#numbers.sequence(1, sticker.getTier())}">
                     <img th:src="@{~/img/star.svg}" alt="star">
+                </th:block>
+                <th:block th:if="${sticker.isExclusive()}">
+                    <img th:src="@{~/img/glowing-star.svg}" alt="exclusive_star">
                 </th:block>
             </div>
             <p class="stickerPack__card-text" th:text="${sticker.getDescription()}"></p>

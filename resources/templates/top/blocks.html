@@ -14,7 +14,7 @@
                 <span class="top__item-num">...</span>
             </li>
             <li th:if="${user != null && position.getPosition() >= 6}"
-                th:style="'--user-pos: ' + ${position}" class="top__item user-pos-item">
+                th:style="'--user-pos: ' + ${position.getPosition()}" class="top__item user-pos-item">
                 <span class="top__item-name" th:text="${position.getUsername()}"></span> -
                 <span class="top__item-num" th:text="${position.getValue() + ' ' + unit}"></span>
             </li>

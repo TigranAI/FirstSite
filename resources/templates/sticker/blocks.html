@@ -6,8 +6,11 @@
         <th:block th:replace="blocks/previews :: sticker(${sticker}, 'stickers\_\_sticker-img')"/>
 		<h2 class="stickers__sticker-title" th:text="${sticker.getTitle()}"></h2>
         <div class="stickers__sticker-star">
-            <th:block th:each="i : ${#numbers.sequence(1, sticker.getTier())}">
+            <th:block th:if="${!sticker.isExclusive()}" th:each="i : ${#numbers.sequence(1, sticker.getTier())}">
                 <img th:src="@{~/img/star.svg}" alt="star">
+            </th:block>
+            <th:block th:if="${sticker.isExclusive()}">
+                <img th:src="@{~/img/glowing-star.svg}" alt="exclusive_star">
             </th:block>
         </div>
     </a>
