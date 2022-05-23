@@ -12,7 +12,7 @@
         <div class="main__wrapper">
             <div class="container">
                 <div class="page-title">
-                    <h2 class="page-title__text">Рейтинг пользователей</h2>
+                    <h2 class="page-title__text" th:text="'Рейтинг пользователей (по ' + ${endDate} + ')'"></h2>
                 </div>
 
                 <div class="top">
@@ -27,7 +27,7 @@
 
                 <div class="top">
                     <div class="top__experience" th:insert="top/blocks :: top('Топ пользователей по играм в пазл', ${puzzle}, 'игр', ${puzzlePosition})"></div>
-                    <div class="top__range" th:insert="top/blocks :: top('Топ пользователей по собранным ништякам', ${gift}, 'призов', ${giftPosition})"></div>
+                    <div class="top__range" th:insert="top/blocks :: top('Топ пользователей по забранным призам', ${gift}, 'призов', ${giftPosition})"></div>
                 </div>
 
                 <div class="top">

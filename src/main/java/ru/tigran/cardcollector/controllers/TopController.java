@@ -13,7 +13,9 @@ import ru.tigran.cardcollector.database.repository.UserRepository;
 import ru.tigran.cardcollector.database.repository.UserStatsRepository;
 import ru.tigran.cardcollector.models.TopDTO;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -27,6 +29,16 @@ public class TopController {
 
     @GetMapping
     public String showTop(Model model) {
+        Calendar cal = Calendar.getInstance(new Locale("RU"));
+        cal.setTime(new Date());
+        int week = cal.get(Calendar.WEEK_OF_YEAR);
+        LocalDateTime dateTime = LocalDateTime.now();
+        dateTime = dateTime.minusDays(-dateTime.getDayOfWeek().ordinal() +1);
+        dateTime = dateTime.plusDays(14 - week % 2 * 7);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        model.addAttribute("endDate", formatter.format(dateTime));
+
         model.addAttribute("exp", userStatsRepository
                 .findTopByExp(PageRequest.of(0, 5))
                 .stream()
@@ -35,32 +47,32 @@ public class TopController {
         model.addAttribute("tier4", userStatsRepository
                 .findTopByTier4Stickers(PageRequest.of(0, 5))
                 .stream()
-                .map(item -> new TopDTO(item.getUser().getUsername(), item.getEarnedExp()))
+                .map(item -> new TopDTO(item.getUser().getUsername(), item.getEarned4TierStickers()))
                 .collect(Collectors.toList()));
         model.addAttribute("roulette", userStatsRepository
                 .findTopByRouletteGames(PageRequest.of(0, 5))
                 .stream()
-                .map(item -> new TopDTO(item.getUser().getUsername(), item.getEarnedExp()))
+                .map(item -> new TopDTO(item.getUser().getUsername(), item.getRouletteGames()))
                 .collect(Collectors.toList()));
         model.addAttribute("ladder", userStatsRepository
                 .findTopByLadderGames(PageRequest.of(0, 5))
                 .stream()
-                .map(item -> new TopDTO(item.getUser().getUsername(), item.getEarnedExp()))
+                .map(item -> new TopDTO(item.getUser().getUsername(), item.getLadderGames()))
                 .collect(Collectors.toList()));
         model.addAttribute("puzzle", userStatsRepository
                 .findTopByPuzzleGames(PageRequest.of(0, 5))
                 .stream()
-                .map(item -> new TopDTO(item.getUser().getUsername(), item.getEarnedExp()))
+                .map(item -> new TopDTO(item.getUser().getUsername(), item.getPuzzleGames()))
                 .collect(Collectors.toList()));
         model.addAttribute("gift", userStatsRepository
                 .findTopByGiftsReceived(PageRequest.of(0, 5))
                 .stream()
-                .map(item -> new TopDTO(item.getUser().getUsername(), item.getEarnedExp()))
+                .map(item -> new TopDTO(item.getUser().getUsername(), item.getGiftsReceived()))
                 .collect(Collectors.toList()));
         model.addAttribute("invite", userStatsRepository
                 .findTopByFriendsInvited(PageRequest.of(0, 5))
                 .stream()
-                .map(item -> new TopDTO(item.getUser().getUsername(), item.getEarnedExp()))
+                .map(item -> new TopDTO(item.getUser().getUsername(), item.getFriendsInvited()))
                 .collect(Collectors.toList()));
 
         if (model.containsAttribute("user")) {

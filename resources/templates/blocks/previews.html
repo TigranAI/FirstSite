@@ -65,7 +65,7 @@
         <span class="sticker__text-num" th:text="${sticker.getIncome()}"></span><span class="sticker__symbol">💰</span>
         за <span class="sticker__text-time" th:text="${sticker.getIncomeTime()}"></span><span class="sticker__symbol">⏱</span> минут</p>
     <p class="sticker__info-text">Эмоция: <span class="sticker__emoji" th:text="${sticker.getEmoji()}"></span></p>
-    <p class="sticker__info-text">Эффект: <span class="sticker__effect" th:text="${sticker.getEffectDescription()}"></span></p>
+    <p class="sticker__info-text">Эффект: <span class="sticker__effect" th:utext="${sticker.getEffectDescription()}"></span></p>
 </th:block>
 
 <th:block th:fragment="sticker_exclusive_info(sticker)">
@@ -73,7 +73,7 @@
         <span class="sticker__text-num">1</span><span class="sticker__symbol">🍬</span>
         за <span class="sticker__text-time">1</span><span class="sticker__symbol">☀</span> день</p>
     <p class="sticker__info-text">Эмоция: <span class="sticker__emoji" th:text="${sticker.getEmoji()}"></span></p>
-    <p class="sticker__info-text">Прокачиваемый: <span class="sticker__effect" th:text="${sticker.getTaskDescription()}"></span></p>
+    <p class="sticker__info-text">Прокачиваемый: <span class="sticker__effect" th:utext="${sticker.getTaskDescription()}"></span></p>
 </th:block>
 
 
